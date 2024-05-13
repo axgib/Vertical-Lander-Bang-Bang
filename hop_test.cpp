@@ -1,6 +1,10 @@
 //Lander Hop Test
 
 #include <iostream>
+#include <rc/time.h>
+#include <rc/adc.h>
+#include <rc/dsm.h>
+#include <rc/servo.h>
 using namespace std;
 
 // Define Physical properties of rocket
@@ -14,6 +18,7 @@ float g = 9.81;// Gravity
 float liftoff_height = 0.1; // m
 bool liftoff = false;
 bool landed = false;
+bool converged = false; // converged to hover height
 
 //Define Flight Profile
 // Hover to hover_height for hover_pause seconds, then land
@@ -39,8 +44,15 @@ float PositionController(float position_error, float thrust){
     return body_angle;
 }
 
+
 int main() {
+
     // Ensure propeller is initially off
+    // Set initial servo position to phi = 0
+
+    //Turn on power rail? -from rc_test_servos.c
+    // printf("Turning On 6V Servo Power Rail\n");
+    // rc_servo_power_rail_en(1);
 	
     // Check battery levels
     float prop_battery;//Read battery voltage
@@ -56,18 +68,34 @@ int main() {
     // Check for data collection from all sensors
 
 	// Motors check
+    //Define motor pins
+    string xservo_pin;
+    string yservo_pin;
+    string prop_pin;
 
     cout << "Motor check complete!";
 
-
     // Pause between checks and execution
+    rc_sleep(2000000)
+    int t_start = rc_nanos_since_boot();// start timer
+
     
 	while (!landed) {
+        double t = (rc_nanos_since_boot() - t_start)/1000000000;// [s] time since loop began
+
 		if (h > liftoff_height) {
 			liftoff  = true;
         }
+        if (t>5 && t<20) {
+            float href = 2;
+            float xref = 0;
+            float yref = 0;
+        } else {
+            float href = 0;
+            float xref = 0;
+            float yref = 0;
+        }
         // Altitude and Position controller in parallel
-        // Read desired altitude and position from transmitter
         float href = hover_height;
         float xref = 0;
         float yref = 0;
@@ -102,8 +130,18 @@ int main() {
             float ythetaerr = ythetaref - ythetaout;
             float yphi = AttitudeController(ythetaerr,thrust);
 
+            //Cap gimbal angles at min and max
+            if (xphi > maxphi) {
+                xphi = maxphi;
+            }
+            if (yphi > maxphi) {
+                yphi = maxphi;
+            }
             //Send gimbal angle commands to servos
-
+            if(rc_servo_send_pulse_normalized(ch,xservo_pos)==-1) return -1;
+            if(rc_servo_send_pulse_normalized(ch,yservo_pos)==-1) return -1;
+            // Sleep to roughly maintain attidute frequency
+            rc_usleep(1000000/frequency_hz);
         }
         //Factor battery charge into thrust command
         //Convert thrust to throttle command
