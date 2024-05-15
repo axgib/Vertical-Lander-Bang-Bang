@@ -25,6 +25,9 @@ bool converged = false; // converged to hover height
 float hover_height = 2; // m
 float hover_pause = 5; // s
 
+// Declare variables
+int duty;
+
 float AltitudeController(float height_error){
     // Assume vertical (small angle)
     // Input controller here
@@ -133,10 +136,14 @@ int main() {
             //Cap gimbal angles at min and max
             if (xphi > maxphi) {
                 xphi = maxphi;
-            }
+            }else if (xphi < -maxphi) {
+                xphi = -maxphi;
+            }       
             if (yphi > maxphi) {
                 yphi = maxphi;
-            }
+            }else if (yphi < -maxphi) {
+                yphi = -maxphi;
+            }   
             //Send gimbal angle commands to servos
             if(rc_servo_send_pulse_normalized(ch,xservo_pos)==-1) return -1;
             if(rc_servo_send_pulse_normalized(ch,yservo_pos)==-1) return -1;
@@ -145,14 +152,16 @@ int main() {
         }
         //Factor battery charge into thrust command
         //Convert thrust to throttle command
+        duty = 0.01*thrust;//alter factor
         //Send throttle command to propeller
+        rc_motor_set(0,duty);//command goes to both rotors of propeller
 
 		if (h < liftoff_height && liftoff) {
 			landed = true;
         }
     }
     // Ensure propeller is off
-
+    rc_motor_cleanup();
     // Return motors to neutral position
     // 
 }
