@@ -41,6 +41,7 @@ typedef struct setpoint_t{
         double phiy;            // gimbal position y (rad)
         double phi_dot;         ///< rate at which phi reference updates (rad/s)
                                 // TODO: Need one for each phi?
+        double height;
         // double gamma;           ///< body turn angle (rad)
         // double gamma_dot;       ///< rate at which gamma setpoint updates (rad/s)
 }setpoint_t;
@@ -677,8 +678,6 @@ static void* __battery_checker(__attribute__ ((unused)) void* ptr)
  * @return     nothing, NULL pointer
  */
 
-// %%%%%%%%%%%%%%%%%% 5/17 Erik edits stopped here %%%%%%%%%%%%%%%%%%%%%%%
-
 static void* __printf_loop(__attribute__ ((unused)) void* ptr)
 {
         rc_state_t last_rc_state, new_rc_state; // keep track of last state
@@ -688,13 +687,21 @@ static void* __printf_loop(__attribute__ ((unused)) void* ptr)
                 // check if this is the first time since being paused
                 if(new_rc_state==RUNNING && last_rc_state!=RUNNING){
                         printf("\nRUNNING: Hold upright to balance.\n");
-                        printf("    θ    |");
-                        printf("  θ_ref  |");
-                        printf("    φ    |");
-                        printf("  φ_ref  |");
-                        printf("    γ    |");
-                        printf("  D1_u   |");
-                        printf("  D3_u   |");
+                        printf("    θx    |");
+                        printf("  θx_ref  |");
+                        printf("    θy    |");
+                        printf("  θy_ref  |");
+                        printf("    φx    |");
+                        printf("  φx_ref  |");
+                        printf("    φy    |");
+                        printf("  φy_ref  |");
+                        printf("    h     |");
+                        printf("  h_ref   |");
+                        printf("  D1x_u   |");
+                        printf("  D1y_u   |");
+                        printf("  D2h_u   |");
+                        printf("  D2x_u   |");
+                        printf("  D2y_u   |");
                         printf("  vBatt  |");
                         printf("arm_state|");
                         printf("\n");
@@ -706,13 +713,21 @@ static void* __printf_loop(__attribute__ ((unused)) void* ptr)
                 // decide what to print or exit
                 if(new_rc_state == RUNNING){
                         printf("\r");
-                        printf("%7.3f  |", cstate.theta);
-                        printf("%7.3f  |", setpoint.theta);
-                        printf("%7.3f  |", cstate.phi);
-                        printf("%7.3f  |", setpoint.phi);
-                        printf("%7.3f  |", cstate.gamma);
-                        printf("%7.3f  |", cstate.d1_u);
-                        printf("%7.3f  |", cstate.d3_u);
+                        printf("%7.3f  |", cstate.thetax);
+                        printf("%7.3f  |", setpoint.thetax);
+                        printf("%7.3f  |", cstate.thetay);
+                        printf("%7.3f  |", setpoint.thetay);
+                        printf("%7.3f  |", cstate.phix);
+                        printf("%7.3f  |", setpoint.phix);
+                        printf("%7.3f  |", cstate.phiy);
+                        printf("%7.3f  |", setpoint.phiy);
+                        printf("%7.3f  |", cstate.height);
+                        printf("%7.3f  |", setpoint.height);
+                        printf("%7.3f  |", cstate.d1x_u);
+                        printf("%7.3f  |", cstate.d1y_u);
+                        printf("%7.3f  |", cstate.d2h_u);
+                        printf("%7.3f  |", cstate.d2x_u);
+                        printf("%7.3f  |", cstate.d2y_u);
                         printf("%7.3f  |", cstate.vBatt);
                         if(setpoint.arm_state == ARMED) printf("  ARMED  |");
                         else printf("DISARMED |");
