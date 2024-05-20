@@ -71,17 +71,17 @@ alpha_lag = 100;
 % p = -sqrt(10*wg^2);
 % z = p/10;
 
-p = -wg*sqrt(alpha_lead);
-z = -wg/sqrt(alpha_lead);
-% plead = wg*sqrt(alpha_lead);
-% zlead = wg/sqrt(alpha_lead);
-% plag =  wg*sqrt(alpha_lag);
-% zlag =  wg/sqrt(alpha_lag);
+% p = -wg*sqrt(alpha_lead);
+% z = -wg/sqrt(alpha_lead);
+plead = wg*sqrt(alpha_lead);
+zlead = wg/sqrt(alpha_lead);
+plag =  wg/sqrt(alpha_lag);
+zlag =  wg*sqrt(alpha_lag);
 
-% K = 3.84;% From root locus
-K = 1.34;
-Dg = (s-z)/(s-p);% Lead-Lag attitude controller
-% Dg = ((s+zlead)/(s+plead))*(s+zlag)/(s+plag);
+K = 1.32;% From root locus
+
+% Dg = (s-z)/(s-p);% Lead-Lag attitude controller
+Dg = ((s+zlead)/(s+plead))*(s+zlag)/(s+plag);
 DGc = feedback(K*Dg*G,1); % closed loop
 
 %% Position (x) Controller Design
@@ -89,14 +89,14 @@ tr = 10; % Rise time
 ts = 15; % Settling time
 M = 0.05; % Max overshoot
 % eq8.17
-wnh = 1.8/tr; % Natural frequency
+wn = 1.8/tr; % Natural frequency
 sigma = 4.6/ts;
 % zeta = sigma/wn; % Damping ratio
-zetah = 0.5;
+zeta = 0.5;
 wd = wn*sqrt(1-zeta^2);% Damped natural frequency
 %eq 10.8
-wbw = 1.4*wnh; % Bandwidth frequency
-wgh = wnh; % Crossover frequency
+wbw = 1.4*wn; % Bandwidth frequency
+wgh = wn; % Crossover frequency
 % wp = 1; % Phase crossover 
 
 ph = -1;
@@ -155,7 +155,7 @@ step(DGc)
 % 
 % fig10 = figure(10);
 % rlocus(H*Dh)
-% sgrid(zetah,wnh)
+% sgrid(zeta,wn)
 % title(['Root Locus of H*Dh using lead-lag controller with p = ', num2str(ph), ', z = ', num2str(zh)])
 % 
 % figure(11)

@@ -7,9 +7,10 @@
 #include <unistd.h> // for isatty()
 #include <stdlib.h> // for strtof()
 #include <math.h> // for M_PI
+#include <rc/servo.h>
 #include <robotcontrol.h>
-#include "rc_balance_defs.h"
-//TODO: Change rc_balance_defs to lander_defs.h
+#include "hop_defs.h"
+
 
 
 /**
@@ -56,8 +57,6 @@ typedef struct core_state_t{
         double xPos;            // x position
         double yPos;
         double height;
-        // double phi;             ///< average wheel angle in global frame
-        // double gamma;           ///< body turn (yaw) angle radians
         double vBatt;           ///< battery voltage
         // 5 controllers needed: height, thetax, thetay, phix, phiy. 1 denotes inner loop, 2 denotes outer loop. Roll controller is 6th
         // Assume roll = 0, body and global coordinates aligned
@@ -121,6 +120,7 @@ int main(int argc, char *argv[])
         pthread_t setpoint_thread = 0;
         pthread_t battery_thread = 0;
         pthread_t printf_thread = 0;
+        
         // parse arguments
         opterr = 0;
         while ((c = getopt(argc, argv, "i:")) != -1){
@@ -190,7 +190,15 @@ int main(int argc, char *argv[])
         // }
         // rc_motor_standby(1); // start with motors in standby
         
-        
+        // initialize servos and propeller
+        if(rc_servo_init()) {
+                fprintf(stderr,"ERROR: failed to initialize servos\n");
+                return -1;
+        }
+        // turn on power
+        printf("Turning On 6V Servo Power Rail\n");
+        rc_servo_power_rail_en(1);
+
         // start dsm listener
         if(m_input_mode == DSM){
                 if(rc_dsm_init()==-1){
@@ -238,28 +246,62 @@ int main(int argc, char *argv[])
         setpoint.arm_state = DISARMED;
         setpoint.drive_mode = NOVICE;
 
-        // set up D1 Theta controller
+        // set up D1x and D1y Phi controllers
         //TODO: Adjust controller, add all other controllers
-        double D1_num[] = D1_NUM; 
-        double D1_den[] = D1_DEN;
-        if(rc_filter_alloc_from_arrays(&D1, DT, D1_num, D1_NUM_LEN, D1_den, D1_DEN_LEN)){
-                fprintf(stderr,"ERROR in rc_balance, failed to make filter D1\n");
+        double D1x_num[] = D1X_NUM; 
+        double D1x_den[] = D1X_DEN;
+        if(rc_filter_alloc_from_arrays(&D1x, DT, D1x_num, D1X_NUM_LEN, D1x_den, D1X_DEN_LEN)){
+                fprintf(stderr,"ERROR in rc_balance, failed to make filter D1x\n");
                 return -1;
         }
-        D1.gain = D1_GAIN;
-        rc_filter_enable_saturation(&D1, -1.0, 1.0);
-        rc_filter_enable_soft_start(&D1, SOFT_START_SEC);
-        // set up D2 Phi controller
-        double D2_num[] = D2_NUM;
-        double D2_den[] = D2_DEN;
-        if(rc_filter_alloc_from_arrays(&D2, DT, D2_num, D2_NUM_LEN, D2_den, D2_DEN_LEN)){
-                fprintf(stderr,"ERROR in rc_balance, failed to make filter D2\n");
-                return -1;
-        }
+        D1x.gain = D1X_GAIN;
 
-        D2.gain = D2_GAIN;
-        rc_filter_enable_saturation(&D2, -THETA_REF_MAX, THETA_REF_MAX);
-        rc_filter_enable_soft_start(&D2, SOFT_START_SEC);
+        double D1y_num[] = D1Y_NUM; 
+        double D1y_den[] = D1Y_DEN;
+        if(rc_filter_alloc_from_arrays(&D1y, DT, D1y_num, D1Y_NUM_LEN, D1y_den, D1Y_DEN_LEN)){
+                fprintf(stderr,"ERROR in rc_balance, failed to make filter D1y\n");
+                return -1;
+        }
+        D1y.gain = D1Y_GAIN;
+
+        rc_filter_enable_saturation(&D1x, -1.0, 1.0);
+        rc_filter_enable_soft_start(&D1x, SOFT_START_SEC);// TODO: what is soft start
+        rc_filter_enable_saturation(&D1y, -1.0, 1.0);
+        rc_filter_enable_soft_start(&D1y, SOFT_START_SEC);
+        
+        // set up D2h height controller
+        double D2h_num[] = D2H_NUM;
+        double D2h_den[] = D2H_DEN;
+        if(rc_filter_alloc_from_arrays(&D2h, DT, D2h_num, D2H_NUM_LEN, D2h_den, D2H_DEN_LEN)){
+                fprintf(stderr,"ERROR in rc_balance, failed to make filter D2h\n");
+                return -1;
+        }
+        D2h.gain = D2H_GAIN;
+
+        rc_filter_enable_saturation(&D2h, -H_REF_MAX, H_REF_MAX);// TODO: define height limits (normalized?)
+        rc_filter_enable_soft_start(&D2h, SOFT_START_SEC);
+
+        // set up D2x and D2y theta controllers
+        double D2x_num[] = D2X_NUM;
+        double D2x_den[] = D2X_DEN;
+        if(rc_filter_alloc_from_arrays(&D2x, DT, D2x_num, D2X_NUM_LEN, D2x_den, D2X_DEN_LEN)){
+                fprintf(stderr,"ERROR in rc_balance, failed to make filter D2x\n");
+                return -1;
+        }
+        D2x.gain = D2X_GAIN;
+
+        double D2y_num[] = D2Y_NUM;
+        double D2y_den[] = D2Y_DEN;
+        if(rc_filter_alloc_from_arrays(&D2y, DT, D2y_num, D2Y_NUM_LEN, D2y_den, D2Y_DEN_LEN)){
+                fprintf(stderr,"ERROR in rc_balance, failed to make filter D2y\n");
+                return -1;
+        }
+        D2y.gain = D2Y_GAIN;
+
+        rc_filter_enable_saturation(&D2x, -THETA_REF_MAX, THETA_REF_MAX);
+        rc_filter_enable_soft_start(&D2x, SOFT_START_SEC);
+        rc_filter_enable_saturation(&D2y, -THETA_REF_MAX, THETA_REF_MAX);
+        rc_filter_enable_soft_start(&D2y, SOFT_START_SEC);
 
         printf("Inner Loop controller D1:\n");
         rc_filter_print(D1);
@@ -450,6 +492,8 @@ void* __setpoint_manager(__attribute__ ((unused)) void* ptr)
                         }
                         continue;
                         break;
+                case HOP:
+                        continue;
                 default:
                         fprintf(stderr,"ERROR in setpoint manager, invalid input mode\n");
                         break;
@@ -530,7 +574,7 @@ static void __balance_controller(void)
         else setpoint.theta = 0.0;
         /************************************************************
         * INNER LOOP ANGLE Theta controller D1
-        * Input to D1 is theta error (setpoint-state). Then scale the
+        * Input to D1x and D1y is theta error (setpoint-state). Then scale the
         * output u to compensate for changing battery voltage.
         *************************************************************/
         D1.gain = D1_GAIN * V_NOMINAL/cstate.vBatt;
