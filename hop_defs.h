@@ -11,7 +11,8 @@
 #define DT			0.01			// 1/sample_rate
 
 // Structural properties of eduMiP
-#define BOARD_MOUNT_ANGLE	0.0 // increase if mip tends to roll forward
+#define BOARD_MOUNT_ANGLE_X	0.0 // increase if mip tends to roll forward
+#define BOARD_MOUNT_ANGLE_Y	0.0 // increase if mip tends to roll forward
 // #define GEARBOX			35.577
 // #define ENCODER_RES		60
 // #define WHEEL_RADIUS_M		0.034
@@ -69,17 +70,18 @@
 // #define D3_KP			1.0
 // #define D3_KI			0.3
 // #define D3_KD			0.05
-// #define roll_INPUT_MAX	0.5
+// #define ROLL_INPUT_MAX	0.5
 
 // electrical hookups
-#define MOTOR_CHANNEL_L		3
-#define MOTOR_CHANNEL_R		2
-#define MOTOR_POLARITY_L	1
-#define MOTOR_POLARITY_R	-1
-#define ENCODER_CHANNEL_L	3
-#define ENCODER_CHANNEL_R	2
-#define ENCODER_POLARITY_L	1
-#define ENCODER_POLARITY_R	-1
+#define SERVO_CHANNEL_X		3
+#define SERVO_CHANNEL_Y		2
+#define PROP_CHANNEL        4
+#define SERVO_POLARITY_X	1
+#define SERVO_POLARITY_Y	1
+// #define ENCODER_CHANNEL_L	3
+// #define ENCODER_CHANNEL_R	2
+// #define ENCODER_POLARITY_L	1
+// #define ENCODER_POLARITY_R	-1
 
 //	drive speeds when using remote control (dsm2)
 #define DRIVE_RATE_NOVICE	16

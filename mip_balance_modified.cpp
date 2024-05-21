@@ -7,6 +7,8 @@
 #include <unistd.h> // for isatty()
 #include <stdlib.h> // for strtof()
 #include <math.h> // for M_PI
+#include <chrono>
+// #include <iostream>
 #include <rc/servo.h>
 #include <robotcontrol.h>
 #include "hop_defs.h"
@@ -38,11 +40,14 @@ typedef struct setpoint_t{
         drive_mode_t drive_mode;///< NOVICE or ADVANCED
         double thetax;           ///< body lean angle (rad)
         double thetay;
+        double thetax_dot;         ///< rate at which phi reference updates (rad/s)
+        double thetay_dot;
         double phix;            // gimbal position x (rad)
         double phiy;            // gimbal position y (rad)
-        double phi_dot;         ///< rate at which phi reference updates (rad/s)
-                                // TODO: Need one for each phi?
+        double phix_dot;         ///< rate at which phi reference updates (rad/s)
+        double phiy_dot;        // TODO: Need one for each phi?
         double height;
+        double h_dot
         // double gamma;           ///< body turn angle (rad)
         // double gamma_dot;       ///< rate at which gamma setpoint updates (rad/s)
 }setpoint_t;
@@ -162,20 +167,20 @@ int main(int argc, char *argv[])
                 return -1;
         }
 
-        // initialize buttons
-        if(rc_button_init(RC_BTN_PIN_PAUSE, RC_BTN_POLARITY_NORM_HIGH,
-                                                RC_BTN_DEBOUNCE_DEFAULT_US)){
-                fprintf(stderr,"ERROR: failed to initialize pause button\n");
-                return -1;
-        }
-        if(rc_button_init(RC_BTN_PIN_MODE, RC_BTN_POLARITY_NORM_HIGH,
-                                                RC_BTN_DEBOUNCE_DEFAULT_US)){
-                fprintf(stderr,"ERROR: failed to initialize mode button\n");
-                return -1;
-        }
-        // Assign functions to be called when button events occur
-        rc_button_set_callbacks(RC_BTN_PIN_PAUSE,__on_pause_press,NULL);
-        rc_button_set_callbacks(RC_BTN_PIN_MODE,NULL,__on_mode_release);
+        // // initialize buttons %% NO BUTTON INPUT CURRENTLY
+        // if(rc_button_init(RC_BTN_PIN_PAUSE, RC_BTN_POLARITY_NORM_HIGH,
+        //                                         RC_BTN_DEBOUNCE_DEFAULT_US)){
+        //         fprintf(stderr,"ERROR: failed to initialize pause button\n");
+        //         return -1;
+        // }
+        // if(rc_button_init(RC_BTN_PIN_MODE, RC_BTN_POLARITY_NORM_HIGH,
+        //                                         RC_BTN_DEBOUNCE_DEFAULT_US)){
+        //         fprintf(stderr,"ERROR: failed to initialize mode button\n");
+        //         return -1;
+        // }
+        // // Assign functions to be called when button events occur
+        // rc_button_set_callbacks(RC_BTN_PIN_PAUSE,__on_pause_press,NULL);
+        // rc_button_set_callbacks(RC_BTN_PIN_MODE,NULL,__on_mode_release);
         
         
         // // initialize enocders %% WE DON'T HAVE ENCODERS
@@ -190,11 +195,14 @@ int main(int argc, char *argv[])
         // }
         // rc_motor_standby(1); // start with motors in standby
         
+        printf("Initialization begun...\n")
+
         // initialize servos and propeller
         if(rc_servo_init()) {
                 fprintf(stderr,"ERROR: failed to initialize servos\n");
                 return -1;
         }
+
         // turn on power
         printf("Turning On 6V Servo Power Rail\n");
         rc_servo_power_rail_en(1);
@@ -217,9 +225,11 @@ int main(int argc, char *argv[])
         // we can be fairly confident there is no PID file already and we can
         // make our own safely.
         rc_make_pid_file(); // (/run/shm/robotcontrol.pid)
-        printf("\nPress and release MODE button to toggle DSM drive mode\n");
-        printf("Press and release PAUSE button to pause/start the motors\n");
-        printf("hold pause button down for 2 seconds to exit\n");
+        
+        // // print instructions about using buttons
+        // printf("\nPress and release MODE button to toggle DSM drive mode\n");
+        // printf("Press and release PAUSE button to pause/start the motors\n");
+        // printf("hold pause button down for 2 seconds to exit\n");
 
         //Turn off green LED and turn on red LED while initializing
         if(rc_led_set(RC_LED_GREEN, 0)==-1){
@@ -247,7 +257,7 @@ int main(int argc, char *argv[])
         setpoint.drive_mode = NOVICE;
 
         // set up D1x and D1y Phi controllers
-        //TODO: Adjust controller, add all other controllers
+        //TODO: Adjust controllers in header file
         double D1x_num[] = D1X_NUM; 
         double D1x_den[] = D1X_DEN;
         if(rc_filter_alloc_from_arrays(&D1x, DT, D1x_num, D1X_NUM_LEN, D1x_den, D1X_DEN_LEN)){
@@ -303,18 +313,19 @@ int main(int argc, char *argv[])
         rc_filter_enable_saturation(&D2y, -THETA_REF_MAX, THETA_REF_MAX);
         rc_filter_enable_soft_start(&D2y, SOFT_START_SEC);
 
-        printf("Inner Loop controller D1:\n");
-        rc_filter_print(D1);
-        printf("\nOuter Loop controller D2:\n");
-        rc_filter_print(D2);
+        printf("Inner Loop controller D1x:\n");
+        rc_filter_print(D1x);
+        printf("Inner Loop controller D1y:\n");
+        rc_filter_print(D1y);
+        printf("\nOuter Loop controller D2h:\n");
+        rc_filter_print(D2h);
+        printf("\nOuter Loop controller D2x:\n");
+        rc_filter_print(D2x);
+        printf("\nOuter Loop controller D2y:\n");
+        rc_filter_print(D2y);
 
         // // set up D3 gamma (roll) controller (currently none implemented)
-        // if(rc_filter_pid(&D3, D3_KP, D3_KI, D3_KD, 4*DT, DT)){
-        //         fprintf(stderr,"ERROR in rc_balance, failed to make steering controller\n");
-        //         return -1;
-        // }
-        // rc_filter_enable_saturation(&D3, -STEERING_INPUT_MAX, STEERING_INPUT_MAX);
-        
+
         // start a thread to slowly sample battery
         if(rc_pthread_create(&battery_thread, __battery_checker, (void*) NULL, SCHED_OTHER, 0)){
                 fprintf(stderr, "failed to start battery thread\n");
@@ -323,10 +334,11 @@ int main(int argc, char *argv[])
 
         // wait for the battery thread to make the first read
         while(cstate.vBatt<1.0 && rc_get_state()!=EXITING) rc_usleep(10000);
+        
         // start printf_thread if running from a terminal
         // if it was started as a background process then don't bother
         if(isatty(fileno(stdout))){
-                if(rc_pthread_create(&printf_thread, __printf_loop, (void*) NULL, SCHED_OTHER, 0)){
+                if(rc_pthread_create(&printf_thread, __printf_loop, (void*) NULL, SCHED_OTHER, 0)){// TODO: what's sched_other
                         fprintf(stderr, "failed to start battery thread\n");
                         return -1;
                 }
@@ -350,10 +362,11 @@ int main(int argc, char *argv[])
         rc_mpu_set_dmp_callback(&__balance_controller);
         // start in the RUNNING state, pressing the pause button will swap to
         // the PAUSED state then back again.
-        printf("\nHold your MIP upright to begin balancing\n");
+        // printf("\n Place lander on level surface\n");
+        printf("\n Initialization complete!\n")
         rc_set_state(RUNNING);
+
         // chill until something exits the program
-        rc_set_state(RUNNING);
         while(rc_get_state()!=EXITING){
                 rc_usleep(200000);
         }
@@ -362,18 +375,23 @@ int main(int argc, char *argv[])
         rc_pthread_timed_join(battery_thread, NULL, 1.5);
         rc_pthread_timed_join(printf_thread, NULL, 1.5);
         // cleanup
-        rc_filter_free(&D1);
-        rc_filter_free(&D2);
-        // rc_filter_free(&D3);
+        rc_filter_free(&D1x);
+        rc_filter_free(&D1y);
+        rc_filter_free(&D2h);
+        rc_filter_free(&D2x);
+        rc_filter_free(&D2y);
+
         rc_mpu_power_off();
         rc_led_set(RC_LED_GREEN, 0);
         rc_led_set(RC_LED_RED, 0);
         rc_led_cleanup();
-        rc_encoder_eqep_cleanup();
-        rc_button_cleanup();    // stop button handlers
+        // rc_encoder_eqep_cleanup();
+        // rc_button_cleanup();    // stop button handlers
         rc_remove_pid_file();   // remove pid file LAST
         return 0;
 }
+
+
 /**
  * This thread is in charge of adjusting the controller setpoint based on user
  * inputs from dsm radio control. Also detects pickup to control arming the
@@ -493,6 +511,11 @@ void* __setpoint_manager(__attribute__ ((unused)) void* ptr)
                         continue;
                         break;
                 case HOP:
+                        //TODO: hard code trajectory: 
+                        // stay on ground for 5 sec, 
+                        // hover for 15 sec, 
+                        // land, 
+                        // sit for 5 sec
                         continue;
                 default:
                         fprintf(stderr,"ERROR in setpoint manager, invalid input mode\n");
@@ -517,10 +540,13 @@ static void __balance_controller(void)
         * read sensors and compute the state when either ARMED or DISARMED
         ******************************************************************/
         // angle theta is positive in the direction of forward tip around X axis
-        cstate.theta = mpu_data.dmp_TaitBryan[TB_PITCH_X] + BOARD_MOUNT_ANGLE;
+        cstate.thetax = mpu_data.dmp_TaitBryan[TB_PITCH_X] + BOARD_MOUNT_ANGLE_X;
+        cstate.thetay = mpu_data.dmp_TaitBryan[TB_PITCH_Y] + BOARD_MOUNT_ANGLE_Y;
+
+        // TODO: read from laser range finder
+        // cstate.height = 
         
         // collect encoder positions, right wheel is reversed
-        // TODO: Don't have encoders to read on servos, assume they are where they should be
         // cstate.wheelAngleR = (rc_encoder_eqep_read(ENCODER_CHANNEL_R) * 2.0 * M_PI) \
         //                         /(ENCODER_POLARITY_R * GEARBOX * ENCODER_RES);
         // cstate.wheelAngleL = (rc_encoder_eqep_read(ENCODER_CHANNEL_L) * 2.0 * M_PI) \
@@ -559,26 +585,39 @@ static void __balance_controller(void)
         }
 
         /************************************************************
-        * OUTER LOOP PHI controller D2
-        * Move the position setpoint based on phi_dot.
-        * Input to the controller is phi error (setpoint-state).
+        * OUTER LOOP Theta controllers D2x and D2y
+        * Move the position setpoint based on theta_dot.
+        * Input to the controller is theta error (setpoint-state).
         *************************************************************/
         if(ENABLE_POSITION_HOLD){
-                if(fabs(setpoint.phi_dot) > 0.001){
-                    setpoint.phix += setpoint.phi_dot*DT;
-                    setpoint.phiy += setpoint.phi_dot*DT;
+                if(fabs(setpoint.thetax_dot) > 0.001){
+                    setpoint.thetax += setpoint.thetax_dot*DT;
                 }
-                cstate.d2_u = rc_filter_march(&D2,setpoint.phi-cstate.phi); //TODO: Don't understand this
-                setpoint.theta = cstate.d2_u;
+                cstate.d2x_u = rc_filter_march(&D2x,setpoint.thetax-cstate.thetax); //TODO: Don't understand this
+                setpoint.theta = cstate.d2x_u;
         }
-        else setpoint.theta = 0.0;
+        else setpoint.thetax = 0.0;
+
+        if(ENABLE_POSITION_HOLD){
+                if(fabs(setpoint.theta_doty) > 0.001){
+                    setpoint.thetay += setpoint.thetay_dot*DT;
+                }
+                cstate.d2y_u = rc_filter_march(&D2y,setpoint.thetay-cstate.thetay); //TODO: Don't understand this
+                setpoint.theta = cstate.d2y_u;
+        }
+        else setpoint.thetay = 0.0;
         /************************************************************
-        * INNER LOOP ANGLE Theta controller D1
-        * Input to D1x and D1y is theta error (setpoint-state). Then scale the
+        * INNER LOOP ANGLE Phi controllers D1x and D1y
+        * Input to D1x and D1y is phi error (setpoint-state). Then scale the
         * output u to compensate for changing battery voltage.
         *************************************************************/
-        D1.gain = D1_GAIN * V_NOMINAL/cstate.vBatt;
-        cstate.d1_u = rc_filter_march(&D1,(setpoint.theta-cstate.theta));
+        D1x.gain = D1X_GAIN * V_NOMINAL/cstate.vBatt;
+        cstate.d1x_u = rc_filter_march(&D1x,(setpoint.phix-cstate.phix));
+        cstate.d1x_u = rc_filter_march(&D1x,(setpoint.phix-cstate.phix));
+
+        D1y.gain = D1Y_GAIN * V_NOMINAL/cstate.vBatt;
+        cstate.d1y_u = rc_filter_march(&D1y,(setpoint.phiy-cstate.phiy));
+        cstate.d1y_u = rc_filter_march(&D1y,(setpoint.phiy-cstate.phiy));
         /*************************************************************
         * Check if the inner loop saturated. If it saturates for over
         * a second disarm the controller to prevent stalling motors.
@@ -608,9 +647,11 @@ static void __balance_controller(void)
         // * multiply by polarity to make sure direction is correct.
         // ***********************************************************/
         // duty = cstate.d1_u - cstate.d3_u;
-        // rc_motor_set(MOTOR_CHANNEL_L, MOTOR_POLARITY_L * dutyL);
-        // rc_motor_set(MOTOR_CHANNEL_R, MOTOR_POLARITY_R * dutyR);
-        // return;
+        // TODO: Check these motor commands
+        rc_servo_send_pulse_normalized(SERVO_CHANNEL_X, SERVO_POLARITY_X * posx);
+        rc_servo_send_pulse_normalized(SERVO_CHANNEL_Y, SERVO_POLARITY_Y * posy);
+        rc_motor_set(PROP_CHANNEL,dutyh)
+        return;
 }
 /**
  * Clear the controller's memory and zero out setpoints.
@@ -628,6 +669,7 @@ static int __zero_out_controller(void)
         setpoint.thetay = 0.0;
         setpoint.phix   = 0.0;
         setpoint.phiy   = 0.0;
+        setpoint.height = 0.0;
         // setpoint.gamma = 0.0;
         // rc_motor_set(0,0.0); //TODO: turn off each motor every loop? We don't want to do this with propeller
         return 0;

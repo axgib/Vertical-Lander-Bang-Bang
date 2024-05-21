@@ -59,7 +59,7 @@ zeta = 0.7;
 wbw = 1.4*wn; % Bandwidth frequency
 wg = wn; % Crossover frequency
 % wp = 1; % Phase crossover frequency
-alpha_lead = 10;
+alpha_lead = 9;
 alpha_lag = 100;
 
 % p = -12;
