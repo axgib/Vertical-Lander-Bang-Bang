@@ -75,7 +75,7 @@ int main(int argc, char *argv[])
         // Main loop runs at frequency_hz
         while(running){
             rc_servo_send_esc_pulse_normalized(ch,thr);
-            break;
+            // break;
                 // case SWEEP:
                 //         // increase or decrease position each loop
                 //         // scale with frequency
