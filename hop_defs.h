@@ -65,6 +65,7 @@
 #define D2Y_DEN_LEN		3
 
 #define THETA_REF_MAX		0.33
+#define PHI_REF_MAX         0.2
 
 // // roll controller
 // #define D3_KP			1.0
@@ -78,8 +79,8 @@
 #define PROP_CHANNEL        4
 #define SERVO_POLARITY_X	1
 #define SERVO_POLARITY_Y	1
-// #define ENCODER_CHANNEL_L	3
-// #define ENCODER_CHANNEL_R	2
+#define ENCODER_CHANNEL_X	3
+#define ENCODER_CHANNEL_Y	2
 // #define ENCODER_POLARITY_L	1
 // #define ENCODER_POLARITY_R	-1
 

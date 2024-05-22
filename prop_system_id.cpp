@@ -53,7 +53,6 @@ int main(int argc, char *argv[])
         // start with mode as disabled
 
         thr = 0.1;
-        // mode = NORM;
 
         // set signal handler so the loop can exit cleanly
         signal(SIGINT, __signal_handler);

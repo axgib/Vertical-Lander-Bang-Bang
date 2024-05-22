@@ -13,8 +13,6 @@
 #include <robotcontrol.h>
 #include "hop_defs.h"
 
-
-
 /**
  * NOVICE: Drive rate and turn rate are limited to make driving easier.
  * ADVANCED: Faster drive and turn rate for more fun.
@@ -62,7 +60,8 @@ typedef struct core_state_t{
         double xPos;            // x position
         double yPos;
         double height;
-        double vBatt;           ///< battery voltage
+        double vBattBoard;           ///< board battery voltage
+        double vBattProp;            ///< propeller battery voltage
         // 5 controllers needed: height, thetax, thetay, phix, phiy. 1 denotes inner loop, 2 denotes outer loop. Roll controller is 6th
         // Assume roll = 0, body and global coordinates aligned
         double d1x_u;            ///< output of attitude controller D1x to servo
@@ -78,7 +77,7 @@ typedef enum m_input_mode_t{
         NONE,
         DSM,
         STDIN,
-        HOP //automated hop test
+        HOP                             //automated hop test
 } m_input_mode_t;
 
 static void __print_usage(void);
@@ -121,67 +120,24 @@ static void __print_usage(void)
  */
 int main(int argc, char *argv[])
 {
-        int c;
+        // int c;
         pthread_t setpoint_thread = 0;
-        pthread_t battery_thread = 0;
+        pthread_t board_battery_thread = 0;
+        pthread_t prop_battery_thread = 0;
         pthread_t printf_thread = 0;
         
-        // parse arguments
-        opterr = 0;
-        while ((c = getopt(argc, argv, "i:")) != -1){
-                switch (c){
-                case 'i': // input option
-                        if(!strcmp("dsm", optarg)) {
-                                m_input_mode = DSM;
-                        } else if(!strcmp("stdin", optarg)) {
-                                m_input_mode = STDIN;
-                        } else if(!strcmp("none", optarg)){
-                                m_input_mode = NONE;
-                        } else if(!strcmp("hop", optarg)){
-                                m_input_mode = HOP;
-                        } else {
-                                __print_usage();
-                                return -1;
-                        }
-                        break;
-                case 'h':
-                        __print_usage();
-                        return -1;
-                        break;
-                default:
-                        __print_usage();
-                        return -1;
-                        break;
-                }
-        }
-
         // make sure another instance isn't running
         // if return value is -3 then a background process is running with
         // higher privaledges and we couldn't kill it, in which case we should
         // not continue or there may be hardware conflicts. If it returned -4
         // then there was an invalid argument that needs to be fixed.
         if(rc_kill_existing_process(2.0)<-2) return -1;
+
         // start signal handler so we can exit cleanly
         if(rc_enable_signal_handler()==-1){
                 fprintf(stderr,"ERROR: failed to start signal handler\n");
                 return -1;
-        }
-
-        // // initialize buttons %% NO BUTTON INPUT CURRENTLY
-        // if(rc_button_init(RC_BTN_PIN_PAUSE, RC_BTN_POLARITY_NORM_HIGH,
-        //                                         RC_BTN_DEBOUNCE_DEFAULT_US)){
-        //         fprintf(stderr,"ERROR: failed to initialize pause button\n");
-        //         return -1;
-        // }
-        // if(rc_button_init(RC_BTN_PIN_MODE, RC_BTN_POLARITY_NORM_HIGH,
-        //                                         RC_BTN_DEBOUNCE_DEFAULT_US)){
-        //         fprintf(stderr,"ERROR: failed to initialize mode button\n");
-        //         return -1;
-        // }
-        // // Assign functions to be called when button events occur
-        // rc_button_set_callbacks(RC_BTN_PIN_PAUSE,__on_pause_press,NULL);
-        // rc_button_set_callbacks(RC_BTN_PIN_MODE,NULL,__on_mode_release);
-        
+        } 
         
         // // initialize enocders %% WE DON'T HAVE ENCODERS
         // if(rc_encoder_eqep_init()==-1){
@@ -197,23 +153,25 @@ int main(int argc, char *argv[])
         
         printf("Initialization begun...\n")
 
+        //Turn off green LED and turn on red LED while initializing
+        if(rc_led_set(RC_LED_GREEN, 0)==-1){
+                fprintf(stderr, "ERROR in rc_balance, failed to set RC_LED_GREEN\n");
+                return -1;
+        }
+        if(rc_led_set(RC_LED_RED, 1)==-1){
+                fprintf(stderr, "ERROR in rc_balance, failed to set RC_LED_RED\n");
+                return -1;
+        }
+
         // initialize servos and propeller
         if(rc_servo_init()) {
                 fprintf(stderr,"ERROR: failed to initialize servos\n");
                 return -1;
         }
 
-        // turn on power
+        // turn on power rail
         printf("Turning On 6V Servo Power Rail\n");
         rc_servo_power_rail_en(1);
-
-        // start dsm listener
-        if(m_input_mode == DSM){
-                if(rc_dsm_init()==-1){
-                        fprintf(stderr,"failed to start initialize DSM\n");
-                        return -1;
-                }
-        }
 
         // initialize adc
         if(rc_adc_init()==-1){
@@ -225,32 +183,19 @@ int main(int argc, char *argv[])
         // we can be fairly confident there is no PID file already and we can
         // make our own safely.
         rc_make_pid_file(); // (/run/shm/robotcontrol.pid)
-        
-        // // print instructions about using buttons
-        // printf("\nPress and release MODE button to toggle DSM drive mode\n");
-        // printf("Press and release PAUSE button to pause/start the motors\n");
-        // printf("hold pause button down for 2 seconds to exit\n");
-
-        //Turn off green LED and turn on red LED while initializing
-        if(rc_led_set(RC_LED_GREEN, 0)==-1){
-                fprintf(stderr, "ERROR in rc_balance, failed to set RC_LED_GREEN\n");
-                return -1;
-        }
-        if(rc_led_set(RC_LED_RED, 1)==-1){
-                fprintf(stderr, "ERROR in rc_balance, failed to set RC_LED_RED\n");
-                return -1;
-        }
 
         // set up mpu configuration
         rc_mpu_config_t mpu_config = rc_mpu_default_config();
         mpu_config.dmp_sample_rate = SAMPLE_RATE_HZ;
-        mpu_config.orient = ORIENTATION_Z_DOWN; //TODO: check
+        mpu_config.orient = ORIENTATION_Z_DOWN;
+
         // if gyro isn't calibrated, run the calibration routine
-        if(!rc_mpu_is_gyro_calibrated()){
-                printf("Gyro not calibrated, automatically starting calibration routine\n");
-                printf("Let your MiP sit still on a firm surface\n");
-                rc_mpu_calibrate_gyro_routine(mpu_config);
-        }
+        // run rc_calibrate_gyro and rc_calibrate_accel before running this
+        // if(!rc_mpu_is_gyro_calibrated()){
+        //         printf("Gyro not calibrated, automatically starting calibration routine\n");
+        //         printf("Let your MiP sit still on a firm surface\n");
+        //         rc_mpu_calibrate_gyro_routine(mpu_config);
+        // }
 
         // make sure setpoint starts at normal values
         setpoint.arm_state = DISARMED;
@@ -308,6 +253,10 @@ int main(int argc, char *argv[])
         }
         D2y.gain = D2Y_GAIN;
 
+        rc_filter_enable_saturation(&D1x, -PHI_REF_MAX, PHI_REF_MAX);
+        rc_filter_enable_soft_start(&D1x, SOFT_START_SEC);
+        rc_filter_enable_saturation(&D1y, -PHI_REF_MAX, PHI_REF_MAX);
+        rc_filter_enable_soft_start(&D1y, SOFT_START_SEC);
         rc_filter_enable_saturation(&D2x, -THETA_REF_MAX, THETA_REF_MAX);
         rc_filter_enable_soft_start(&D2x, SOFT_START_SEC);
         rc_filter_enable_saturation(&D2y, -THETA_REF_MAX, THETA_REF_MAX);
@@ -324,21 +273,24 @@ int main(int argc, char *argv[])
         printf("\nOuter Loop controller D2y:\n");
         rc_filter_print(D2y);
 
-        // // set up D3 gamma (roll) controller (currently none implemented)
-
-        // start a thread to slowly sample battery
-        if(rc_pthread_create(&battery_thread, __battery_checker, (void*) NULL, SCHED_OTHER, 0)){
-                fprintf(stderr, "failed to start battery thread\n");
+        // start threads to slowly sample battery voltage
+        if(rc_pthread_create(&board_battery_thread, __battery_checker, (void*) NULL, SCHED_OTHER, 0)){
+                fprintf(stderr, "failed to start board battery thread\n");
                 return -1;
         }
 
-        // wait for the battery thread to make the first read
-        while(cstate.vBatt<1.0 && rc_get_state()!=EXITING) rc_usleep(10000);
+        if(rc_pthread_create(&prop_battery_thread, __battery_checker, (void*) NULL, SCHED_OTHER, 0)){
+        fprintf(stderr, "failed to start prop battery thread\n");
+        return -1;
+        } //TODO: check
+
+        // wait for the battery threads to make the first read
+        while(cstate.vBattBoard<1.0 && cstate.vBattProp<1.0 && rc_get_state()!=EXITING) rc_usleep(10000);
         
         // start printf_thread if running from a terminal
         // if it was started as a background process then don't bother
         if(isatty(fileno(stdout))){
-                if(rc_pthread_create(&printf_thread, __printf_loop, (void*) NULL, SCHED_OTHER, 0)){// TODO: what's sched_other
+                if(rc_pthread_create(&printf_thread, __printf_loop, (void*) NULL, SCHED_OTHER, 0)){
                         fprintf(stderr, "failed to start battery thread\n");
                         return -1;
                 }
@@ -353,27 +305,30 @@ int main(int argc, char *argv[])
 
         // start balance stack to control setpoints
         if(rc_pthread_create(&setpoint_thread, __setpoint_manager, (void*) NULL, SCHED_OTHER, 0)){
-                fprintf(stderr, "failed to start battery thread\n");
+                fprintf(stderr, "failed to start setpoint thread\n");
                 return -1;
         }
 
         // this should be the last step in initialization
         // to make sure other setup functions don't interfere
         rc_mpu_set_dmp_callback(&__balance_controller);
-        // start in the RUNNING state, pressing the pause button will swap to
-        // the PAUSED state then back again.
-        // printf("\n Place lander on level surface\n");
+        
         printf("\n Initialization complete!\n")
+
+        // start in the RUNNING state
         rc_set_state(RUNNING);
 
         // chill until something exits the program
-        while(rc_get_state()!=EXITING){
+        while(rc_get_state()!=EXITING){// TODO: How does it get out of this loop?
                 rc_usleep(200000);
         }
+        
         // join threads
         rc_pthread_timed_join(setpoint_thread, NULL, 1.5);
-        rc_pthread_timed_join(battery_thread, NULL, 1.5);
+        rc_pthread_timed_join(board_battery_thread, NULL, 1.5);
+        rc_pthread_timed_join(prop_battery_thread, NULL, 1.5);
         rc_pthread_timed_join(printf_thread, NULL, 1.5);
+        
         // cleanup
         rc_filter_free(&D1x);
         rc_filter_free(&D1y);
@@ -413,26 +368,26 @@ void* __setpoint_manager(__attribute__ ((unused)) void* ptr)
         rc_set_state(RUNNING);
         rc_led_set(RC_LED_RED,0);
         rc_led_set(RC_LED_GREEN,1);
+
         while(rc_get_state()!=EXITING){
 
-                // clear out input of old data before waiting for new data
-                if(m_input_mode == STDIN) fseek(stdin,0,SEEK_END);
 
                 // sleep at beginning of loop so we can use the 'continue' statement
                 rc_usleep(1000000/SETPOINT_MANAGER_HZ);
-                // nothing to do if paused, go back to beginning of loop
-                if(rc_get_state() != RUNNING || m_input_mode == NONE) continue;
+
                 // if we got here the state is RUNNING, but controller is not
                 // necessarily armed. If DISARMED, wait for the user to pick MIP up
                 // which will we detected by wait_for_starting_condition()
                 if(setpoint.arm_state == DISARMED){
+                        prinf("\nArming controller...\n")
                         if(__wait_for_starting_condition()==0){
                                 __zero_out_controller();
                                 __arm_controller();
                         }
                         else continue;
                 }
-
+                prinf("\nController armed\n")
+                
                 // if dsm is active, update the setpoint rates
                 switch(m_input_mode){
                 case NONE:
@@ -611,11 +566,11 @@ static void __balance_controller(void)
         * Input to D1x and D1y is phi error (setpoint-state). Then scale the
         * output u to compensate for changing battery voltage.
         *************************************************************/
-        D1x.gain = D1X_GAIN * V_NOMINAL/cstate.vBatt;
+        D1x.gain = D1X_GAIN * V_NOMINAL/cstate.vBattBoard;
         cstate.d1x_u = rc_filter_march(&D1x,(setpoint.phix-cstate.phix));
         cstate.d1x_u = rc_filter_march(&D1x,(setpoint.phix-cstate.phix));
 
-        D1y.gain = D1Y_GAIN * V_NOMINAL/cstate.vBatt;
+        D1y.gain = D1Y_GAIN * V_NOMINAL/cstate.vBattBoard;
         cstate.d1y_u = rc_filter_march(&D1y,(setpoint.phiy-cstate.phiy));
         cstate.d1y_u = rc_filter_march(&D1y,(setpoint.phiy-cstate.phiy));
         /*************************************************************
@@ -694,8 +649,8 @@ static int __disarm_controller(void)
 static int __arm_controller(void)
 {
         __zero_out_controller();
-        rc_encoder_eqep_write(ENCODER_CHANNEL_L,0); // TODO: change to top and bottom for propeller
-        rc_encoder_eqep_write(ENCODER_CHANNEL_R,0);
+        rc_encoder_eqep_write(ENCODER_CHANNEL_X,0); // TODO: change to top and bottom for propeller
+        rc_encoder_eqep_write(ENCODER_CHANNEL_Y,0);
         // prefill_filter_inputs(&D1,cstate.theta);
         rc_motor_standby(0);
         setpoint.arm_state = ARMED;
@@ -751,7 +706,7 @@ static void* __battery_checker(__attribute__ ((unused)) void* ptr)
                 new_v = rc_adc_batt();
                 // if the value doesn't make sense, use nominal voltage
                 if (new_v>9.0 || new_v<5.0) new_v = V_NOMINAL;
-                cstate.vBatt = new_v;
+                cstate.vBattBoard = new_v;
                 rc_usleep(1000000 / BATTERY_CHECK_HZ);
         }
         return NULL;
@@ -788,7 +743,8 @@ static void* __printf_loop(__attribute__ ((unused)) void* ptr)
                         printf("  D2h_u   |");
                         printf("  D2x_u   |");
                         printf("  D2y_u   |");
-                        printf("  vBatt  |");
+                        printf("vBattBoard|");
+                        printf(" vBattProp|");
                         printf("arm_state|");
                         printf("\n");
                 }
@@ -814,7 +770,8 @@ static void* __printf_loop(__attribute__ ((unused)) void* ptr)
                         printf("%7.3f  |", cstate.d2h_u);
                         printf("%7.3f  |", cstate.d2x_u);
                         printf("%7.3f  |", cstate.d2y_u);
-                        printf("%7.3f  |", cstate.vBatt);
+                        printf("%7.3f  |", cstate.vBattBoard);
+                        printf("%7.3f  |", cstate.vBattProp);
                         if(setpoint.arm_state == ARMED) printf("  ARMED  |");
                         else printf("DISARMED |");
                         fflush(stdout);
