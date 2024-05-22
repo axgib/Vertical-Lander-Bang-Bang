@@ -11,7 +11,7 @@
 // #include <stdio.h>
 // #include <getopt.h>
 // #include <stdlib.h> // for atoi
-// #include <signal.h>
+#include <signal.h>
 // #include <rc/time.h>
 // #include <rc/dsm.h>
 // #include <rc/servo.h>
