@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <unistd.h> // for isatty()
 #include <stdlib.h> // for strtof()
+// #include <stdint.h> // for 64int_t
 #include <math.h> // for M_PI
 #include <chrono>
 // #include <iostream>
@@ -13,15 +14,15 @@
 #include <robotcontrol.h>
 #include "hop_defs.h"
 
-/**
- * NOVICE: Drive rate and turn rate are limited to make driving easier.
- * ADVANCED: Faster drive and turn rate for more fun.
- */
+// /**
+//  * NOVICE: Drive rate and turn rate are limited to make driving easier.
+//  * ADVANCED: Faster drive and turn rate for more fun.
+//  */
 
-typedef enum drive_mode_t{
-        NOVICE,
-        ADVANCED
-}drive_mode_t;
+// typedef enum drive_mode_t{
+//         NOVICE,
+//         ADVANCED
+// }drive_mode_t;
 /**
  * ARMED or DISARMED to indicate if the controller is running
  */
@@ -35,17 +36,17 @@ typedef enum arm_state_t{
  */
 typedef struct setpoint_t{
         arm_state_t arm_state;  ///< see arm_state_t declaration
-        drive_mode_t drive_mode;///< NOVICE or ADVANCED
-        double thetax;           ///< body lean angle (rad)
-        double thetay;
-        double thetax_dot;         ///< rate at which phi reference updates (rad/s)
-        double thetay_dot;
+        // drive_mode_t drive_mode;///< NOVICE or ADVANCED
         double phix;            // gimbal position x (rad)
         double phiy;            // gimbal position y (rad)
         double phix_dot;         ///< rate at which phi reference updates (rad/s)
         double phiy_dot;        // TODO: Need one for each phi?
         double height;
-        double h_dot
+        double h_dot;
+        double thetax;           ///< body lean angle (rad)
+        double thetay;
+        double thetax_dot;         ///< rate at which phi reference updates (rad/s)
+        double thetay_dot;
         // double gamma;           ///< body turn angle (rad)
         // double gamma_dot;       ///< rate at which gamma setpoint updates (rad/s)
 }setpoint_t;
@@ -69,15 +70,14 @@ typedef struct core_state_t{
         double d2h_u;            ///< output of height controller D1h to propeller
         double d2x_u;            ///< output of position controller D1x (theta_ref)
         double d2y_u;            ///< output of position controller D1y (theta_ref)
-        // double d3_u;            ///< output of roll controller D3 to motors
         double mot_drive;       ///< u compensated for battery voltage
 } core_state_t;
-// possible modes, user selected with command line arguments
+// possible modes, user selected with command line arguments (ONLY HOP IS IMPLEMENTED)
 typedef enum m_input_mode_t{
         NONE,
         DSM,
         STDIN,
-        HOP                             //automated hop test
+        HOP
 } m_input_mode_t;
 
 static void __print_usage(void);
@@ -90,7 +90,7 @@ static int __disarm_controller(void);
 static int __arm_controller(void);
 static int __wait_for_starting_condition(void);
 static void __on_pause_press(void);
-static void __on_mode_release(void);
+// static void __on_mode_release(void);
 
 // global variables
 core_state_t cstate;
@@ -103,6 +103,12 @@ rc_filter_t D2y = RC_FILTER_INITIALIZER;
 
 rc_mpu_data_t mpu_data;
 m_input_mode_t m_input_mode = HOP;
+uint64_t tstart, ti, t, t_takeoff,t_decend,t_land;
+int board_thread_id = 1;
+int prop_thread_id = 2;
+int rf_bus;
+uint8_t rf_addr, rf_height;
+
 /*
  * printed if some invalid argument was given
  */
@@ -199,7 +205,7 @@ int main(int argc, char *argv[])
 
         // make sure setpoint starts at normal values
         setpoint.arm_state = DISARMED;
-        setpoint.drive_mode = NOVICE;
+        // setpoint.drive_mode = NOVICE;
 
         // set up D1x and D1y Phi controllers
         //TODO: Adjust controllers in header file
@@ -254,13 +260,13 @@ int main(int argc, char *argv[])
         D2y.gain = D2Y_GAIN;
 
         rc_filter_enable_saturation(&D1x, -PHI_REF_MAX, PHI_REF_MAX);
-        rc_filter_enable_soft_start(&D1x, SOFT_START_SEC);
+        // rc_filter_enable_soft_start(&D1x, SOFT_START_SEC);
         rc_filter_enable_saturation(&D1y, -PHI_REF_MAX, PHI_REF_MAX);
-        rc_filter_enable_soft_start(&D1y, SOFT_START_SEC);
+        // rc_filter_enable_soft_start(&D1y, SOFT_START_SEC);
         rc_filter_enable_saturation(&D2x, -THETA_REF_MAX, THETA_REF_MAX);
-        rc_filter_enable_soft_start(&D2x, SOFT_START_SEC);
+        // rc_filter_enable_soft_start(&D2x, SOFT_START_SEC);
         rc_filter_enable_saturation(&D2y, -THETA_REF_MAX, THETA_REF_MAX);
-        rc_filter_enable_soft_start(&D2y, SOFT_START_SEC);
+        // rc_filter_enable_soft_start(&D2y, SOFT_START_SEC);
 
         printf("Inner Loop controller D1x:\n");
         rc_filter_print(D1x);
@@ -273,15 +279,25 @@ int main(int argc, char *argv[])
         printf("\nOuter Loop controller D2y:\n");
         rc_filter_print(D2y);
 
-        // start threads to slowly sample battery voltage
-        if(rc_pthread_create(&board_battery_thread, __battery_checker, (void*) NULL, SCHED_OTHER, 0)){
+        // // start threads to slowly sample battery voltage
+        // if(rc_pthread_create(&board_battery_thread, __battery_checker, (void*) NULL, SCHED_OTHER, 0)){
+        //         fprintf(stderr, "failed to start board battery thread\n");
+        //         return -1;
+        // }
+
+        // if(rc_pthread_create(&prop_battery_thread, __battery_checker, (void*) NULL, SCHED_OTHER, 0)){
+        //         fprintf(stderr, "failed to start prop battery thread\n");
+        //         return -1;
+        // } 
+
+        if(rc_pthread_create(&board_battery_thread, __battery_checker, (void*) &board_thread_id, SCHED_OTHER, 0)){
                 fprintf(stderr, "failed to start board battery thread\n");
                 return -1;
         }
 
-        if(rc_pthread_create(&prop_battery_thread, __battery_checker, (void*) NULL, SCHED_OTHER, 0)){
-        fprintf(stderr, "failed to start prop battery thread\n");
-        return -1;
+        if(rc_pthread_create(&prop_battery_thread, __battery_checker, (void*) &prop_thread_id, SCHED_OTHER, 0)){
+                fprintf(stderr, "failed to start prop battery thread\n");
+                return -1;
         } //TODO: check
 
         // wait for the battery threads to make the first read
@@ -298,7 +314,7 @@ int main(int argc, char *argv[])
 
         // start mpu
         if(rc_mpu_initialize_dmp(&mpu_data, mpu_config)){
-                fprintf(stderr,"ERROR: can't talk to IMU, all hope is lost\n");
+                fprintf(stderr,"ERROR: can't talk to IMU, all hope is lost!\n");
                 rc_led_blink(RC_LED_RED, 5, 5);
                 return -1;
         }
@@ -313,7 +329,7 @@ int main(int argc, char *argv[])
         // to make sure other setup functions don't interfere
         rc_mpu_set_dmp_callback(&__balance_controller);
         
-        printf("\n Initialization complete!\n")
+        printf("\n Initialization complete! All threads running...\n")
 
         // start in the RUNNING state
         rc_set_state(RUNNING);
@@ -340,9 +356,11 @@ int main(int argc, char *argv[])
         rc_led_set(RC_LED_GREEN, 0);
         rc_led_set(RC_LED_RED, 0);
         rc_led_cleanup();
+        rc_servo_cleanup();
         // rc_encoder_eqep_cleanup();
         // rc_button_cleanup();    // stop button handlers
         rc_remove_pid_file();   // remove pid file LAST
+        printf("Shutdown complete\n")
         return 0;
 }
 
@@ -358,9 +376,12 @@ int main(int argc, char *argv[])
  */
 void* __setpoint_manager(__attribute__ ((unused)) void* ptr)
 {
-        double drive_stick, turn_stick; // input sticks
+        // double drive_stick, turn_stick; // input sticks
         int i, ch, chan, stdin_timeout = 0; // for stdin input
         char in_str[11];
+
+        ti = rc_nanos_since_boot();
+        t = ti-tstart;// time since tstart was defined
 
         // wait for mpu to settle
         __disarm_controller();
@@ -386,70 +407,30 @@ void* __setpoint_manager(__attribute__ ((unused)) void* ptr)
                         }
                         else continue;
                 }
-                prinf("\nController armed\n")
+                printf("\nController armed\n")
                 
                 // if dsm is active, update the setpoint rates
-                switch(m_input_mode){
-                case NONE:
-                        continue;
-                case DSM:
-                        if(rc_dsm_is_new_data()){
-                                // Read normalized (+-1) inputs from RC radio stick and multiply by
-                                // polarity setting so positive stick means positive setpoint
-                                turn_stick  = rc_dsm_ch_normalized(DSM_TURN_CH) * DSM_TURN_POL;
-                                drive_stick = rc_dsm_ch_normalized(DSM_DRIVE_CH)* DSM_DRIVE_POL;
-                                // saturate the inputs to avoid possible erratic behavior
-                                rc_saturate_double(&drive_stick,-1,1);
-                                rc_saturate_double(&turn_stick,-1,1);
-                                // use a small deadzone to prevent slow drifts in position
-                                if(fabs(drive_stick)<DSM_DEAD_ZONE) drive_stick = 0.0;
-                                if(fabs(turn_stick)<DSM_DEAD_ZONE)  turn_stick  = 0.0;
-                                // translate normalized user input to real setpoint values
-                                switch(setpoint.drive_mode){
-                                case NOVICE:
-                                        setpoint.phi_dot   = DRIVE_RATE_NOVICE * drive_stick;
-                                        setpoint.gamma_dot =  TURN_RATE_NOVICE * turn_stick;
-                                        break;
-                                case ADVANCED:
-                                        setpoint.phi_dot   = DRIVE_RATE_ADVANCED * drive_stick;
-                                        setpoint.gamma_dot = TURN_RATE_ADVANCED  * turn_stick;
-                                        break;
-                                default: break;
-                                }
+
+                        if(t < T_TAKEOFF){ // Wait on ground
+                                setpoint.phix = 0;
+                                setpoint.phiy = 0;
+                                setpoint.phix_dot = 0;
+                                setpoint.phiy_dot = 0;
+                                setpoint.height = 0;
+                                setpoint.h_dot = 0;
+                                setpoint.thetax = 0;
+                                setpoint.thetay = 0;
+                                setpoint.thetax_dot = 0;
+                                setpoint.thetay_dot = 0;
                         }
-                        // if dsm had timed out, put setpoint rates back to 0
-                        else if(rc_dsm_is_connection_active()==0){
-                                setpoint.theta = 0;
-                                setpoint.phi_dot = 0;
-                                setpoint.gamma_dot = 0;
-                                continue;
+                        else if(t < T_DECEND){// at takeoff, set setpoint.height to hover_height
+                                setpoint.height = HOVER_HEIGHT;
                         }
-                        break;
-                case STDIN:
-                        i = 0;
-                        while ((ch = getchar()) != EOF && i < 10){
-                                stdin_timeout = 0;
-                                if(ch == 'n' || ch == '\n'){
-                                        if(i > 2){
-                                                if(chan == DSM_TURN_CH){
-                                                        turn_stick = strtof(in_str, NULL)* DSM_TURN_POL;
-                                                        setpoint.phi_dot = drive_stick;
-                                                }
-                                                else if(chan == DSM_TURN_CH){
-                                                        drive_stick = strtof(in_str, NULL)* DSM_DRIVE_POL;
-                                                        setpoint.gamma_dot = turn_stick;
-                                                }
-                                        }
-                                        if(ch == 'n') i = 1;
-                                        else i = 0;
-                                }
-                                else if(i == 1){
-                                        chan = ch - 0x30;
-                                        i = 2;
-                                }
-                                else{
-                                        in_str[i-2] = ch;
-                                }
+                        else if(t < T_LAND){// decending, slowly lower setpoint.height to 0
+                                setpoint.height = 0;
+                        }
+                        else{// shutdown
+                                rc_set_state(EXITING);
                         }
 
                         // if it has been more than 1 second since getting data
@@ -463,18 +444,9 @@ void* __setpoint_manager(__attribute__ ((unused)) void* ptr)
                         else{
                                 stdin_timeout++;
                         }
+
                         continue;
-                        break;
-                case HOP:
-                        //TODO: hard code trajectory: 
-                        // stay on ground for 5 sec, 
-                        // hover for 15 sec, 
-                        // land, 
-                        // sit for 5 sec
-                        continue;
-                default:
-                        fprintf(stderr,"ERROR in setpoint manager, invalid input mode\n");
-                        break;
+
                 }
         }
         // if state becomes EXITING the above loop exists and we disarm here
@@ -496,10 +468,11 @@ static void __balance_controller(void)
         ******************************************************************/
         // angle theta is positive in the direction of forward tip around X axis
         cstate.thetax = mpu_data.dmp_TaitBryan[TB_PITCH_X] + BOARD_MOUNT_ANGLE_X;
-        cstate.thetay = mpu_data.dmp_TaitBryan[TB_PITCH_Y] + BOARD_MOUNT_ANGLE_Y;
+        cstate.thetay = mpu_data.dmp_TaitBryan[TB_PITCH_Y] + BOARD_MOUNT_ANGLE_Y;// TODO
 
         // TODO: read from laser range finder
-        // cstate.height = 
+        rc_i2c_read_byte(rf_bus,rf_addr,rf_height);
+        cstate.height = rf_height - RF_OFFSET;
         
         // collect encoder positions, right wheel is reversed
         // cstate.wheelAngleR = (rc_encoder_eqep_read(ENCODER_CHANNEL_R) * 2.0 * M_PI) \
@@ -699,19 +672,47 @@ static int __wait_for_starting_condition(void)
  *
  * @return     nothing, NULL poitner
  */
-static void* __battery_checker(__attribute__ ((unused)) void* ptr)
+// static void* __battery_checker(__attribute__ ((unused)) void* ptr)
+// {
+//         double new_v;
+//         while(rc_get_state()!=EXITING){
+
+//                 new_v = rc_adc_batt();
+//                 // if the value doesn't make sense, use nominal voltage
+//                 if (new_v>9.0 || new_v<5.0) new_v = V_NOMINAL;
+//                 cstate.vBattBoard = new_v;
+//                 rc_usleep(1000000 / BATTERY_CHECK_HZ);
+//         }
+//         return NULL;
+// }
+static void* __battery_checker(void* ptr)
 {
+        int thread_id = *(int*)ptr;// TODO: Check!
         double new_v;
+
         while(rc_get_state()!=EXITING){
-                new_v = rc_adc_batt();
-                // if the value doesn't make sense, use nominal voltage
-                if (new_v>9.0 || new_v<5.0) new_v = V_NOMINAL;
-                cstate.vBattBoard = new_v;
-                rc_usleep(1000000 / BATTERY_CHECK_HZ);
+                if(thread_id == 1){
+                        new_v = rc_adc_batt();
+                        // if the value doesn't make sense, use nominal voltage
+                        if (new_v>9.0 || new_v<5.0) new_v = V_NOMINAL_BOARD;
+                        cstate.vBattBoard = new_v;
+                        rc_usleep(1000000 / BATTERY_CHECK_HZ);
+                }
+                else if(thread_id == 2){
+                        new_v = V_NOMINAL_PROP;// TODO: Not right: should be reading from an input pin
+                        // new_v = rc_adc_batt();
+                        // // if the value doesn't make sense, use nominal voltage
+                        // if (new_v>9.0 || new_v<5.0) new_v = V_NOMINAL_PROP;
+                        cstate.vBattProp = new_v;
+                        rc_usleep(1000000 / BATTERY_CHECK_HZ);
+                }
+                else {
+                        prinf("\nthread_id not found\n")
+                }
         }
         return NULL;
 }
-// TODO: __battery_checker checks voltage of BB power supply (?). Implement prop voltage check
+
 /**
  * prints diagnostics to console this only gets started if executing from
  * terminal
@@ -784,58 +785,58 @@ static void* __printf_loop(__attribute__ ((unused)) void* ptr)
  * Disarm the controller and set system state to paused. If the user holds the
  * pause button for 2 seconds, exit cleanly
  */
-static void __on_pause_press(void)
-{
-        int i=0;
-        const int samples = 100;        // check for release 100 times in this period
-        const int us_wait = 2000000; // 2 seconds
-        switch(rc_get_state()){
-        // pause if running
-        case EXITING:
-                return;
-        case RUNNING:
-                rc_set_state(PAUSED);
-                __disarm_controller();
-                rc_led_set(RC_LED_RED,1);
-                rc_led_set(RC_LED_GREEN,0);
-                break;
-        case PAUSED:
-                rc_set_state(RUNNING);
-                __disarm_controller();
-                rc_led_set(RC_LED_GREEN,1);
-                rc_led_set(RC_LED_RED,0);
-                break;
-        default:
-                break;
-        }
-        // now wait to see if the user want to shut down the program
-        while(i<samples){
-                rc_usleep(us_wait/samples);
-                if(rc_button_get_state(RC_BTN_PIN_PAUSE)==RC_BTN_STATE_RELEASED){
-                        return; //user let go before time-out
-                }
-                i++;
-        }
-        printf("long press detected, shutting down\n");
-        //user held the button down long enough, blink and exit cleanly
-        rc_led_blink(RC_LED_RED,5,2);
-        rc_set_state(EXITING);
-        return;
-}
+// static void __on_pause_press(void)
+// {
+//         int i=0;
+//         const int samples = 100;        // check for release 100 times in this period
+//         const int us_wait = 2000000; // 2 seconds
+//         switch(rc_get_state()){
+//         // pause if running
+//         case EXITING:
+//                 return;
+//         case RUNNING:
+//                 rc_set_state(PAUSED);
+//                 __disarm_controller();
+//                 rc_led_set(RC_LED_RED,1);
+//                 rc_led_set(RC_LED_GREEN,0);
+//                 break;
+//         case PAUSED:
+//                 rc_set_state(RUNNING);
+//                 __disarm_controller();
+//                 rc_led_set(RC_LED_GREEN,1);
+//                 rc_led_set(RC_LED_RED,0);
+//                 break;
+//         default:
+//                 break;
+//         }
+//         // now wait to see if the user want to shut down the program
+//         while(i<samples){
+//                 rc_usleep(us_wait/samples);
+//                 if(rc_button_get_state(RC_BTN_PIN_PAUSE)==RC_BTN_STATE_RELEASED){
+//                         return; //user let go before time-out
+//                 }
+//                 i++;
+//         }
+//         printf("long press detected, shutting down\n");
+//         //user held the button down long enough, blink and exit cleanly
+//         rc_led_blink(RC_LED_RED,5,2);
+//         rc_set_state(EXITING);
+//         return;
+// }
 /**
  * toggle between position and angle modes if MiP is paused
  */
-static void __on_mode_release(void)
-{
-        // toggle between position and angle modes
-        if(setpoint.drive_mode == NOVICE){
-                setpoint.drive_mode = ADVANCED;
-                printf("using drive_mode = ADVANCED\n");
-        }
-        else {
-                setpoint.drive_mode = NOVICE;
-                printf("using drive_mode = NOVICE\n");
-        }
-        rc_led_blink(RC_LED_GREEN,5,1);
-        return;
-}
+// static void __on_mode_release(void)
+// {
+//         // toggle between position and angle modes
+//         if(setpoint.drive_mode == NOVICE){
+//                 setpoint.drive_mode = ADVANCED;
+//                 printf("using drive_mode = ADVANCED\n");
+//         }
+//         else {
+//                 setpoint.drive_mode = NOVICE;
+//                 printf("using drive_mode = NOVICE\n");
+//         }
+//         rc_led_blink(RC_LED_GREEN,5,1);
+//         return;
+// }
