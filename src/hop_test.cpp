@@ -1,14 +1,14 @@
 /**
-* @example rc_balance
+* @example hop_test
 *
-* Reference solution for balancing EduMiP
+* Reference hop flight for FiP rocket
 **/
 #include <stdio.h>
 #include <unistd.h> // for isatty()
 #include <stdlib.h> // for strtof()
-// #include <stdint.h> // for 64int_t
+#include <stdint.h>
 #include <math.h> // for M_PI
-#include <chrono>
+// #include <chrono>
 // #include <iostream>
 #include <rc/servo.h>
 #include <robotcontrol.h>
@@ -47,8 +47,6 @@ typedef struct setpoint_t{
         double thetay;
         double thetax_dot;         ///< rate at which phi reference updates (rad/s)
         double thetay_dot;
-        // double gamma;           ///< body turn angle (rad)
-        // double gamma_dot;       ///< rate at which gamma setpoint updates (rad/s)
 }setpoint_t;
 /**
  * This is the system state written to by the balance controller.
@@ -68,17 +66,16 @@ typedef struct core_state_t{
         double d1x_u;            ///< output of attitude controller D1x to servo
         double d1y_u;            ///< output of attitude controller D1y to servo
         double d2h_u;            ///< output of height controller D1h to propeller
-        double d2x_u;            ///< output of position controller D1x (theta_ref)
-        double d2y_u;            ///< output of position controller D1y (theta_ref)
-        double mot_drive;       ///< u compensated for battery voltage
+        double d2x_u;            ///< output of position controller D2x (theta_ref)
+        double d2y_u;            ///< output of position controller D2y (theta_ref)
 } core_state_t;
 // possible modes, user selected with command line arguments (ONLY HOP IS IMPLEMENTED)
-typedef enum m_input_mode_t{
-        NONE,
-        DSM,
-        STDIN,
-        HOP
-} m_input_mode_t;
+// typedef enum m_input_mode_t{
+//         NONE,
+//         DSM,
+//         STDIN,
+//         HOP
+// } m_input_mode_t;
 
 static void __print_usage(void);
 static void __balance_controller(void);         ///< mpu interrupt routine
@@ -102,23 +99,12 @@ rc_filter_t D2x = RC_FILTER_INITIALIZER;
 rc_filter_t D2y = RC_FILTER_INITIALIZER;
 
 rc_mpu_data_t mpu_data;
-m_input_mode_t m_input_mode = HOP;
 uint64_t tstart, ti, t, t_takeoff,t_decend,t_land;
 int board_thread_id = 1;
 int prop_thread_id = 2;
-int rf_bus;
+int rf_bus; //TODO: Check, standardize reference to rangefinder/laser
 uint8_t rf_addr, rf_height;
 
-/*
- * printed if some invalid argument was given
- */
-static void __print_usage(void)
-{
-        printf("\n");
-        printf("-i {dsm|stdin|none}     specify input\n");
-        printf("-h                      print this help message\n");
-        printf("\n");
-}
 /**
  * Initialize the filters, mpu, threads, & wait until shut down
  *
@@ -279,7 +265,7 @@ int main(int argc, char *argv[])
         printf("\nOuter Loop controller D2y:\n");
         rc_filter_print(D2y);
 
-        // // start threads to slowly sample battery voltage
+        // Original battery sample code// start threads to slowly sample battery voltage
         // if(rc_pthread_create(&board_battery_thread, __battery_checker, (void*) NULL, SCHED_OTHER, 0)){
         //         fprintf(stderr, "failed to start board battery thread\n");
         //         return -1;
@@ -307,7 +293,7 @@ int main(int argc, char *argv[])
         // if it was started as a background process then don't bother
         if(isatty(fileno(stdout))){
                 if(rc_pthread_create(&printf_thread, __printf_loop, (void*) NULL, SCHED_OTHER, 0)){
-                        fprintf(stderr, "failed to start battery thread\n");
+                        fprintf(stderr, "failed to start print thread\n");
                         return -1;
                 }
         }
@@ -318,9 +304,17 @@ int main(int argc, char *argv[])
                 rc_led_blink(RC_LED_RED, 5, 5);
                 return -1;
         }
+        // TODO: start laser randefinder
+
+        // // start balance stack to control setpoints
+        // if(rc_pthread_create(&setpoint_thread, __setpoint_manager, (void*) NULL, SCHED_OTHER, 0)){
+        //         fprintf(stderr, "failed to start setpoint thread\n");
+        //         return -1;
+        // }
 
         // start balance stack to control setpoints
-        if(rc_pthread_create(&setpoint_thread, __setpoint_manager, (void*) NULL, SCHED_OTHER, 0)){
+        tstart = rc_nanos_since_boot();
+        if(rc_pthread_create(&setpoint_thread, __setpoint_manager,tstart, SCHED_OTHER, 0)){
                 fprintf(stderr, "failed to start setpoint thread\n");
                 return -1;
         }
@@ -335,7 +329,7 @@ int main(int argc, char *argv[])
         rc_set_state(RUNNING);
 
         // chill until something exits the program
-        while(rc_get_state()!=EXITING){// TODO: How does it get out of this loop?
+        while(rc_get_state()!=EXITING){
                 rc_usleep(200000);
         }
         
@@ -353,6 +347,8 @@ int main(int argc, char *argv[])
         rc_filter_free(&D2y);
 
         rc_mpu_power_off();
+        //TODO: power off laser
+        
         rc_led_set(RC_LED_GREEN, 0);
         rc_led_set(RC_LED_RED, 0);
         rc_led_cleanup();
@@ -360,13 +356,13 @@ int main(int argc, char *argv[])
         // rc_encoder_eqep_cleanup();
         // rc_button_cleanup();    // stop button handlers
         rc_remove_pid_file();   // remove pid file LAST
-        printf("Shutdown complete\n")
+        printf("Shutdown complete!\n")
         return 0;
 }
 
 
 /**
- * This thread is in charge of adjusting the controller setpoint based on user
+ * This thread is in charge of adjusting the controller setpoints based on user
  * inputs from dsm radio control. Also detects pickup to control arming the
  * controller.
  *
@@ -374,7 +370,7 @@ int main(int argc, char *argv[])
  *
  * @return     { description_of_the_return_value }
  */
-void* __setpoint_manager(__attribute__ ((unused)) void* ptr)
+void* __setpoint_manager(unint_64_t tstart)
 {
         // double drive_stick, turn_stick; // input sticks
         int i, ch, chan, stdin_timeout = 0; // for stdin input
@@ -401,9 +397,9 @@ void* __setpoint_manager(__attribute__ ((unused)) void* ptr)
                 // which will we detected by wait_for_starting_condition()
                 if(setpoint.arm_state == DISARMED){
                         prinf("\nArming controller...\n")
-                        if(__wait_for_starting_condition()==0){
-                                __zero_out_controller();
-                                __arm_controller();
+                        if(__wait_for_starting_condition()==0){// Once rocket has been upright for START_DELAY, 
+                                __zero_out_controller();// set controller outputs and setpoints to 0
+                                __arm_controller();// Set to armed
                         }
                         else continue;
                 }
@@ -599,7 +595,7 @@ static int __zero_out_controller(void)
         setpoint.phiy   = 0.0;
         setpoint.height = 0.0;
         // setpoint.gamma = 0.0;
-        // rc_motor_set(0,0.0); //TODO: turn off each motor every loop? We don't want to do this with propeller
+        rc_motor_set(0,0.0); //TODO: turn off each motor every loop? We don't want to do this with propeller
         return 0;
 }
 /**
@@ -622,15 +618,16 @@ static int __disarm_controller(void)
 static int __arm_controller(void)
 {
         __zero_out_controller();
-        rc_encoder_eqep_write(ENCODER_CHANNEL_X,0); // TODO: change to top and bottom for propeller
-        rc_encoder_eqep_write(ENCODER_CHANNEL_Y,0);
-        // prefill_filter_inputs(&D1,cstate.theta);
-        rc_motor_standby(0);
+        // rc_encoder_eqep_write(ENCODER_CHANNEL_X,0);
+        // rc_encoder_eqep_write(ENCODER_CHANNEL_Y,0);
+        // prefill_filter_inputs(&D1,cstate.theta);// TODO: What is this?
+        // rc_motor_standby(0);
         setpoint.arm_state = ARMED;
         return 0;
 }
+
 /**
- * Wait for MiP to be held upright long enough to begin. Returns
+ * Wait for rocket to be positioned upright long enough to begin. Returns
  *
  * @return     0 if successful, -1 if the wait process was interrupted by pause
  *             button or shutdown signal.
@@ -641,18 +638,7 @@ static int __wait_for_starting_condition(void)
         const int check_hz = 20;        // check 20 times per second
         int checks_needed = round(START_DELAY*check_hz);
         int wait_us = 1000000/check_hz;
-        // wait for MiP to be tipped back or forward first
-        // exit if state becomes paused or exiting
-        while(rc_get_state()==RUNNING){
-                // if within range, start counting
-                if(fabs(cstate.thetax) > START_ANGLE || fabs(cstate.thetay) > START_ANGLE) checks++;
-                // fell out of range, restart counter
-                else checks = 0;
-                // waited long enough, return
-                if(checks >= checks_needed) break;
-                rc_usleep(wait_us);
-        }
-        // now wait for MiP to be upright
+        // Wait for rocket to be upright
         checks = 0;
         // exit if state becomes paused or exiting
         while(rc_get_state()==RUNNING){
@@ -661,7 +647,10 @@ static int __wait_for_starting_condition(void)
                 // fell out of range, restart counter
                 else checks = 0;
                 // waited long enough, return
-                if(checks >= checks_needed) return 0;
+                if(checks >= checks_needed) {
+                        printf("\nStarting condition met\n")
+                        return 0;
+                }
                 rc_usleep(wait_us);
         }
         return -1;

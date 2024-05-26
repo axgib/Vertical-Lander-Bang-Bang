@@ -71,13 +71,7 @@
 #define D2Y_DEN_LEN		3
 
 #define THETA_REF_MAX		0.33
-#define PHI_REF_MAX         0.15
-
-// // roll controller
-// #define D3_KP			1.0
-// #define D3_KI			0.3
-// #define D3_KD			0.05
-// #define ROLL_INPUT_MAX	0.5
+#define PHI_REF_MAX         0.15 // 1 corresponds to 60 deg rotation, limit movement to ~10 deg
 
 // electrical hookups
 #define PROP_CHANNEL_1      1
@@ -91,18 +85,9 @@
 // #define ENCODER_POLARITY_L	1
 // #define ENCODER_POLARITY_R	-1
 
-//	drive speeds when using remote control (dsm2)
-#define DRIVE_RATE_NOVICE	16
-#define TURN_RATE_NOVICE	6
-#define DRIVE_RATE_ADVANCED	26
-#define TURN_RATE_ADVANCED	10
-
-// DSM channel config
-#define DSM_DRIVE_POL		1
-#define DSM_TURN_POL		1
-#define DSM_DRIVE_CH		3
-#define DSM_TURN_CH		2
-#define DSM_DEAD_ZONE		0.04
+// inputs
+#define PROP_BATTERY_CHANNEL 1
+#define RANGEFINDER_CHANNEL 2
 
 // Thread Loop Rates
 #define BATTERY_CHECK_HZ	5
