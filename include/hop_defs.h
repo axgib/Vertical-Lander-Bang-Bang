@@ -49,7 +49,7 @@
 
 #define H_REF_MAX		0.33
 #define HOVER_HEIGHT    2
-#define RANGEFINDER_OFFSET 0.1
+#define RF_OFFSET       0.1
 #define T_TAKEOFF       5*1e9
 #define T_DECEND        20*1e9
 #define T_LAND          30*1e9
