@@ -1,0 +1,142 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1
+					],
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				},
+				{
+					"build" : "librobotcontrol_build",
+					"childIndexes" : 
+					[
+						2
+					],
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.7"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 1,
+					"source" : "/home/erik/lander/librobotcontrol"
+				},
+				{
+					"build" : "librobotcontrol_build/library",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.7"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 1,
+					"source" : "/home/erik/lander/librobotcontrol/library",
+					"targetIndexes" : 
+					[
+						4
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"childIndexes" : 
+					[
+						1
+					],
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "VerticalLanderBangBang",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						1,
+						2
+					],
+					"name" : "robotcontrol",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						4
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "accel_test::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-accel_test-Debug-2bbaacc66c8038ff27b3.json",
+					"name" : "accel_test",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "hop_test::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-hop_test-Debug-b2e476cd6bd52bbc332c.json",
+					"name" : "hop_test",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "hop_test_v0::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-hop_test_v0-Debug-7d8c6c0b196f43c91b45.json",
+					"name" : "hop_test_v0",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "prop_system_id::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-prop_system_id-Debug-cc5310c48f3448c34b2a.json",
+					"name" : "prop_system_id",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "robotics_cape::@a8bb3e1687465456ecb7",
+					"jsonFile" : "target-robotics_cape-Debug-cfab11b9c039157923bc.json",
+					"name" : "robotics_cape",
+					"projectIndex" : 1
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/erik/lander/Vertical-Lander-Bang-Bang/build",
+		"source" : "/home/erik/lander/Vertical-Lander-Bang-Bang"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 0
+	}
+}

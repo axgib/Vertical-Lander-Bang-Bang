@@ -60,431 +60,431 @@ include librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/flags.make
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/button.c.o: librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/flags.make
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/button.c.o: /home/erik/lander/librobotcontrol/library/src/button.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/erik/lander/Vertical-Lander-Bang-Bang/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/button.c.o"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/button.c.o   -c /home/erik/lander/librobotcontrol/library/src/button.c
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/button.c.o   -c /home/erik/lander/librobotcontrol/library/src/button.c
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/button.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/robotics_cape.dir/src/button.c.i"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/button.c > CMakeFiles/robotics_cape.dir/src/button.c.i
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/button.c > CMakeFiles/robotics_cape.dir/src/button.c.i
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/button.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/robotics_cape.dir/src/button.c.s"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/button.c -o CMakeFiles/robotics_cape.dir/src/button.c.s
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/button.c -o CMakeFiles/robotics_cape.dir/src/button.c.s
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/cpu.c.o: librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/flags.make
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/cpu.c.o: /home/erik/lander/librobotcontrol/library/src/cpu.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/erik/lander/Vertical-Lander-Bang-Bang/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/cpu.c.o"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/cpu.c.o   -c /home/erik/lander/librobotcontrol/library/src/cpu.c
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/cpu.c.o   -c /home/erik/lander/librobotcontrol/library/src/cpu.c
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/cpu.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/robotics_cape.dir/src/cpu.c.i"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/cpu.c > CMakeFiles/robotics_cape.dir/src/cpu.c.i
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/cpu.c > CMakeFiles/robotics_cape.dir/src/cpu.c.i
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/cpu.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/robotics_cape.dir/src/cpu.c.s"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/cpu.c -o CMakeFiles/robotics_cape.dir/src/cpu.c.s
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/cpu.c -o CMakeFiles/robotics_cape.dir/src/cpu.c.s
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/dsm.c.o: librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/flags.make
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/dsm.c.o: /home/erik/lander/librobotcontrol/library/src/dsm.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/erik/lander/Vertical-Lander-Bang-Bang/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/dsm.c.o"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/dsm.c.o   -c /home/erik/lander/librobotcontrol/library/src/dsm.c
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/dsm.c.o   -c /home/erik/lander/librobotcontrol/library/src/dsm.c
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/dsm.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/robotics_cape.dir/src/dsm.c.i"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/dsm.c > CMakeFiles/robotics_cape.dir/src/dsm.c.i
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/dsm.c > CMakeFiles/robotics_cape.dir/src/dsm.c.i
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/dsm.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/robotics_cape.dir/src/dsm.c.s"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/dsm.c -o CMakeFiles/robotics_cape.dir/src/dsm.c.s
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/dsm.c -o CMakeFiles/robotics_cape.dir/src/dsm.c.s
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/led.c.o: librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/flags.make
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/led.c.o: /home/erik/lander/librobotcontrol/library/src/led.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/erik/lander/Vertical-Lander-Bang-Bang/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/led.c.o"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/led.c.o   -c /home/erik/lander/librobotcontrol/library/src/led.c
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/led.c.o   -c /home/erik/lander/librobotcontrol/library/src/led.c
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/led.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/robotics_cape.dir/src/led.c.i"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/led.c > CMakeFiles/robotics_cape.dir/src/led.c.i
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/led.c > CMakeFiles/robotics_cape.dir/src/led.c.i
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/led.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/robotics_cape.dir/src/led.c.s"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/led.c -o CMakeFiles/robotics_cape.dir/src/led.c.s
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/led.c -o CMakeFiles/robotics_cape.dir/src/led.c.s
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/mavlink_udp.c.o: librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/flags.make
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/mavlink_udp.c.o: /home/erik/lander/librobotcontrol/library/src/mavlink_udp.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/erik/lander/Vertical-Lander-Bang-Bang/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/mavlink_udp.c.o"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/mavlink_udp.c.o   -c /home/erik/lander/librobotcontrol/library/src/mavlink_udp.c
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/mavlink_udp.c.o   -c /home/erik/lander/librobotcontrol/library/src/mavlink_udp.c
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/mavlink_udp.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/robotics_cape.dir/src/mavlink_udp.c.i"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/mavlink_udp.c > CMakeFiles/robotics_cape.dir/src/mavlink_udp.c.i
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/mavlink_udp.c > CMakeFiles/robotics_cape.dir/src/mavlink_udp.c.i
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/mavlink_udp.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/robotics_cape.dir/src/mavlink_udp.c.s"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/mavlink_udp.c -o CMakeFiles/robotics_cape.dir/src/mavlink_udp.c.s
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/mavlink_udp.c -o CMakeFiles/robotics_cape.dir/src/mavlink_udp.c.s
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/model.c.o: librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/flags.make
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/model.c.o: /home/erik/lander/librobotcontrol/library/src/model.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/erik/lander/Vertical-Lander-Bang-Bang/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/model.c.o"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/model.c.o   -c /home/erik/lander/librobotcontrol/library/src/model.c
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/model.c.o   -c /home/erik/lander/librobotcontrol/library/src/model.c
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/model.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/robotics_cape.dir/src/model.c.i"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/model.c > CMakeFiles/robotics_cape.dir/src/model.c.i
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/model.c > CMakeFiles/robotics_cape.dir/src/model.c.i
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/model.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/robotics_cape.dir/src/model.c.s"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/model.c -o CMakeFiles/robotics_cape.dir/src/model.c.s
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/model.c -o CMakeFiles/robotics_cape.dir/src/model.c.s
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/motor.c.o: librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/flags.make
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/motor.c.o: /home/erik/lander/librobotcontrol/library/src/motor.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/erik/lander/Vertical-Lander-Bang-Bang/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/motor.c.o"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/motor.c.o   -c /home/erik/lander/librobotcontrol/library/src/motor.c
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/motor.c.o   -c /home/erik/lander/librobotcontrol/library/src/motor.c
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/motor.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/robotics_cape.dir/src/motor.c.i"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/motor.c > CMakeFiles/robotics_cape.dir/src/motor.c.i
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/motor.c > CMakeFiles/robotics_cape.dir/src/motor.c.i
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/motor.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/robotics_cape.dir/src/motor.c.s"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/motor.c -o CMakeFiles/robotics_cape.dir/src/motor.c.s
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/motor.c -o CMakeFiles/robotics_cape.dir/src/motor.c.s
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/pinmux.c.o: librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/flags.make
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/pinmux.c.o: /home/erik/lander/librobotcontrol/library/src/pinmux.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/erik/lander/Vertical-Lander-Bang-Bang/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/pinmux.c.o"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/pinmux.c.o   -c /home/erik/lander/librobotcontrol/library/src/pinmux.c
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/pinmux.c.o   -c /home/erik/lander/librobotcontrol/library/src/pinmux.c
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/pinmux.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/robotics_cape.dir/src/pinmux.c.i"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/pinmux.c > CMakeFiles/robotics_cape.dir/src/pinmux.c.i
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/pinmux.c > CMakeFiles/robotics_cape.dir/src/pinmux.c.i
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/pinmux.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/robotics_cape.dir/src/pinmux.c.s"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/pinmux.c -o CMakeFiles/robotics_cape.dir/src/pinmux.c.s
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/pinmux.c -o CMakeFiles/robotics_cape.dir/src/pinmux.c.s
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/pthread.c.o: librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/flags.make
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/pthread.c.o: /home/erik/lander/librobotcontrol/library/src/pthread.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/erik/lander/Vertical-Lander-Bang-Bang/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building C object librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/pthread.c.o"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/pthread.c.o   -c /home/erik/lander/librobotcontrol/library/src/pthread.c
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/pthread.c.o   -c /home/erik/lander/librobotcontrol/library/src/pthread.c
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/pthread.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/robotics_cape.dir/src/pthread.c.i"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/pthread.c > CMakeFiles/robotics_cape.dir/src/pthread.c.i
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/pthread.c > CMakeFiles/robotics_cape.dir/src/pthread.c.i
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/pthread.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/robotics_cape.dir/src/pthread.c.s"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/pthread.c -o CMakeFiles/robotics_cape.dir/src/pthread.c.s
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/pthread.c -o CMakeFiles/robotics_cape.dir/src/pthread.c.s
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/start_stop.c.o: librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/flags.make
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/start_stop.c.o: /home/erik/lander/librobotcontrol/library/src/start_stop.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/erik/lander/Vertical-Lander-Bang-Bang/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building C object librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/start_stop.c.o"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/start_stop.c.o   -c /home/erik/lander/librobotcontrol/library/src/start_stop.c
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/start_stop.c.o   -c /home/erik/lander/librobotcontrol/library/src/start_stop.c
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/start_stop.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/robotics_cape.dir/src/start_stop.c.i"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/start_stop.c > CMakeFiles/robotics_cape.dir/src/start_stop.c.i
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/start_stop.c > CMakeFiles/robotics_cape.dir/src/start_stop.c.i
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/start_stop.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/robotics_cape.dir/src/start_stop.c.s"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/start_stop.c -o CMakeFiles/robotics_cape.dir/src/start_stop.c.s
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/start_stop.c -o CMakeFiles/robotics_cape.dir/src/start_stop.c.s
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/time.c.o: librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/flags.make
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/time.c.o: /home/erik/lander/librobotcontrol/library/src/time.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/erik/lander/Vertical-Lander-Bang-Bang/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building C object librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/time.c.o"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/time.c.o   -c /home/erik/lander/librobotcontrol/library/src/time.c
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/time.c.o   -c /home/erik/lander/librobotcontrol/library/src/time.c
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/time.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/robotics_cape.dir/src/time.c.i"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/time.c > CMakeFiles/robotics_cape.dir/src/time.c.i
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/time.c > CMakeFiles/robotics_cape.dir/src/time.c.i
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/time.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/robotics_cape.dir/src/time.c.s"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/time.c -o CMakeFiles/robotics_cape.dir/src/time.c.s
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/time.c -o CMakeFiles/robotics_cape.dir/src/time.c.s
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/version.c.o: librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/flags.make
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/version.c.o: /home/erik/lander/librobotcontrol/library/src/version.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/erik/lander/Vertical-Lander-Bang-Bang/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building C object librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/version.c.o"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/version.c.o   -c /home/erik/lander/librobotcontrol/library/src/version.c
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/version.c.o   -c /home/erik/lander/librobotcontrol/library/src/version.c
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/version.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/robotics_cape.dir/src/version.c.i"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/version.c > CMakeFiles/robotics_cape.dir/src/version.c.i
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/version.c > CMakeFiles/robotics_cape.dir/src/version.c.i
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/version.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/robotics_cape.dir/src/version.c.s"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/version.c -o CMakeFiles/robotics_cape.dir/src/version.c.s
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/version.c -o CMakeFiles/robotics_cape.dir/src/version.c.s
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/bmp/bmp.c.o: librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/flags.make
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/bmp/bmp.c.o: /home/erik/lander/librobotcontrol/library/src/bmp/bmp.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/erik/lander/Vertical-Lander-Bang-Bang/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building C object librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/bmp/bmp.c.o"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/bmp/bmp.c.o   -c /home/erik/lander/librobotcontrol/library/src/bmp/bmp.c
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/bmp/bmp.c.o   -c /home/erik/lander/librobotcontrol/library/src/bmp/bmp.c
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/bmp/bmp.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/robotics_cape.dir/src/bmp/bmp.c.i"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/bmp/bmp.c > CMakeFiles/robotics_cape.dir/src/bmp/bmp.c.i
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/bmp/bmp.c > CMakeFiles/robotics_cape.dir/src/bmp/bmp.c.i
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/bmp/bmp.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/robotics_cape.dir/src/bmp/bmp.c.s"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/bmp/bmp.c -o CMakeFiles/robotics_cape.dir/src/bmp/bmp.c.s
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/bmp/bmp.c -o CMakeFiles/robotics_cape.dir/src/bmp/bmp.c.s
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/io/adc.c.o: librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/flags.make
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/io/adc.c.o: /home/erik/lander/librobotcontrol/library/src/io/adc.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/erik/lander/Vertical-Lander-Bang-Bang/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building C object librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/io/adc.c.o"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/io/adc.c.o   -c /home/erik/lander/librobotcontrol/library/src/io/adc.c
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/io/adc.c.o   -c /home/erik/lander/librobotcontrol/library/src/io/adc.c
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/io/adc.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/robotics_cape.dir/src/io/adc.c.i"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/io/adc.c > CMakeFiles/robotics_cape.dir/src/io/adc.c.i
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/io/adc.c > CMakeFiles/robotics_cape.dir/src/io/adc.c.i
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/io/adc.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/robotics_cape.dir/src/io/adc.c.s"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/io/adc.c -o CMakeFiles/robotics_cape.dir/src/io/adc.c.s
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/io/adc.c -o CMakeFiles/robotics_cape.dir/src/io/adc.c.s
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/io/encoder_eqep.c.o: librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/flags.make
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/io/encoder_eqep.c.o: /home/erik/lander/librobotcontrol/library/src/io/encoder_eqep.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/erik/lander/Vertical-Lander-Bang-Bang/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building C object librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/io/encoder_eqep.c.o"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/io/encoder_eqep.c.o   -c /home/erik/lander/librobotcontrol/library/src/io/encoder_eqep.c
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/io/encoder_eqep.c.o   -c /home/erik/lander/librobotcontrol/library/src/io/encoder_eqep.c
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/io/encoder_eqep.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/robotics_cape.dir/src/io/encoder_eqep.c.i"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/io/encoder_eqep.c > CMakeFiles/robotics_cape.dir/src/io/encoder_eqep.c.i
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/io/encoder_eqep.c > CMakeFiles/robotics_cape.dir/src/io/encoder_eqep.c.i
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/io/encoder_eqep.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/robotics_cape.dir/src/io/encoder_eqep.c.s"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/io/encoder_eqep.c -o CMakeFiles/robotics_cape.dir/src/io/encoder_eqep.c.s
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/io/encoder_eqep.c -o CMakeFiles/robotics_cape.dir/src/io/encoder_eqep.c.s
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/io/gpio.c.o: librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/flags.make
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/io/gpio.c.o: /home/erik/lander/librobotcontrol/library/src/io/gpio.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/erik/lander/Vertical-Lander-Bang-Bang/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building C object librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/io/gpio.c.o"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/io/gpio.c.o   -c /home/erik/lander/librobotcontrol/library/src/io/gpio.c
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/io/gpio.c.o   -c /home/erik/lander/librobotcontrol/library/src/io/gpio.c
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/io/gpio.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/robotics_cape.dir/src/io/gpio.c.i"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/io/gpio.c > CMakeFiles/robotics_cape.dir/src/io/gpio.c.i
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/io/gpio.c > CMakeFiles/robotics_cape.dir/src/io/gpio.c.i
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/io/gpio.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/robotics_cape.dir/src/io/gpio.c.s"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/io/gpio.c -o CMakeFiles/robotics_cape.dir/src/io/gpio.c.s
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/io/gpio.c -o CMakeFiles/robotics_cape.dir/src/io/gpio.c.s
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/io/i2c.c.o: librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/flags.make
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/io/i2c.c.o: /home/erik/lander/librobotcontrol/library/src/io/i2c.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/erik/lander/Vertical-Lander-Bang-Bang/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building C object librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/io/i2c.c.o"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/io/i2c.c.o   -c /home/erik/lander/librobotcontrol/library/src/io/i2c.c
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/io/i2c.c.o   -c /home/erik/lander/librobotcontrol/library/src/io/i2c.c
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/io/i2c.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/robotics_cape.dir/src/io/i2c.c.i"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/io/i2c.c > CMakeFiles/robotics_cape.dir/src/io/i2c.c.i
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/io/i2c.c > CMakeFiles/robotics_cape.dir/src/io/i2c.c.i
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/io/i2c.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/robotics_cape.dir/src/io/i2c.c.s"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/io/i2c.c -o CMakeFiles/robotics_cape.dir/src/io/i2c.c.s
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/io/i2c.c -o CMakeFiles/robotics_cape.dir/src/io/i2c.c.s
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/io/pwm.c.o: librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/flags.make
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/io/pwm.c.o: /home/erik/lander/librobotcontrol/library/src/io/pwm.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/erik/lander/Vertical-Lander-Bang-Bang/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building C object librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/io/pwm.c.o"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/io/pwm.c.o   -c /home/erik/lander/librobotcontrol/library/src/io/pwm.c
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/io/pwm.c.o   -c /home/erik/lander/librobotcontrol/library/src/io/pwm.c
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/io/pwm.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/robotics_cape.dir/src/io/pwm.c.i"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/io/pwm.c > CMakeFiles/robotics_cape.dir/src/io/pwm.c.i
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/io/pwm.c > CMakeFiles/robotics_cape.dir/src/io/pwm.c.i
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/io/pwm.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/robotics_cape.dir/src/io/pwm.c.s"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/io/pwm.c -o CMakeFiles/robotics_cape.dir/src/io/pwm.c.s
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/io/pwm.c -o CMakeFiles/robotics_cape.dir/src/io/pwm.c.s
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/io/spi.c.o: librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/flags.make
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/io/spi.c.o: /home/erik/lander/librobotcontrol/library/src/io/spi.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/erik/lander/Vertical-Lander-Bang-Bang/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building C object librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/io/spi.c.o"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/io/spi.c.o   -c /home/erik/lander/librobotcontrol/library/src/io/spi.c
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/io/spi.c.o   -c /home/erik/lander/librobotcontrol/library/src/io/spi.c
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/io/spi.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/robotics_cape.dir/src/io/spi.c.i"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/io/spi.c > CMakeFiles/robotics_cape.dir/src/io/spi.c.i
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/io/spi.c > CMakeFiles/robotics_cape.dir/src/io/spi.c.i
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/io/spi.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/robotics_cape.dir/src/io/spi.c.s"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/io/spi.c -o CMakeFiles/robotics_cape.dir/src/io/spi.c.s
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/io/spi.c -o CMakeFiles/robotics_cape.dir/src/io/spi.c.s
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/io/uart.c.o: librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/flags.make
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/io/uart.c.o: /home/erik/lander/librobotcontrol/library/src/io/uart.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/erik/lander/Vertical-Lander-Bang-Bang/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building C object librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/io/uart.c.o"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/io/uart.c.o   -c /home/erik/lander/librobotcontrol/library/src/io/uart.c
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/io/uart.c.o   -c /home/erik/lander/librobotcontrol/library/src/io/uart.c
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/io/uart.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/robotics_cape.dir/src/io/uart.c.i"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/io/uart.c > CMakeFiles/robotics_cape.dir/src/io/uart.c.i
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/io/uart.c > CMakeFiles/robotics_cape.dir/src/io/uart.c.i
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/io/uart.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/robotics_cape.dir/src/io/uart.c.s"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/io/uart.c -o CMakeFiles/robotics_cape.dir/src/io/uart.c.s
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/io/uart.c -o CMakeFiles/robotics_cape.dir/src/io/uart.c.s
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/math/algebra.c.o: librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/flags.make
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/math/algebra.c.o: /home/erik/lander/librobotcontrol/library/src/math/algebra.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/erik/lander/Vertical-Lander-Bang-Bang/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building C object librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/math/algebra.c.o"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/math/algebra.c.o   -c /home/erik/lander/librobotcontrol/library/src/math/algebra.c
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/math/algebra.c.o   -c /home/erik/lander/librobotcontrol/library/src/math/algebra.c
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/math/algebra.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/robotics_cape.dir/src/math/algebra.c.i"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/math/algebra.c > CMakeFiles/robotics_cape.dir/src/math/algebra.c.i
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/math/algebra.c > CMakeFiles/robotics_cape.dir/src/math/algebra.c.i
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/math/algebra.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/robotics_cape.dir/src/math/algebra.c.s"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/math/algebra.c -o CMakeFiles/robotics_cape.dir/src/math/algebra.c.s
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/math/algebra.c -o CMakeFiles/robotics_cape.dir/src/math/algebra.c.s
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/math/algebra_common.c.o: librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/flags.make
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/math/algebra_common.c.o: /home/erik/lander/librobotcontrol/library/src/math/algebra_common.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/erik/lander/Vertical-Lander-Bang-Bang/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building C object librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/math/algebra_common.c.o"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/math/algebra_common.c.o   -c /home/erik/lander/librobotcontrol/library/src/math/algebra_common.c
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/math/algebra_common.c.o   -c /home/erik/lander/librobotcontrol/library/src/math/algebra_common.c
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/math/algebra_common.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/robotics_cape.dir/src/math/algebra_common.c.i"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/math/algebra_common.c > CMakeFiles/robotics_cape.dir/src/math/algebra_common.c.i
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/math/algebra_common.c > CMakeFiles/robotics_cape.dir/src/math/algebra_common.c.i
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/math/algebra_common.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/robotics_cape.dir/src/math/algebra_common.c.s"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/math/algebra_common.c -o CMakeFiles/robotics_cape.dir/src/math/algebra_common.c.s
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/math/algebra_common.c -o CMakeFiles/robotics_cape.dir/src/math/algebra_common.c.s
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/math/filter.c.o: librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/flags.make
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/math/filter.c.o: /home/erik/lander/librobotcontrol/library/src/math/filter.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/erik/lander/Vertical-Lander-Bang-Bang/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building C object librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/math/filter.c.o"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/math/filter.c.o   -c /home/erik/lander/librobotcontrol/library/src/math/filter.c
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/math/filter.c.o   -c /home/erik/lander/librobotcontrol/library/src/math/filter.c
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/math/filter.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/robotics_cape.dir/src/math/filter.c.i"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/math/filter.c > CMakeFiles/robotics_cape.dir/src/math/filter.c.i
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/math/filter.c > CMakeFiles/robotics_cape.dir/src/math/filter.c.i
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/math/filter.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/robotics_cape.dir/src/math/filter.c.s"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/math/filter.c -o CMakeFiles/robotics_cape.dir/src/math/filter.c.s
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/math/filter.c -o CMakeFiles/robotics_cape.dir/src/math/filter.c.s
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/math/matrix.c.o: librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/flags.make
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/math/matrix.c.o: /home/erik/lander/librobotcontrol/library/src/math/matrix.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/erik/lander/Vertical-Lander-Bang-Bang/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building C object librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/math/matrix.c.o"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/math/matrix.c.o   -c /home/erik/lander/librobotcontrol/library/src/math/matrix.c
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/math/matrix.c.o   -c /home/erik/lander/librobotcontrol/library/src/math/matrix.c
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/math/matrix.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/robotics_cape.dir/src/math/matrix.c.i"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/math/matrix.c > CMakeFiles/robotics_cape.dir/src/math/matrix.c.i
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/math/matrix.c > CMakeFiles/robotics_cape.dir/src/math/matrix.c.i
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/math/matrix.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/robotics_cape.dir/src/math/matrix.c.s"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/math/matrix.c -o CMakeFiles/robotics_cape.dir/src/math/matrix.c.s
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/math/matrix.c -o CMakeFiles/robotics_cape.dir/src/math/matrix.c.s
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/math/other.c.o: librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/flags.make
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/math/other.c.o: /home/erik/lander/librobotcontrol/library/src/math/other.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/erik/lander/Vertical-Lander-Bang-Bang/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building C object librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/math/other.c.o"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/math/other.c.o   -c /home/erik/lander/librobotcontrol/library/src/math/other.c
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/math/other.c.o   -c /home/erik/lander/librobotcontrol/library/src/math/other.c
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/math/other.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/robotics_cape.dir/src/math/other.c.i"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/math/other.c > CMakeFiles/robotics_cape.dir/src/math/other.c.i
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/math/other.c > CMakeFiles/robotics_cape.dir/src/math/other.c.i
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/math/other.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/robotics_cape.dir/src/math/other.c.s"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/math/other.c -o CMakeFiles/robotics_cape.dir/src/math/other.c.s
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/math/other.c -o CMakeFiles/robotics_cape.dir/src/math/other.c.s
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/math/polynomial.c.o: librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/flags.make
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/math/polynomial.c.o: /home/erik/lander/librobotcontrol/library/src/math/polynomial.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/erik/lander/Vertical-Lander-Bang-Bang/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Building C object librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/math/polynomial.c.o"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/math/polynomial.c.o   -c /home/erik/lander/librobotcontrol/library/src/math/polynomial.c
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/math/polynomial.c.o   -c /home/erik/lander/librobotcontrol/library/src/math/polynomial.c
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/math/polynomial.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/robotics_cape.dir/src/math/polynomial.c.i"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/math/polynomial.c > CMakeFiles/robotics_cape.dir/src/math/polynomial.c.i
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/math/polynomial.c > CMakeFiles/robotics_cape.dir/src/math/polynomial.c.i
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/math/polynomial.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/robotics_cape.dir/src/math/polynomial.c.s"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/math/polynomial.c -o CMakeFiles/robotics_cape.dir/src/math/polynomial.c.s
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/math/polynomial.c -o CMakeFiles/robotics_cape.dir/src/math/polynomial.c.s
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/math/quaternion.c.o: librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/flags.make
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/math/quaternion.c.o: /home/erik/lander/librobotcontrol/library/src/math/quaternion.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/erik/lander/Vertical-Lander-Bang-Bang/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_27) "Building C object librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/math/quaternion.c.o"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/math/quaternion.c.o   -c /home/erik/lander/librobotcontrol/library/src/math/quaternion.c
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/math/quaternion.c.o   -c /home/erik/lander/librobotcontrol/library/src/math/quaternion.c
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/math/quaternion.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/robotics_cape.dir/src/math/quaternion.c.i"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/math/quaternion.c > CMakeFiles/robotics_cape.dir/src/math/quaternion.c.i
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/math/quaternion.c > CMakeFiles/robotics_cape.dir/src/math/quaternion.c.i
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/math/quaternion.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/robotics_cape.dir/src/math/quaternion.c.s"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/math/quaternion.c -o CMakeFiles/robotics_cape.dir/src/math/quaternion.c.s
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/math/quaternion.c -o CMakeFiles/robotics_cape.dir/src/math/quaternion.c.s
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/math/ring_buffer.c.o: librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/flags.make
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/math/ring_buffer.c.o: /home/erik/lander/librobotcontrol/library/src/math/ring_buffer.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/erik/lander/Vertical-Lander-Bang-Bang/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_28) "Building C object librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/math/ring_buffer.c.o"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/math/ring_buffer.c.o   -c /home/erik/lander/librobotcontrol/library/src/math/ring_buffer.c
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/math/ring_buffer.c.o   -c /home/erik/lander/librobotcontrol/library/src/math/ring_buffer.c
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/math/ring_buffer.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/robotics_cape.dir/src/math/ring_buffer.c.i"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/math/ring_buffer.c > CMakeFiles/robotics_cape.dir/src/math/ring_buffer.c.i
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/math/ring_buffer.c > CMakeFiles/robotics_cape.dir/src/math/ring_buffer.c.i
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/math/ring_buffer.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/robotics_cape.dir/src/math/ring_buffer.c.s"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/math/ring_buffer.c -o CMakeFiles/robotics_cape.dir/src/math/ring_buffer.c.s
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/math/ring_buffer.c -o CMakeFiles/robotics_cape.dir/src/math/ring_buffer.c.s
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/math/vector.c.o: librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/flags.make
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/math/vector.c.o: /home/erik/lander/librobotcontrol/library/src/math/vector.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/erik/lander/Vertical-Lander-Bang-Bang/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_29) "Building C object librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/math/vector.c.o"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/math/vector.c.o   -c /home/erik/lander/librobotcontrol/library/src/math/vector.c
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/math/vector.c.o   -c /home/erik/lander/librobotcontrol/library/src/math/vector.c
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/math/vector.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/robotics_cape.dir/src/math/vector.c.i"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/math/vector.c > CMakeFiles/robotics_cape.dir/src/math/vector.c.i
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/math/vector.c > CMakeFiles/robotics_cape.dir/src/math/vector.c.i
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/math/vector.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/robotics_cape.dir/src/math/vector.c.s"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/math/vector.c -o CMakeFiles/robotics_cape.dir/src/math/vector.c.s
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/math/vector.c -o CMakeFiles/robotics_cape.dir/src/math/vector.c.s
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/mpu/mpu.c.o: librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/flags.make
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/mpu/mpu.c.o: /home/erik/lander/librobotcontrol/library/src/mpu/mpu.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/erik/lander/Vertical-Lander-Bang-Bang/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_30) "Building C object librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/mpu/mpu.c.o"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/mpu/mpu.c.o   -c /home/erik/lander/librobotcontrol/library/src/mpu/mpu.c
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/mpu/mpu.c.o   -c /home/erik/lander/librobotcontrol/library/src/mpu/mpu.c
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/mpu/mpu.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/robotics_cape.dir/src/mpu/mpu.c.i"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/mpu/mpu.c > CMakeFiles/robotics_cape.dir/src/mpu/mpu.c.i
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/mpu/mpu.c > CMakeFiles/robotics_cape.dir/src/mpu/mpu.c.i
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/mpu/mpu.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/robotics_cape.dir/src/mpu/mpu.c.s"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/mpu/mpu.c -o CMakeFiles/robotics_cape.dir/src/mpu/mpu.c.s
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/mpu/mpu.c -o CMakeFiles/robotics_cape.dir/src/mpu/mpu.c.s
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/pru/encoder_pru.c.o: librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/flags.make
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/pru/encoder_pru.c.o: /home/erik/lander/librobotcontrol/library/src/pru/encoder_pru.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/erik/lander/Vertical-Lander-Bang-Bang/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_31) "Building C object librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/pru/encoder_pru.c.o"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/pru/encoder_pru.c.o   -c /home/erik/lander/librobotcontrol/library/src/pru/encoder_pru.c
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/pru/encoder_pru.c.o   -c /home/erik/lander/librobotcontrol/library/src/pru/encoder_pru.c
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/pru/encoder_pru.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/robotics_cape.dir/src/pru/encoder_pru.c.i"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/pru/encoder_pru.c > CMakeFiles/robotics_cape.dir/src/pru/encoder_pru.c.i
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/pru/encoder_pru.c > CMakeFiles/robotics_cape.dir/src/pru/encoder_pru.c.i
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/pru/encoder_pru.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/robotics_cape.dir/src/pru/encoder_pru.c.s"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/pru/encoder_pru.c -o CMakeFiles/robotics_cape.dir/src/pru/encoder_pru.c.s
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/pru/encoder_pru.c -o CMakeFiles/robotics_cape.dir/src/pru/encoder_pru.c.s
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/pru/pru.c.o: librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/flags.make
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/pru/pru.c.o: /home/erik/lander/librobotcontrol/library/src/pru/pru.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/erik/lander/Vertical-Lander-Bang-Bang/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_32) "Building C object librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/pru/pru.c.o"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/pru/pru.c.o   -c /home/erik/lander/librobotcontrol/library/src/pru/pru.c
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/pru/pru.c.o   -c /home/erik/lander/librobotcontrol/library/src/pru/pru.c
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/pru/pru.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/robotics_cape.dir/src/pru/pru.c.i"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/pru/pru.c > CMakeFiles/robotics_cape.dir/src/pru/pru.c.i
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/pru/pru.c > CMakeFiles/robotics_cape.dir/src/pru/pru.c.i
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/pru/pru.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/robotics_cape.dir/src/pru/pru.c.s"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/pru/pru.c -o CMakeFiles/robotics_cape.dir/src/pru/pru.c.s
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/pru/pru.c -o CMakeFiles/robotics_cape.dir/src/pru/pru.c.s
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/pru/servo.c.o: librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/flags.make
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/pru/servo.c.o: /home/erik/lander/librobotcontrol/library/src/pru/servo.c
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/erik/lander/Vertical-Lander-Bang-Bang/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_33) "Building C object librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/pru/servo.c.o"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/pru/servo.c.o   -c /home/erik/lander/librobotcontrol/library/src/pru/servo.c
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/robotics_cape.dir/src/pru/servo.c.o   -c /home/erik/lander/librobotcontrol/library/src/pru/servo.c
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/pru/servo.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/robotics_cape.dir/src/pru/servo.c.i"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/pru/servo.c > CMakeFiles/robotics_cape.dir/src/pru/servo.c.i
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/erik/lander/librobotcontrol/library/src/pru/servo.c > CMakeFiles/robotics_cape.dir/src/pru/servo.c.i
 
 librobotcontrol_build/library/CMakeFiles/robotics_cape.dir/src/pru/servo.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/robotics_cape.dir/src/pru/servo.c.s"
-	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/pru/servo.c -o CMakeFiles/robotics_cape.dir/src/pru/servo.c.s
+	cd /home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library && /usr/bin/gcc-8 $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/erik/lander/librobotcontrol/library/src/pru/servo.c -o CMakeFiles/robotics_cape.dir/src/pru/servo.c.s
 
 # Object files for target robotics_cape
 robotics_cape_OBJECTS = \

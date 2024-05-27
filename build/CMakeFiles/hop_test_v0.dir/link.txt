@@ -1,1 +1,1 @@
-/usr/bin/c++     CMakeFiles/hop_test_v0.dir/src/hop_test_v0.cpp.o  -o hop_test_v0  librobotcontrol_build/library/librobotics_cape.a 
+/usr/bin/c++  -g   CMakeFiles/hop_test_v0.dir/src/hop_test_v0.cpp.o  -o hop_test_v0   -L/usr/lib/gcc/x86_64-linux-gnu/8  librobotcontrol_build/library/librobotics_cape.a 

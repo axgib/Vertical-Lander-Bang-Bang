@@ -53,6 +53,8 @@
 #define T_TAKEOFF       5*1e9
 #define T_DECEND        20*1e9
 #define T_LAND          30*1e9
+#define THRUST_MAX      2//TODO: update from test
+#define THRUST_MIN      0//TODO: update from test
 
 // outer loop x-position controller 100hz
 #define D2X_GAIN			0.9
@@ -101,5 +103,6 @@
 #define PICKUP_DETECTION_TIME	0.6
 #define ENABLE_POSITION_HOLD	1
 #define SOFT_START_SEC		0.7
+
 
 #endif	// endif RC_BALANCE_CONFIG
