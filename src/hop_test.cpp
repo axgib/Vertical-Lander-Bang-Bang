@@ -395,7 +395,7 @@ void* __setpoint_manager(uint64_t tstart) {
                                 __zero_out_controller();// set controller outputs and setpoints to 0
                                 __arm_controller();// Set to armed
                         }
-                        else continue;
+                        else continue;//keep waiting for starting condition until met
                 }
                 printf("\nController armed\n");
 
@@ -414,7 +414,7 @@ void* __setpoint_manager(uint64_t tstart) {
                 else if(t < T_DECEND){// at takeoff, set setpoint.height to hover_height
                         setpoint.height = HOVER_HEIGHT;
                 }
-                else if(t < T_LAND){// decending, slowly lower setpoint.height to 0
+                else if(t < T_LAND){// decending, setpoint.height = 0
                         setpoint.height = 0;
                 }
                 else{// shutdown
@@ -424,10 +424,6 @@ void* __setpoint_manager(uint64_t tstart) {
                 // if it has been more than 1 second since getting data
                 if(stdin_timeout >= SETPOINT_MANAGER_HZ){
                         setpoint.thetax = 0;
-                        setpoint.phix = 0;
-                        setpoint.phiy = 0;
-                        setpoint.phix_dot = 0;
-                        setpoint.phiy_dot = 0;
                 }
                 else{
                         stdin_timeout++;
@@ -448,7 +444,7 @@ static void __balance_controller(void)
 {
         static int xinner_saturation_counter = 0;
         static int yinner_saturation_counter = 0;
-        static int houter_saturation_counter = 0;
+        // static int houter_saturation_counter = 0;
         double posx, posy, dutyh; // posx and posy to servos, dutyh to prop
         /******************************************************************
         * STATE_ESTIMATION
@@ -460,7 +456,7 @@ static void __balance_controller(void)
 
         // TODO: read from laser range finder
         rc_i2c_read_byte(rf_bus,rf_addr, &rf_height);
-        cstate.height = rf_height - RF_OFFSET;
+        cstate.height = rf_height - LRF_OFFSET;
         
         /*************************************************************
         * check for various exit conditions AFTER state estimate

@@ -1,11 +1,11 @@
 /**
  * rc_balance_defs.h
  *
- * Contains the settings for configuration of rc_balance.c
+ * Contains the settings for configuration of hop_test.cpp
  */
 
-#ifndef RC_HOP_CONFIG
-#define RC_HOP_CONFIG
+#ifndef HOP_DEFS_H
+#define HOP_DEFS_H
 
 #define SAMPLE_RATE_HZ		100	// main filter and control loop speed
 #define DT			0.01			// 1/sample_rate
@@ -49,7 +49,7 @@
 
 #define H_REF_MAX		0.33
 #define HOVER_HEIGHT    2
-#define RF_OFFSET       0.1
+#define LRF_OFFSET       0.1
 #define T_TAKEOFF       5*1e9
 #define T_DECEND        20*1e9
 #define T_LAND          30*1e9
@@ -84,12 +84,16 @@
 #define SERVO_POLARITY_Y	1
 #define ENCODER_CHANNEL_X	3
 #define ENCODER_CHANNEL_Y	2
-// #define ENCODER_POLARITY_L	1
-// #define ENCODER_POLARITY_R	-1
 
 // inputs
 #define PROP_BATTERY_CHANNEL 1
-#define RANGEFINDER_CHANNEL 2
+
+// Laser Rangefinder
+// #define LRF_I2C_ADDRESS  0x62 //default address
+// #define SIGCOUNTMAX      0x80 // Default
+// #define ACQCONFIGREG     0x08 // Default
+// #define REFCOUNTMAX      0x05 // Default
+// #define THRESHOLDBYPASS  0x00 // Default
 
 // Thread Loop Rates
 #define BATTERY_CHECK_HZ	5
