@@ -1,0 +1,11 @@
+/home/erik/lander/Vertical-Lander-Bang-Bang/build/CMakeFiles/edit_cache.dir
+/home/erik/lander/Vertical-Lander-Bang-Bang/build/CMakeFiles/prop_system_id.dir
+/home/erik/lander/Vertical-Lander-Bang-Bang/build/CMakeFiles/hop_test_v0.dir
+/home/erik/lander/Vertical-Lander-Bang-Bang/build/CMakeFiles/rebuild_cache.dir
+/home/erik/lander/Vertical-Lander-Bang-Bang/build/CMakeFiles/hop_test.dir
+/home/erik/lander/Vertical-Lander-Bang-Bang/build/CMakeFiles/accel_test.dir
+/home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/CMakeFiles/rebuild_cache.dir
+/home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/CMakeFiles/edit_cache.dir
+/home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library/CMakeFiles/rebuild_cache.dir
+/home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library/CMakeFiles/edit_cache.dir
+/home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library/CMakeFiles/robotics_cape.dir

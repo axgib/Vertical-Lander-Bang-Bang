@@ -1,0 +1,187 @@
+[
+{
+  "directory": "/home/erik/lander/Vertical-Lander-Bang-Bang/build",
+  "command": "/usr/bin/c++   -I/home/erik/lander/Vertical-Lander-Bang-Bang/include  -g   -o CMakeFiles/prop_system_id.dir/src/prop_system_id.cpp.o -c /home/erik/lander/Vertical-Lander-Bang-Bang/src/prop_system_id.cpp",
+  "file": "/home/erik/lander/Vertical-Lander-Bang-Bang/src/prop_system_id.cpp"
+},
+{
+  "directory": "/home/erik/lander/Vertical-Lander-Bang-Bang/build",
+  "command": "/usr/bin/c++   -I/home/erik/lander/Vertical-Lander-Bang-Bang/include  -g   -o CMakeFiles/hop_test_v0.dir/src/hop_test_v0.cpp.o -c /home/erik/lander/Vertical-Lander-Bang-Bang/src/hop_test_v0.cpp",
+  "file": "/home/erik/lander/Vertical-Lander-Bang-Bang/src/hop_test_v0.cpp"
+},
+{
+  "directory": "/home/erik/lander/Vertical-Lander-Bang-Bang/build",
+  "command": "/usr/bin/c++   -I/home/erik/lander/Vertical-Lander-Bang-Bang/include  -g   -o CMakeFiles/hop_test.dir/src/hop_test.cpp.o -c /home/erik/lander/Vertical-Lander-Bang-Bang/src/hop_test.cpp",
+  "file": "/home/erik/lander/Vertical-Lander-Bang-Bang/src/hop_test.cpp"
+},
+{
+  "directory": "/home/erik/lander/Vertical-Lander-Bang-Bang/build",
+  "command": "/usr/bin/c++   -I/home/erik/lander/Vertical-Lander-Bang-Bang/include  -g   -o CMakeFiles/accel_test.dir/src/accel_test.cpp.o -c /home/erik/lander/Vertical-Lander-Bang-Bang/src/accel_test.cpp",
+  "file": "/home/erik/lander/Vertical-Lander-Bang-Bang/src/accel_test.cpp"
+},
+{
+  "directory": "/home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library",
+  "command": "/usr/bin/gcc-8 -DRC_AUTOPILOT_EXT -I/home/erik/lander/librobotcontrol/library/include  -g   -Wno-cast-align -Wno-logical-op -Wno-strict-prototypes -o CMakeFiles/robotics_cape.dir/src/button.c.o   -c /home/erik/lander/librobotcontrol/library/src/button.c",
+  "file": "/home/erik/lander/librobotcontrol/library/src/button.c"
+},
+{
+  "directory": "/home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library",
+  "command": "/usr/bin/gcc-8 -DRC_AUTOPILOT_EXT -I/home/erik/lander/librobotcontrol/library/include  -g   -Wno-cast-align -Wno-logical-op -Wno-strict-prototypes -o CMakeFiles/robotics_cape.dir/src/cpu.c.o   -c /home/erik/lander/librobotcontrol/library/src/cpu.c",
+  "file": "/home/erik/lander/librobotcontrol/library/src/cpu.c"
+},
+{
+  "directory": "/home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library",
+  "command": "/usr/bin/gcc-8 -DRC_AUTOPILOT_EXT -I/home/erik/lander/librobotcontrol/library/include  -g   -Wno-cast-align -Wno-logical-op -Wno-strict-prototypes -o CMakeFiles/robotics_cape.dir/src/dsm.c.o   -c /home/erik/lander/librobotcontrol/library/src/dsm.c",
+  "file": "/home/erik/lander/librobotcontrol/library/src/dsm.c"
+},
+{
+  "directory": "/home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library",
+  "command": "/usr/bin/gcc-8 -DRC_AUTOPILOT_EXT -I/home/erik/lander/librobotcontrol/library/include  -g   -Wno-cast-align -Wno-logical-op -Wno-strict-prototypes -o CMakeFiles/robotics_cape.dir/src/led.c.o   -c /home/erik/lander/librobotcontrol/library/src/led.c",
+  "file": "/home/erik/lander/librobotcontrol/library/src/led.c"
+},
+{
+  "directory": "/home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library",
+  "command": "/usr/bin/gcc-8 -DRC_AUTOPILOT_EXT -I/home/erik/lander/librobotcontrol/library/include  -g   -Wno-cast-align -Wno-logical-op -Wno-strict-prototypes -o CMakeFiles/robotics_cape.dir/src/mavlink_udp.c.o   -c /home/erik/lander/librobotcontrol/library/src/mavlink_udp.c",
+  "file": "/home/erik/lander/librobotcontrol/library/src/mavlink_udp.c"
+},
+{
+  "directory": "/home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library",
+  "command": "/usr/bin/gcc-8 -DRC_AUTOPILOT_EXT -I/home/erik/lander/librobotcontrol/library/include  -g   -Wno-cast-align -Wno-logical-op -Wno-strict-prototypes -o CMakeFiles/robotics_cape.dir/src/model.c.o   -c /home/erik/lander/librobotcontrol/library/src/model.c",
+  "file": "/home/erik/lander/librobotcontrol/library/src/model.c"
+},
+{
+  "directory": "/home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library",
+  "command": "/usr/bin/gcc-8 -DRC_AUTOPILOT_EXT -I/home/erik/lander/librobotcontrol/library/include  -g   -Wno-cast-align -Wno-logical-op -Wno-strict-prototypes -o CMakeFiles/robotics_cape.dir/src/motor.c.o   -c /home/erik/lander/librobotcontrol/library/src/motor.c",
+  "file": "/home/erik/lander/librobotcontrol/library/src/motor.c"
+},
+{
+  "directory": "/home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library",
+  "command": "/usr/bin/gcc-8 -DRC_AUTOPILOT_EXT -I/home/erik/lander/librobotcontrol/library/include  -g   -Wno-cast-align -Wno-logical-op -Wno-strict-prototypes -o CMakeFiles/robotics_cape.dir/src/pinmux.c.o   -c /home/erik/lander/librobotcontrol/library/src/pinmux.c",
+  "file": "/home/erik/lander/librobotcontrol/library/src/pinmux.c"
+},
+{
+  "directory": "/home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library",
+  "command": "/usr/bin/gcc-8 -DRC_AUTOPILOT_EXT -I/home/erik/lander/librobotcontrol/library/include  -g   -Wno-cast-align -Wno-logical-op -Wno-strict-prototypes -o CMakeFiles/robotics_cape.dir/src/pthread.c.o   -c /home/erik/lander/librobotcontrol/library/src/pthread.c",
+  "file": "/home/erik/lander/librobotcontrol/library/src/pthread.c"
+},
+{
+  "directory": "/home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library",
+  "command": "/usr/bin/gcc-8 -DRC_AUTOPILOT_EXT -I/home/erik/lander/librobotcontrol/library/include  -g   -Wno-cast-align -Wno-logical-op -Wno-strict-prototypes -o CMakeFiles/robotics_cape.dir/src/start_stop.c.o   -c /home/erik/lander/librobotcontrol/library/src/start_stop.c",
+  "file": "/home/erik/lander/librobotcontrol/library/src/start_stop.c"
+},
+{
+  "directory": "/home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library",
+  "command": "/usr/bin/gcc-8 -DRC_AUTOPILOT_EXT -I/home/erik/lander/librobotcontrol/library/include  -g   -Wno-cast-align -Wno-logical-op -Wno-strict-prototypes -o CMakeFiles/robotics_cape.dir/src/time.c.o   -c /home/erik/lander/librobotcontrol/library/src/time.c",
+  "file": "/home/erik/lander/librobotcontrol/library/src/time.c"
+},
+{
+  "directory": "/home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library",
+  "command": "/usr/bin/gcc-8 -DRC_AUTOPILOT_EXT -I/home/erik/lander/librobotcontrol/library/include  -g   -Wno-cast-align -Wno-logical-op -Wno-strict-prototypes -o CMakeFiles/robotics_cape.dir/src/version.c.o   -c /home/erik/lander/librobotcontrol/library/src/version.c",
+  "file": "/home/erik/lander/librobotcontrol/library/src/version.c"
+},
+{
+  "directory": "/home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library",
+  "command": "/usr/bin/gcc-8 -DRC_AUTOPILOT_EXT -I/home/erik/lander/librobotcontrol/library/include  -g   -Wno-cast-align -Wno-logical-op -Wno-strict-prototypes -o CMakeFiles/robotics_cape.dir/src/bmp/bmp.c.o   -c /home/erik/lander/librobotcontrol/library/src/bmp/bmp.c",
+  "file": "/home/erik/lander/librobotcontrol/library/src/bmp/bmp.c"
+},
+{
+  "directory": "/home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library",
+  "command": "/usr/bin/gcc-8 -DRC_AUTOPILOT_EXT -I/home/erik/lander/librobotcontrol/library/include  -g   -Wno-cast-align -Wno-logical-op -Wno-strict-prototypes -o CMakeFiles/robotics_cape.dir/src/io/adc.c.o   -c /home/erik/lander/librobotcontrol/library/src/io/adc.c",
+  "file": "/home/erik/lander/librobotcontrol/library/src/io/adc.c"
+},
+{
+  "directory": "/home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library",
+  "command": "/usr/bin/gcc-8 -DRC_AUTOPILOT_EXT -I/home/erik/lander/librobotcontrol/library/include  -g   -Wno-cast-align -Wno-logical-op -Wno-strict-prototypes -o CMakeFiles/robotics_cape.dir/src/io/encoder_eqep.c.o   -c /home/erik/lander/librobotcontrol/library/src/io/encoder_eqep.c",
+  "file": "/home/erik/lander/librobotcontrol/library/src/io/encoder_eqep.c"
+},
+{
+  "directory": "/home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library",
+  "command": "/usr/bin/gcc-8 -DRC_AUTOPILOT_EXT -I/home/erik/lander/librobotcontrol/library/include  -g   -Wno-cast-align -Wno-logical-op -Wno-strict-prototypes -o CMakeFiles/robotics_cape.dir/src/io/gpio.c.o   -c /home/erik/lander/librobotcontrol/library/src/io/gpio.c",
+  "file": "/home/erik/lander/librobotcontrol/library/src/io/gpio.c"
+},
+{
+  "directory": "/home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library",
+  "command": "/usr/bin/gcc-8 -DRC_AUTOPILOT_EXT -I/home/erik/lander/librobotcontrol/library/include  -g   -Wno-cast-align -Wno-logical-op -Wno-strict-prototypes -o CMakeFiles/robotics_cape.dir/src/io/i2c.c.o   -c /home/erik/lander/librobotcontrol/library/src/io/i2c.c",
+  "file": "/home/erik/lander/librobotcontrol/library/src/io/i2c.c"
+},
+{
+  "directory": "/home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library",
+  "command": "/usr/bin/gcc-8 -DRC_AUTOPILOT_EXT -I/home/erik/lander/librobotcontrol/library/include  -g   -Wno-cast-align -Wno-logical-op -Wno-strict-prototypes -o CMakeFiles/robotics_cape.dir/src/io/pwm.c.o   -c /home/erik/lander/librobotcontrol/library/src/io/pwm.c",
+  "file": "/home/erik/lander/librobotcontrol/library/src/io/pwm.c"
+},
+{
+  "directory": "/home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library",
+  "command": "/usr/bin/gcc-8 -DRC_AUTOPILOT_EXT -I/home/erik/lander/librobotcontrol/library/include  -g   -Wno-cast-align -Wno-logical-op -Wno-strict-prototypes -o CMakeFiles/robotics_cape.dir/src/io/spi.c.o   -c /home/erik/lander/librobotcontrol/library/src/io/spi.c",
+  "file": "/home/erik/lander/librobotcontrol/library/src/io/spi.c"
+},
+{
+  "directory": "/home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library",
+  "command": "/usr/bin/gcc-8 -DRC_AUTOPILOT_EXT -I/home/erik/lander/librobotcontrol/library/include  -g   -Wno-cast-align -Wno-logical-op -Wno-strict-prototypes -o CMakeFiles/robotics_cape.dir/src/io/uart.c.o   -c /home/erik/lander/librobotcontrol/library/src/io/uart.c",
+  "file": "/home/erik/lander/librobotcontrol/library/src/io/uart.c"
+},
+{
+  "directory": "/home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library",
+  "command": "/usr/bin/gcc-8 -DRC_AUTOPILOT_EXT -I/home/erik/lander/librobotcontrol/library/include  -g   -Wno-cast-align -Wno-logical-op -Wno-strict-prototypes -o CMakeFiles/robotics_cape.dir/src/math/algebra.c.o   -c /home/erik/lander/librobotcontrol/library/src/math/algebra.c",
+  "file": "/home/erik/lander/librobotcontrol/library/src/math/algebra.c"
+},
+{
+  "directory": "/home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library",
+  "command": "/usr/bin/gcc-8 -DRC_AUTOPILOT_EXT -I/home/erik/lander/librobotcontrol/library/include  -g   -Wno-cast-align -Wno-logical-op -Wno-strict-prototypes -o CMakeFiles/robotics_cape.dir/src/math/algebra_common.c.o   -c /home/erik/lander/librobotcontrol/library/src/math/algebra_common.c",
+  "file": "/home/erik/lander/librobotcontrol/library/src/math/algebra_common.c"
+},
+{
+  "directory": "/home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library",
+  "command": "/usr/bin/gcc-8 -DRC_AUTOPILOT_EXT -I/home/erik/lander/librobotcontrol/library/include  -g   -Wno-cast-align -Wno-logical-op -Wno-strict-prototypes -o CMakeFiles/robotics_cape.dir/src/math/filter.c.o   -c /home/erik/lander/librobotcontrol/library/src/math/filter.c",
+  "file": "/home/erik/lander/librobotcontrol/library/src/math/filter.c"
+},
+{
+  "directory": "/home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library",
+  "command": "/usr/bin/gcc-8 -DRC_AUTOPILOT_EXT -I/home/erik/lander/librobotcontrol/library/include  -g   -Wno-cast-align -Wno-logical-op -Wno-strict-prototypes -o CMakeFiles/robotics_cape.dir/src/math/matrix.c.o   -c /home/erik/lander/librobotcontrol/library/src/math/matrix.c",
+  "file": "/home/erik/lander/librobotcontrol/library/src/math/matrix.c"
+},
+{
+  "directory": "/home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library",
+  "command": "/usr/bin/gcc-8 -DRC_AUTOPILOT_EXT -I/home/erik/lander/librobotcontrol/library/include  -g   -Wno-cast-align -Wno-logical-op -Wno-strict-prototypes -o CMakeFiles/robotics_cape.dir/src/math/other.c.o   -c /home/erik/lander/librobotcontrol/library/src/math/other.c",
+  "file": "/home/erik/lander/librobotcontrol/library/src/math/other.c"
+},
+{
+  "directory": "/home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library",
+  "command": "/usr/bin/gcc-8 -DRC_AUTOPILOT_EXT -I/home/erik/lander/librobotcontrol/library/include  -g   -Wno-cast-align -Wno-logical-op -Wno-strict-prototypes -o CMakeFiles/robotics_cape.dir/src/math/polynomial.c.o   -c /home/erik/lander/librobotcontrol/library/src/math/polynomial.c",
+  "file": "/home/erik/lander/librobotcontrol/library/src/math/polynomial.c"
+},
+{
+  "directory": "/home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library",
+  "command": "/usr/bin/gcc-8 -DRC_AUTOPILOT_EXT -I/home/erik/lander/librobotcontrol/library/include  -g   -Wno-cast-align -Wno-logical-op -Wno-strict-prototypes -o CMakeFiles/robotics_cape.dir/src/math/quaternion.c.o   -c /home/erik/lander/librobotcontrol/library/src/math/quaternion.c",
+  "file": "/home/erik/lander/librobotcontrol/library/src/math/quaternion.c"
+},
+{
+  "directory": "/home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library",
+  "command": "/usr/bin/gcc-8 -DRC_AUTOPILOT_EXT -I/home/erik/lander/librobotcontrol/library/include  -g   -Wno-cast-align -Wno-logical-op -Wno-strict-prototypes -o CMakeFiles/robotics_cape.dir/src/math/ring_buffer.c.o   -c /home/erik/lander/librobotcontrol/library/src/math/ring_buffer.c",
+  "file": "/home/erik/lander/librobotcontrol/library/src/math/ring_buffer.c"
+},
+{
+  "directory": "/home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library",
+  "command": "/usr/bin/gcc-8 -DRC_AUTOPILOT_EXT -I/home/erik/lander/librobotcontrol/library/include  -g   -Wno-cast-align -Wno-logical-op -Wno-strict-prototypes -o CMakeFiles/robotics_cape.dir/src/math/vector.c.o   -c /home/erik/lander/librobotcontrol/library/src/math/vector.c",
+  "file": "/home/erik/lander/librobotcontrol/library/src/math/vector.c"
+},
+{
+  "directory": "/home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library",
+  "command": "/usr/bin/gcc-8 -DRC_AUTOPILOT_EXT -I/home/erik/lander/librobotcontrol/library/include  -g   -Wno-cast-align -Wno-logical-op -Wno-strict-prototypes -o CMakeFiles/robotics_cape.dir/src/mpu/mpu.c.o   -c /home/erik/lander/librobotcontrol/library/src/mpu/mpu.c",
+  "file": "/home/erik/lander/librobotcontrol/library/src/mpu/mpu.c"
+},
+{
+  "directory": "/home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library",
+  "command": "/usr/bin/gcc-8 -DRC_AUTOPILOT_EXT -I/home/erik/lander/librobotcontrol/library/include  -g   -Wno-cast-align -Wno-logical-op -Wno-strict-prototypes -o CMakeFiles/robotics_cape.dir/src/pru/encoder_pru.c.o   -c /home/erik/lander/librobotcontrol/library/src/pru/encoder_pru.c",
+  "file": "/home/erik/lander/librobotcontrol/library/src/pru/encoder_pru.c"
+},
+{
+  "directory": "/home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library",
+  "command": "/usr/bin/gcc-8 -DRC_AUTOPILOT_EXT -I/home/erik/lander/librobotcontrol/library/include  -g   -Wno-cast-align -Wno-logical-op -Wno-strict-prototypes -o CMakeFiles/robotics_cape.dir/src/pru/pru.c.o   -c /home/erik/lander/librobotcontrol/library/src/pru/pru.c",
+  "file": "/home/erik/lander/librobotcontrol/library/src/pru/pru.c"
+},
+{
+  "directory": "/home/erik/lander/Vertical-Lander-Bang-Bang/build/librobotcontrol_build/library",
+  "command": "/usr/bin/gcc-8 -DRC_AUTOPILOT_EXT -I/home/erik/lander/librobotcontrol/library/include  -g   -Wno-cast-align -Wno-logical-op -Wno-strict-prototypes -o CMakeFiles/robotics_cape.dir/src/pru/servo.c.o   -c /home/erik/lander/librobotcontrol/library/src/pru/servo.c",
+  "file": "/home/erik/lander/librobotcontrol/library/src/pru/servo.c"
+}
+]

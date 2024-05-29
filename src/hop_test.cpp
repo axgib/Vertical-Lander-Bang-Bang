@@ -8,7 +8,6 @@
 #include <stdlib.h> // for strtof()
 #include <stdint.h>
 #include <math.h> // for M_PI
-// #include <chrono>
 // #include <iostream>
 #include <rc/servo.h>
 #include <robotcontrol.h>
@@ -87,7 +86,6 @@ static int __disarm_controller(void);
 static int __arm_controller(void);
 static int __wait_for_starting_condition(void);
 static void __on_pause_press(void);
-// static void __on_mode_release(void);
 
 // global variables
 core_state_t cstate;
@@ -104,6 +102,7 @@ int board_thread_id = 1;
 int prop_thread_id = 2;
 int rf_bus; //TODO: Check, standardize reference to rangefinder/laser
 uint8_t rf_addr, rf_height;
+const double PI = 3.141592653589793;
 
 /**
  * Initialize the filters, mpu, threads, & wait until shut down
@@ -129,21 +128,9 @@ int main(int argc, char *argv[])
         if(rc_enable_signal_handler()==-1){
                 fprintf(stderr,"ERROR: failed to start signal handler\n");
                 return -1;
-        } 
-        
-        // // initialize enocders %% WE DON'T HAVE ENCODERS
-        // if(rc_encoder_eqep_init()==-1){
-        //         fprintf(stderr,"ERROR: failed to initialize eqep encoders\n");
-        //         return -1;
-        // }
-        // // initialize motors
-        // if(rc_motor_init()==-1){
-        //         fprintf(stderr,"ERROR: failed to initialize motors\n");
-        //         return -1;
-        // }
-        // rc_motor_standby(1); // start with motors in standby
-        
-        printf("Initialization begun...\n")
+        }
+
+        printf("Initialization begun...\n");
 
         //Turn off green LED and turn on red LED while initializing
         if(rc_led_set(RC_LED_GREEN, 0)==-1){
@@ -179,7 +166,7 @@ int main(int argc, char *argv[])
         // set up mpu configuration
         rc_mpu_config_t mpu_config = rc_mpu_default_config();
         mpu_config.dmp_sample_rate = SAMPLE_RATE_HZ;
-        mpu_config.orient = ORIENTATION_Z_DOWN;
+        mpu_config.orient = ORIENTATION_Z_DOWN;//TODO: check
 
         // if gyro isn't calibrated, run the calibration routine
         // run rc_calibrate_gyro and rc_calibrate_accel before running this
@@ -210,11 +197,6 @@ int main(int argc, char *argv[])
                 return -1;
         }
         D1y.gain = D1Y_GAIN;
-
-        rc_filter_enable_saturation(&D1x, -1.0, 1.0);
-        rc_filter_enable_soft_start(&D1x, SOFT_START_SEC);// TODO: what is soft start
-        rc_filter_enable_saturation(&D1y, -1.0, 1.0);
-        rc_filter_enable_soft_start(&D1y, SOFT_START_SEC);
         
         // set up D2h height controller
         double D2h_num[] = D2H_NUM;
@@ -225,8 +207,7 @@ int main(int argc, char *argv[])
         }
         D2h.gain = D2H_GAIN;
 
-        rc_filter_enable_saturation(&D2h, -H_REF_MAX, H_REF_MAX);// TODO: define height limits (normalized?)
-        rc_filter_enable_soft_start(&D2h, SOFT_START_SEC);
+
 
         // set up D2x and D2y theta controllers
         double D2x_num[] = D2X_NUM;
@@ -245,10 +226,13 @@ int main(int argc, char *argv[])
         }
         D2y.gain = D2Y_GAIN;
 
-        rc_filter_enable_saturation(&D1x, -PHI_REF_MAX, PHI_REF_MAX);
+        // set saturation limits 
+        rc_filter_enable_saturation(&D1x, -PHI_REF_MAX, PHI_REF_MAX);// TODO: check saturation limits
         // rc_filter_enable_soft_start(&D1x, SOFT_START_SEC);
         rc_filter_enable_saturation(&D1y, -PHI_REF_MAX, PHI_REF_MAX);
         // rc_filter_enable_soft_start(&D1y, SOFT_START_SEC);
+        rc_filter_enable_saturation(&D2h, THRUST_MIN, THRUST_MAX);
+        // rc_filter_enable_soft_start(&D2h, SOFT_START_SEC);
         rc_filter_enable_saturation(&D2x, -THETA_REF_MAX, THETA_REF_MAX);
         // rc_filter_enable_soft_start(&D2x, SOFT_START_SEC);
         rc_filter_enable_saturation(&D2y, -THETA_REF_MAX, THETA_REF_MAX);
@@ -276,15 +260,17 @@ int main(int argc, char *argv[])
         //         return -1;
         // } 
 
+        // monitor board battery voltage (powers servos)
         if(rc_pthread_create(&board_battery_thread, __battery_checker, (void*) &board_thread_id, SCHED_OTHER, 0)){
                 fprintf(stderr, "failed to start board battery thread\n");
                 return -1;
         }
 
+        // monitor prop battery: not implemented, currently just uses V_NOMINAL_PROP
         if(rc_pthread_create(&prop_battery_thread, __battery_checker, (void*) &prop_thread_id, SCHED_OTHER, 0)){
                 fprintf(stderr, "failed to start prop battery thread\n");
                 return -1;
-        } //TODO: check
+        }
 
         // wait for the battery threads to make the first read
         while(cstate.vBattBoard<1.0 && cstate.vBattProp<1.0 && rc_get_state()!=EXITING) rc_usleep(10000);
@@ -314,7 +300,7 @@ int main(int argc, char *argv[])
 
         // start balance stack to control setpoints
         tstart = rc_nanos_since_boot();
-        if(rc_pthread_create(&setpoint_thread, __setpoint_manager,tstart, SCHED_OTHER, 0)){
+        if(rc_pthread_create(&setpoint_thread, __setpoint_manager, &tstart, SCHED_OTHER, 0)){
                 fprintf(stderr, "failed to start setpoint thread\n");
                 return -1;
         }
@@ -323,7 +309,7 @@ int main(int argc, char *argv[])
         // to make sure other setup functions don't interfere
         rc_mpu_set_dmp_callback(&__balance_controller);
         
-        printf("\n Initialization complete! All threads running...\n")
+        printf("\n Initialization complete! All threads running...\n");
 
         // start in the RUNNING state
         rc_set_state(RUNNING);
@@ -353,13 +339,22 @@ int main(int argc, char *argv[])
         rc_led_set(RC_LED_RED, 0);
         rc_led_cleanup();
         rc_servo_cleanup();
-        // rc_encoder_eqep_cleanup();
-        // rc_button_cleanup();    // stop button handlers
         rc_remove_pid_file();   // remove pid file LAST
-        printf("Shutdown complete!\n")
+        printf("Shutdown complete!\n");
         return 0;
 }
 
+/**
+ * disable motors & set the setpoint.core_mode to DISARMED
+ *
+ * @return     { description_of_the_return_value }
+ */
+static int __disarm_controller(void)
+{
+        rc_servo_cleanup();//TODO: Does this turn off prop?
+        setpoint.arm_state = DISARMED;
+        return 0;
+}
 
 /**
  * This thread is in charge of adjusting the controller setpoints based on user
@@ -370,8 +365,7 @@ int main(int argc, char *argv[])
  *
  * @return     { description_of_the_return_value }
  */
-void* __setpoint_manager(unint_64_t tstart)
-{
+void* __setpoint_manager(uint64_t tstart) {
         // double drive_stick, turn_stick; // input sticks
         int i, ch, chan, stdin_timeout = 0; // for stdin input
         char in_str[11];
@@ -396,58 +390,51 @@ void* __setpoint_manager(unint_64_t tstart)
                 // necessarily armed. If DISARMED, wait for the user to pick MIP up
                 // which will we detected by wait_for_starting_condition()
                 if(setpoint.arm_state == DISARMED){
-                        prinf("\nArming controller...\n")
+                        printf("\nArming controller...\n");
                         if(__wait_for_starting_condition()==0){// Once rocket has been upright for START_DELAY, 
                                 __zero_out_controller();// set controller outputs and setpoints to 0
                                 __arm_controller();// Set to armed
                         }
-                        else continue;
+                        else continue;//keep waiting for starting condition until met
                 }
-                printf("\nController armed\n")
-                
-                // if dsm is active, update the setpoint rates
+                printf("\nController armed\n");
 
-                        if(t < T_TAKEOFF){ // Wait on ground
-                                setpoint.phix = 0;
-                                setpoint.phiy = 0;
-                                setpoint.phix_dot = 0;
-                                setpoint.phiy_dot = 0;
-                                setpoint.height = 0;
-                                setpoint.h_dot = 0;
-                                setpoint.thetax = 0;
-                                setpoint.thetay = 0;
-                                setpoint.thetax_dot = 0;
-                                setpoint.thetay_dot = 0;
-                        }
-                        else if(t < T_DECEND){// at takeoff, set setpoint.height to hover_height
-                                setpoint.height = HOVER_HEIGHT;
-                        }
-                        else if(t < T_LAND){// decending, slowly lower setpoint.height to 0
-                                setpoint.height = 0;
-                        }
-                        else{// shutdown
-                                rc_set_state(EXITING);
-                        }
-
-                        // if it has been more than 1 second since getting data
-                        if(stdin_timeout >= SETPOINT_MANAGER_HZ){
-                                setpoint.theta = 0;
-                                setpoint.phix = 0;
-                                setpoint.phiy = 0;
-                                setpoint.phi_dot = 0;
-                                setpoint.gamma_dot = 0;
-                        }
-                        else{
-                                stdin_timeout++;
-                        }
-
-                        continue;
-
+                if(t < T_TAKEOFF){ // Wait on ground
+                        setpoint.phix = 0;
+                        setpoint.phiy = 0;
+                        setpoint.phix_dot = 0;
+                        setpoint.phiy_dot = 0;
+                        setpoint.height = 0;
+                        setpoint.h_dot = 0;
+                        setpoint.thetax = 0;
+                        setpoint.thetay = 0;
+                        setpoint.thetax_dot = 0;
+                        setpoint.thetay_dot = 0;
                 }
+                else if(t < T_DECEND){// at takeoff, set setpoint.height to hover_height
+                        setpoint.height = HOVER_HEIGHT;
+                }
+                else if(t < T_LAND){// decending, setpoint.height = 0
+                        setpoint.height = 0;
+                }
+                else{// shutdown
+                        rc_set_state(EXITING);
+                }
+
+                // if it has been more than 1 second since getting data
+                if(stdin_timeout >= SETPOINT_MANAGER_HZ){
+                        setpoint.thetax = 0;
+                }
+                else{
+                        stdin_timeout++;
+                }
+
+                continue;
+
         }
         // if state becomes EXITING the above loop exists and we disarm here
         __disarm_controller();
-        return NULL;
+        // return NULL;
 }
 /**
  * discrete-time balance controller operated off mpu interrupt Called at
@@ -457,6 +444,7 @@ static void __balance_controller(void)
 {
         static int xinner_saturation_counter = 0;
         static int yinner_saturation_counter = 0;
+        // static int houter_saturation_counter = 0;
         double posx, posy, dutyh; // posx and posy to servos, dutyh to prop
         /******************************************************************
         * STATE_ESTIMATION
@@ -464,29 +452,20 @@ static void __balance_controller(void)
         ******************************************************************/
         // angle theta is positive in the direction of forward tip around X axis
         cstate.thetax = mpu_data.dmp_TaitBryan[TB_PITCH_X] + BOARD_MOUNT_ANGLE_X;
-        cstate.thetay = mpu_data.dmp_TaitBryan[TB_PITCH_Y] + BOARD_MOUNT_ANGLE_Y;// TODO
+        cstate.thetay = mpu_data.dmp_TaitBryan[TB_ROLL_Y] + BOARD_MOUNT_ANGLE_Y;// TODO
 
         // TODO: read from laser range finder
-        rc_i2c_read_byte(rf_bus,rf_addr,rf_height);
-        cstate.height = rf_height - RF_OFFSET;
+        rc_i2c_read_byte(rf_bus,rf_addr, &rf_height);
+        cstate.height = rf_height - LRF_OFFSET;
         
-        // collect encoder positions, right wheel is reversed
-        // cstate.wheelAngleR = (rc_encoder_eqep_read(ENCODER_CHANNEL_R) * 2.0 * M_PI) \
-        //                         /(ENCODER_POLARITY_R * GEARBOX * ENCODER_RES);
-        // cstate.wheelAngleL = (rc_encoder_eqep_read(ENCODER_CHANNEL_L) * 2.0 * M_PI) \
-        //                         /(ENCODER_POLARITY_L * GEARBOX * ENCODER_RES);
-        
-        // Phi is average wheel rotation also add theta body angle to get absolute
-        // wheel position in global frame since encoders are attached to the body
-        // cstate.phi = ((cstate.wheelAngleL+cstate.wheelAngleR)/2) + cstate.theta;
-        // // steering angle gamma estimate
-        // cstate.gamma = (cstate.wheelAngleR-cstate.wheelAngleL) \
-        //                                 * (WHEEL_RADIUS_M/TRACK_WIDTH_M);
         /*************************************************************
         * check for various exit conditions AFTER state estimate
         ***************************************************************/
         if(rc_get_state()==EXITING){
-                rc_motor_set(0,0.0);// set all motors to zero
+                rc_servo_send_pulse_normalized(SERVO_CHANNEL_X,0);
+                rc_servo_send_pulse_normalized(SERVO_CHANNEL_Y,0);
+                rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,0);
+                rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_2,0);
                 return;
         }
 
@@ -502,32 +481,39 @@ static void __balance_controller(void)
         }
 
         // check for a tipover
-        if(fabs(cstate.theta) > TIP_ANGLE){
+        if(fabs(cstate.thetay) > TIP_ANGLE || fabs(cstate.thetax) > TIP_ANGLE){
                 __disarm_controller();
-                printf("tip detected \n");
+                printf("\ntip detected: disarmed controller\n");
                 return;
         }
+        // /**********************************************************
+        // * OUTER LOOP HEIGHT h controller D2h
+        // ***********************************************************/
+        // if(fabs(setpoint.h_dot)>0.0001){
+        //         setpoint.height += setpoint.h_dot * DT;
+        // } 
+        cstate.d2h_u = rc_filter_march(&D2h,setpoint.height - cstate.height);
 
         /************************************************************
         * OUTER LOOP Theta controllers D2x and D2y
         * Move the position setpoint based on theta_dot.
         * Input to the controller is theta error (setpoint-state).
         *************************************************************/
+        //TODO: use updated thrust d2h_u to modify angle controllers. Currently assuming thruts const = Wg
         if(ENABLE_POSITION_HOLD){
-                if(fabs(setpoint.thetax_dot) > 0.001){
-                    setpoint.thetax += setpoint.thetax_dot*DT;
+                if(fabs(setpoint.thetax_dot) > 0.001){ //if theta setpoint is changing
+                    setpoint.thetax += setpoint.thetax_dot*DT;// update theta setpoint from theta_dot
                 }
-                cstate.d2x_u = rc_filter_march(&D2x,setpoint.thetax-cstate.thetax); //TODO: Don't understand this
-                setpoint.theta = cstate.d2x_u;
+                cstate.d2x_u = rc_filter_march(&D2x,setpoint.thetax-cstate.thetax); // sum block producing D2 controller input
         }
-        else setpoint.thetax = 0.0;
+        else setpoint.thetax = 0.0;// default to try to be upright
 
         if(ENABLE_POSITION_HOLD){
-                if(fabs(setpoint.theta_doty) > 0.001){
+                if(fabs(setpoint.thetay_dot) > 0.001){
                     setpoint.thetay += setpoint.thetay_dot*DT;
                 }
                 cstate.d2y_u = rc_filter_march(&D2y,setpoint.thetay-cstate.thetay); //TODO: Don't understand this
-                setpoint.theta = cstate.d2y_u;
+                setpoint.thetay = cstate.d2y_u;
         }
         else setpoint.thetay = 0.0;
         /************************************************************
@@ -535,13 +521,12 @@ static void __balance_controller(void)
         * Input to D1x and D1y is phi error (setpoint-state). Then scale the
         * output u to compensate for changing battery voltage.
         *************************************************************/
-        D1x.gain = D1X_GAIN * V_NOMINAL/cstate.vBattBoard;
-        cstate.d1x_u = rc_filter_march(&D1x,(setpoint.phix-cstate.phix));
+        D1x.gain = D1X_GAIN * V_NOMINAL_BOARD/cstate.vBattBoard;// scale gain based on measured voltage
         cstate.d1x_u = rc_filter_march(&D1x,(setpoint.phix-cstate.phix));
 
-        D1y.gain = D1Y_GAIN * V_NOMINAL/cstate.vBattBoard;
+        D1y.gain = D1Y_GAIN * V_NOMINAL_BOARD/cstate.vBattBoard;
         cstate.d1y_u = rc_filter_march(&D1y,(setpoint.phiy-cstate.phiy));
-        cstate.d1y_u = rc_filter_march(&D1y,(setpoint.phiy-cstate.phiy));
+        
         /*************************************************************
         * Check if the inner loop saturated. If it saturates for over
         * a second disarm the controller to prevent stalling motors.
@@ -551,30 +536,35 @@ static void __balance_controller(void)
         if(fabs(cstate.d1y_u)>0.95) yinner_saturation_counter++;
         else yinner_saturation_counter = 0;
 
+        // if(fabs(cstate.d2h_u)>0.95) houter_saturation_counter++;
+        // else houter_saturation_counter = 0;
+
         // if saturate for a second, disarm for safety
-        // TODO: Make sense to disarm controller for flying object?
         if(xinner_saturation_counter > (SAMPLE_RATE_HZ*D1_SATURATION_TIMEOUT) || yinner_saturation_counter > (SAMPLE_RATE_HZ*D1_SATURATION_TIMEOUT)){
-                printf("inner loop controller saturated\n");
+                printf("\ninner loop controller saturated\n");
                 __disarm_controller();
-                inner_saturation_counter = 0;
+                xinner_saturation_counter = 0;
+                yinner_saturation_counter = 0;
                 return;
         }
-        // /**********************************************************
-        // * gama (steering) controller D3
-        // * move the setpoint gamma based on user input like phi
-        // ***********************************************************/
-        // if(fabs(setpoint.gamma_dot)>0.0001) setpoint.gamma += setpoint.gamma_dot * DT;
-        // cstate.d3_u = rc_filter_march(&D3,setpoint.gamma - cstate.gamma);
+
         // /**********************************************************
         // * Send signal to motors
         // * add D1 balance control u and D3 steering control also
         // * multiply by polarity to make sure direction is correct.
         // ***********************************************************/
-        // duty = cstate.d1_u - cstate.d3_u;
-        // TODO: Check these motor commands
+        
+        //TODO: saturation should already be caught by rc_filter_enable_saturation but could check once more here
+        // if(cstate.d2h_u < 0) cstate.d2h_u = 0;//can't apply negative thrust
+        dutyh = cstate.d2h_u / (2*THRUST_MAX);// normalize thrust assuming linear throttle-thrust relationship
+
+        posx = cstate.d1x_u * 3/PI; // normalize where pi/3 rad = 1
+        posy = cstate.d1y_u * 3/PI;
+
         rc_servo_send_pulse_normalized(SERVO_CHANNEL_X, SERVO_POLARITY_X * posx);
         rc_servo_send_pulse_normalized(SERVO_CHANNEL_Y, SERVO_POLARITY_Y * posy);
-        rc_motor_set(PROP_CHANNEL,dutyh)
+        rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,dutyh);
+        rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_2,dutyh);
         return;
 }
 /**
@@ -589,27 +579,21 @@ static int __zero_out_controller(void)
         rc_filter_reset(&D2h);
         rc_filter_reset(&D2x);
         rc_filter_reset(&D2y);
-        setpoint.thetax = 0.0;
-        setpoint.thetay = 0.0;
         setpoint.phix   = 0.0;
         setpoint.phiy   = 0.0;
+        setpoint.phix_dot = 0.0;
+        setpoint.phiy_dot = 0.0;
         setpoint.height = 0.0;
-        // setpoint.gamma = 0.0;
-        rc_motor_set(0,0.0); //TODO: turn off each motor every loop? We don't want to do this with propeller
+        setpoint.thetax = 0.0;
+        setpoint.thetay = 0.0;
+        setpoint.h_dot = 0.0;
+        setpoint.thetax_dot = 0.0;
+        setpoint.thetay_dot = 0.0;
+
+        rc_motor_set(0,0.0); //TODO: make work for servos and escs
         return 0;
 }
-/**
- * disable motors & set the setpoint.core_mode to DISARMED
- *
- * @return     { description_of_the_return_value }
- */
-static int __disarm_controller(void)
-{
-        rc_motor_standby(1);
-        rc_motor_free_spin(0);
-        setpoint.arm_state = DISARMED;
-        return 0;
-}
+
 /**
  * zero out the controller & encoders. Enable motors & arm the controller.
  *
@@ -618,10 +602,6 @@ static int __disarm_controller(void)
 static int __arm_controller(void)
 {
         __zero_out_controller();
-        // rc_encoder_eqep_write(ENCODER_CHANNEL_X,0);
-        // rc_encoder_eqep_write(ENCODER_CHANNEL_Y,0);
-        // prefill_filter_inputs(&D1,cstate.theta);// TODO: What is this?
-        // rc_motor_standby(0);
         setpoint.arm_state = ARMED;
         return 0;
 }
@@ -641,22 +621,23 @@ static int __wait_for_starting_condition(void)
         // Wait for rocket to be upright
         checks = 0;
         // exit if state becomes paused or exiting
-        while(rc_get_state()==RUNNING){
+        while(rc_get_state()==RUNNING) {
                 // if within range, start counting
                 if(fabs(cstate.thetax) < START_ANGLE || fabs(cstate.thetay) < START_ANGLE) checks++;
                 // fell out of range, restart counter
                 else checks = 0;
                 // waited long enough, return
                 if(checks >= checks_needed) {
-                        printf("\nStarting condition met\n")
+                        printf("\nStarting condition met\n");
                         return 0;
                 }
                 rc_usleep(wait_us);
         }
         return -1;
 }
+
 /**
- * Slow loop checking battery voltage. Also changes the D1 saturation limit
+ * Slow loop checking battery voltages. Also changes the D1 saturation limit
  * since that is dependent on the battery voltage.
  *
  * @return     nothing, NULL poitner
@@ -688,15 +669,12 @@ static void* __battery_checker(void* ptr)
                         rc_usleep(1000000 / BATTERY_CHECK_HZ);
                 }
                 else if(thread_id == 2){
-                        new_v = V_NOMINAL_PROP;// TODO: Not right: should be reading from an input pin
-                        // new_v = rc_adc_batt();
-                        // // if the value doesn't make sense, use nominal voltage
-                        // if (new_v>9.0 || new_v<5.0) new_v = V_NOMINAL_PROP;
+                        new_v = V_NOMINAL_PROP;// TODO: Read from an input pin
                         cstate.vBattProp = new_v;
                         rc_usleep(1000000 / BATTERY_CHECK_HZ);
                 }
                 else {
-                        prinf("\nthread_id not found\n")
+                        printf("\nthread_id not found\n");
                 }
         }
         return NULL;
@@ -735,7 +713,7 @@ static void* __printf_loop(__attribute__ ((unused)) void* ptr)
                         printf("  D2y_u   |");
                         printf("vBattBoard|");
                         printf(" vBattProp|");
-                        printf("arm_state|");
+                        printf(" armstate |");
                         printf("\n");
                 }
                 else if(new_rc_state==PAUSED && last_rc_state!=PAUSED){
@@ -770,62 +748,3 @@ static void* __printf_loop(__attribute__ ((unused)) void* ptr)
         }
         return NULL;
 }
-/**
- * Disarm the controller and set system state to paused. If the user holds the
- * pause button for 2 seconds, exit cleanly
- */
-// static void __on_pause_press(void)
-// {
-//         int i=0;
-//         const int samples = 100;        // check for release 100 times in this period
-//         const int us_wait = 2000000; // 2 seconds
-//         switch(rc_get_state()){
-//         // pause if running
-//         case EXITING:
-//                 return;
-//         case RUNNING:
-//                 rc_set_state(PAUSED);
-//                 __disarm_controller();
-//                 rc_led_set(RC_LED_RED,1);
-//                 rc_led_set(RC_LED_GREEN,0);
-//                 break;
-//         case PAUSED:
-//                 rc_set_state(RUNNING);
-//                 __disarm_controller();
-//                 rc_led_set(RC_LED_GREEN,1);
-//                 rc_led_set(RC_LED_RED,0);
-//                 break;
-//         default:
-//                 break;
-//         }
-//         // now wait to see if the user want to shut down the program
-//         while(i<samples){
-//                 rc_usleep(us_wait/samples);
-//                 if(rc_button_get_state(RC_BTN_PIN_PAUSE)==RC_BTN_STATE_RELEASED){
-//                         return; //user let go before time-out
-//                 }
-//                 i++;
-//         }
-//         printf("long press detected, shutting down\n");
-//         //user held the button down long enough, blink and exit cleanly
-//         rc_led_blink(RC_LED_RED,5,2);
-//         rc_set_state(EXITING);
-//         return;
-// }
-/**
- * toggle between position and angle modes if MiP is paused
- */
-// static void __on_mode_release(void)
-// {
-//         // toggle between position and angle modes
-//         if(setpoint.drive_mode == NOVICE){
-//                 setpoint.drive_mode = ADVANCED;
-//                 printf("using drive_mode = ADVANCED\n");
-//         }
-//         else {
-//                 setpoint.drive_mode = NOVICE;
-//                 printf("using drive_mode = NOVICE\n");
-//         }
-//         rc_led_blink(RC_LED_GREEN,5,1);
-//         return;
-// }
