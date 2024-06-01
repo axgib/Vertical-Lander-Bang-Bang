@@ -80,7 +80,7 @@ int main() {
         }
         elseif(t-t_start < 4*pause + 3*prop_test_duration) {                // Power off both propellers
             if(i==3){
-                printf("Powering on both propellers to 10%...");
+                printf("Powering on both propellers to 50%...");
             }
             i = 4;
             rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,-0.1);
@@ -92,7 +92,7 @@ int main() {
         }
         elseif(t-t_start < 5*pause + 4*prop_test_duration) {                // Power off both propellers
             if(i==4){
-                printf("Powering on both propellers to 10%...");
+                printf("Powering on both propellers to 100%...");
             }
             i = 5;
             rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,-0.1);
