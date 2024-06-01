@@ -102,15 +102,15 @@ G_a_slc1  = feedback(D_a*G_a,1); % Dynamics of inner loop of Successive Loop Clo
 a_effort = D_a/(1 + D_a*G_a);% TODO: What units? degrees or rad?
 
 
-% figure(6) % Step Response
-% step(G_a_slc1)
+figure(6) % Step Response
+step(G_a_slc1)
 SG_a1 = stepinfo(G_a_slc1);
 % title('Step Response of Attitude Dynamics')
 % 
-% figure(7)
-% step(a_effort)
-% title('Controller Effort for Step Response of Attitude Dynamics')
-% S_a_effort = stepinfo(a_effort);
+figure(7)
+step(a_effort)
+title('Controller Effort for Step Response of Attitude Dynamics')
+S_a_effort = stepinfo(a_effort);
 
 wbw_a1 = bandwidth(G_a_slc1);
 figure(8)
