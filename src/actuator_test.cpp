@@ -6,7 +6,7 @@
 #include <iostream>
 #include <rc/servo.h>
 #include <robotcontrol.h>
-#include "hop_defs.h"
+#include "../include/hop_defs.h"
 
 float t, t_start;
 float prop_pause = 3e9;
@@ -34,7 +34,7 @@ int main() {
     }
     rc_servo_power_rail_en(1); //turn on servo power rail
 
-    std::cout << "Board battery voltage: " << rc_adc_batt() << std::endl;
+//    std::cout << "Board battery voltage: " << rc_adc_batt() << std::endl;
     rc_set_state(RUNNING);
     // int prop_or_servo = 0; // 0 for prop, 1 for servo
 
@@ -44,9 +44,10 @@ int main() {
         t = rc_nanos_since_boot();
         if(t-t_start < prop_pause) {                                             // Set all actuators to zero
             if(i==0){
-                printf("Ensure vehicle is properly secured! Exit now if not\nPowering on 1st propeller...");
+                printf("Ensure vehicle is properly secured! Exit now if not \n Powering on 1st propeller... \n ");
             }
             i = 1;
+            //printf("Test \n");
             rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,-0.1);
             rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_2,-0.1);
             rc_servo_send_pulse_normalized(SERVO_CHANNEL_X,0);
@@ -55,14 +56,15 @@ int main() {
 
         // Test each propeller individually %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         else if(t-t_start < prop_pause + prop_test_duration) {                    // Power on 1st prop
-            rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,0.1);
+	    printf("Prop 1 Power Test \n");
+            rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,0.2);
             rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_2,-0.1);
             rc_servo_send_pulse_normalized(SERVO_CHANNEL_X,0);
             rc_servo_send_pulse_normalized(SERVO_CHANNEL_Y,0);
         }
         else if(t-t_start < 2*prop_pause + prop_test_duration) {                  // Power off 1st prop
             if(i==1){
-                printf("Powering on 2st propeller...");
+                printf("Powering on 2nd propeller... \n");
             }
             i = 2;
             rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,-0.1);
@@ -71,14 +73,15 @@ int main() {
             rc_servo_send_pulse_normalized(SERVO_CHANNEL_Y,0);
         }
         else if(t-t_start < 2*prop_pause + 2*prop_test_duration) {                // Power on 2nd prop
+            printf("Prop 2 Power Test \n");
             rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,-0.1);
-            rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_2,0.1);
+            rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_2,0.2);
             rc_servo_send_pulse_normalized(SERVO_CHANNEL_X,0);
             rc_servo_send_pulse_normalized(SERVO_CHANNEL_Y,0);
         }
         else if(t-t_start < 3*prop_pause + 2*prop_test_duration) {                // Power off 2nd prop
             if(i==2){
-                printf("Powering on both propellers to 10%...");
+                printf("Powering on both propellers to 10%... \n");
             }
             i = 3;
             rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,-0.1);
