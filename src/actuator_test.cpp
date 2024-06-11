@@ -15,7 +15,7 @@ float servo_test_duration = 5e8;
 float servo_test_duration_fast = 1e8;
 float servo_max_angle = 0.2;//servo at 60deg at 1, want max ~12 ---> 12/60 = 0.2
 int i = 0;
-int loop_hz = 10;
+int loop_hz = 6;
 
 int main() {
 
@@ -57,7 +57,7 @@ int main() {
         // Test each propeller individually %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         else if(t-t_start < prop_pause + prop_test_duration) {                    // Power on 1st prop
             printf("1st prop to 20%...\n");
-            rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,0.5);
+            rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,0.2);
             rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_2,-0.1);
             rc_servo_send_pulse_normalized(SERVO_CHANNEL_X,0);
             rc_servo_send_pulse_normalized(SERVO_CHANNEL_Y,0);
