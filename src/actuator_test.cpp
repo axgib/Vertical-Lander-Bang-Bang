@@ -6,7 +6,7 @@
 #include <iostream>
 #include <rc/servo.h>
 #include <robotcontrol.h>
-#include "hop_defs.h"
+#include "../include/hop_defs.h"
 
 float t, t_start;
 float prop_pause = 3e9;
@@ -57,7 +57,7 @@ int main() {
         // Test each propeller individually %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         else if(t-t_start < prop_pause + prop_test_duration) {                    // Power on 1st prop
             printf("1st prop to 20%...\n");
-            rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,0.2);
+            rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,0.5);
             rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_2,-0.1);
             rc_servo_send_pulse_normalized(SERVO_CHANNEL_X,0);
             rc_servo_send_pulse_normalized(SERVO_CHANNEL_Y,0);
