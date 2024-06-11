@@ -52,21 +52,21 @@ b1 = 1/(wn_a*sqrt(a1));
 
 D1_a = (a1*b1*s+1)/(b1*s+1);
 
-% figure(1)% Root Locus for uncontrolled G1
-% hold on
-% rlocus(G_a)
+figure(1)% Root Locus for uncontrolled G1
+hold on
+rlocus(G_a)
 % title('Root Locus of Uncontrolled G_a ')
 % 
-% figure(2)% Root Locus for 1st lead compensator
-% rlocus(D1_a*G_a)
-% sgrid(zeta,wn_a)
-% title('Root Locus of G_a with One Lead Controller')
+figure(2)% Root Locus for 1st lead compensator
+rlocus(D1_a*G_a)
+sgrid(zeta,wn_a)
+title(' ')
 
 %from fig(2)
 K1_a = 0.525;
 
-% figure(3)% Open-Loop Bode for 1st lead compensator
-% margin(K1_a*D1_a*G_a)
+figure(3)% Open-Loop Bode for 1st lead compensator
+margin(K1_a*D1_a*G_a)
 % title('Open-Loop Bode of G_a with One Lead Controller')
 
 %from fig(3)
@@ -80,19 +80,21 @@ b2 = 1/(wn2_a*sqrt(a2));
 
 D2_a = (a2*b2*s+1)/(b2*s+1);
 
-% figure(4) % Root Locus for 2nd lead compensator
-% rlocus(D2_a*K1_a*D1_a*G_a)
-% sgrid(zeta,wn_a)
+figure(4) % Root Locus for 2nd lead compensator
+rlocus(D2_a*K1_a*D1_a*G_a)
+sgrid(zeta,wn_a)
+title(' ')
 % title('Root Locus of G_a with Two Lead Controller')
 
 %from fig(4)
-K2_a = 2;%0.7
+K2_a = 0.7;%2
 D_a = K2_a*D2_a*K1_a*D1_a;
 % low_pass = 1/(1+ s*2*pi*.0001);
 
 figure(5) % Open-Loop Bode for 2nd lead compensator
 margin(D_a*G_a)
 % margin(D_a*G_a*low_pass)
+% title(' ')
 % title('Open-Loop Bode of G_a with Two Lead Controller')
 
 %from fig(5)
@@ -105,11 +107,13 @@ a_effort = D_a/(1 + D_a*G_a);% TODO: What units? degrees or rad?
 figure(6) % Step Response
 step(G_a_slc1)
 SG_a1 = stepinfo(G_a_slc1);
+title(' ')
 % title('Step Response of Attitude Dynamics')
 % 
 figure(7)
 step(a_effort)
-title('Controller Effort for Step Response of Attitude Dynamics')
+title(' ')
+% title('Controller Effort for Step Response of Attitude Dynamics')
 S_a_effort = stepinfo(a_effort);
 
 wbw_a1 = bandwidth(G_a_slc1);
@@ -229,16 +233,22 @@ S_x_slc1 = stepinfo(outer_closed_slc1);
 
 % figure
 % hold on
-% rlocus(D_x*G_x);
-% sgrid(zeta,wn_x)
+% rlocus(G_x)
+% title(' ')
 % hold off
+figure
+hold on
+rlocus(D_x*G_x);
+title(' ')
+sgrid(zeta,wn_x)
+hold off
 
 figure
 hold on
 margin(K_x*D_x*G_x,'r-')
 margin(K_x*D_x*G_a_slc1*G_x,'k-')
-margin(K_x*D_x*G_a_slc2*G_x,'b-')
-legend('Only Position Dynamics','With Attitude Dynamics','With Attitude Dynamics 2')
+% margin(K_x*D_x*G_a_slc2*G_x,'b-')
+legend('Only Position Dynamics','With Attitude Dynamics')%,'With Attitude Dynamics 2')
 hold off
 
 
@@ -246,9 +256,10 @@ figure
 hold on
 step(outer_closed,'r-')
 step(outer_closed_slc1,'k-')
-step(outer_closed_slc2,'b-')
-legend('Only Position Dynamics','With Attitude Dynamics 1','With Attitude Dynamics 2')
-title('Step response of position loop')
+% step(outer_closed_slc2,'b-')
+legend('Only Position Dynamics','With Attitude Dynamics 1','Location','se')%,'With Attitude Dynamics 2',)
+title (' ')
+% title('Step response of position loop')
 hold off
 
 % figure
@@ -259,12 +270,20 @@ figure
 hold on
 bode(outer_closed,'r-')
 bode(outer_closed_slc1,'k-')
-bode(outer_closed_slc2,'b-')
+% bode(outer_closed_slc2,'b-')
 xline(wbw_a_slc1,'k--')
-xline(wbw_a2,'b--')
+% xline(wbw_a2,'b--')
 xline(wbw_a1,'r--')
-legend('Only Position Dynamics','With Attitude Dynamics 1','With Attitude Dyanmics 2')
+legend('Only Position Dynamics','With Attitude Dynamics 1')%,'With Attitude Dyanmics 2')
 title('Closed-Loop Bode of Position Controller')
+hold off
+
+figure
+hold on
+step(x_effort,'r-')
+step(x_effort_slc1,'k-')
+legend('Only Position Dynamics','With Attitude Dynamics 1')
+title(' ')
 hold off
 
 
