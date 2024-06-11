@@ -13,7 +13,7 @@ float prop_pause = 3e9;
 float prop_test_duration = 6e9;
 float servo_test_duration = 5e8;
 float servo_test_duration_fast = 1e8;
-float servo_max_angle = 0.2;//servo at 60deg at 1, want max ~12 ---> 12/60 = 0.2
+float servo_max_angle = 0.1;//servo at 60deg at 1, want max ~12 ---> 12/60 = 0.2
 int i = 0;
 int loop_hz = 50;
 
@@ -57,7 +57,7 @@ int main() {
         // Test each propeller individually %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         else if(t-t_start < prop_pause + prop_test_duration) {                    // Power on 1st prop
 	    printf("Prop 1 Power Test \n");
-            rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,0.2);
+            rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,0.1);
             rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_2,-0.1);
             rc_servo_send_pulse_normalized(SERVO_CHANNEL_X,0);
             rc_servo_send_pulse_normalized(SERVO_CHANNEL_Y,0);
@@ -75,7 +75,7 @@ int main() {
         else if(t-t_start < 2*prop_pause + 2*prop_test_duration) {                // Power on 2nd prop
             printf("Prop 2 Power Test \n");
             rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,-0.1);
-            rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_2,0.2);
+            rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_2,0.1);
             rc_servo_send_pulse_normalized(SERVO_CHANNEL_X,0);
             rc_servo_send_pulse_normalized(SERVO_CHANNEL_Y,0);
         }
@@ -90,139 +90,141 @@ int main() {
             rc_servo_send_pulse_normalized(SERVO_CHANNEL_Y,0);
         }
 
-        // // Test propellers together %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        // else if(t-t_start < 3*prop_prop_pause + 3*prop_test_duration) {                // Power on both propellers to 10%
-        //     rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,0.1);
-        //     rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_2,0.1);
-        //     rc_servo_send_pulse_normalized(SERVO_CHANNEL_X,0);
-        //     rc_servo_send_pulse_normalized(SERVO_CHANNEL_Y,0);
-        // }
-        // else if(t-t_start < 4*prop_prop_pause + 3*prop_test_duration) {                // Power off both propellers
-        //     if(i==3){
-        //         printf("Powering on both propellers to 50%...");
-        //     }
-        //     i = 4;
-        //     rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,-0.1);
-        //     rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_2,-0.1);
-        //     rc_servo_send_pulse_normalized(SERVO_CHANNEL_X,0);
-        //     rc_servo_send_pulse_normalized(SERVO_CHANNEL_Y,0);
-        // }
-        // else if(t-t_start < 4*prop_prop_pause + 4*prop_test_duration) {                // Power on both propellers to 50%
-        //     rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,0.5);
-        //     rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_2,0.5);
-        //     rc_servo_send_pulse_normalized(SERVO_CHANNEL_X,0);
-        //     rc_servo_send_pulse_normalized(SERVO_CHANNEL_Y,0);
-        // }
-        // else if(t-t_start < 5*prop_prop_pause + 4*prop_test_duration) {                // Power off both propellers
-        //     if(i==4){
-        //         printf("Powering on both propellers to 100%...");
-        //     }
-        //     i = 5;
-        //     rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,-0.1);
-        //     rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_2,-0.1);
-        //     rc_servo_send_pulse_normalized(SERVO_CHANNEL_X,0);
-        //     rc_servo_send_pulse_normalized(SERVO_CHANNEL_Y,0);
-        // }
-        // else if(t-t_start < 5*prop_prop_pause + 5*prop_test_duration) {                // Power on both propellers to 100%
-        //     rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,1);
-        //     rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_2,1);
-        //     rc_servo_send_pulse_normalized(SERVO_CHANNEL_X,0);
-        //     rc_servo_send_pulse_normalized(SERVO_CHANNEL_Y,0);
-        // }
-        // else if(t-t_start < 6*prop_prop_pause + 5*prop_test_duration) {                // Power off both propellers
-        //     if(i==5){
-        //         printf("Propeller test is complete!\nNow testing servos, beginning with X-servo...");
-        //     }
-        //     i = 6;
-        //     rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,-0.1);
-        //     rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_2,-0.1);
-        //     rc_servo_send_pulse_normalized(SERVO_CHANNEL_X,0);
-        //     rc_servo_send_pulse_normalized(SERVO_CHANNEL_Y,0);
-        // }
+        // Test propellers together %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        else if(t-t_start < 3*prop_pause + 3*prop_test_duration) {                // Power on both propellers to 10%
+            rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,0.1);
+            rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_2,0.1);
+            rc_servo_send_pulse_normalized(SERVO_CHANNEL_X,0);
+            rc_servo_send_pulse_normalized(SERVO_CHANNEL_Y,0);
+        }
+        else if(t-t_start < 4*prop_pause + 3*prop_test_duration) {                // Power off both propellers
+            if(i==3){
+                printf("Powering on both propellers to 50%... \n");
+	        //printf("Now Testing Servos ... /n);
+            }
+            i = 4;
+            rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,-0.1);
+            rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_2,-0.1);
+            rc_servo_send_pulse_normalized(SERVO_CHANNEL_X,0);
+            rc_servo_send_pulse_normalized(SERVO_CHANNEL_Y,0);
+        }
+        else if(t-t_start < 4*prop_pause + 4*prop_test_duration) {                // Power on both propellers to 50%
+            rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,0.3);
+            rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_2,0.3);
+            rc_servo_send_pulse_normalized(SERVO_CHANNEL_X,0);
+            rc_servo_send_pulse_normalized(SERVO_CHANNEL_Y,0);
+        }
+        else if(t-t_start < 5*prop_pause + 4*prop_test_duration) {                // Power off both propellers
+            if(i==4){
+                printf("Powering on both propellers to 100%... \n ");
+            }
+            i = 5;
+            rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,-0.1);
+            rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_2,-0.1);
+            rc_servo_send_pulse_normalized(SERVO_CHANNEL_X,0);
+            rc_servo_send_pulse_normalized(SERVO_CHANNEL_Y,0);
+        }
+        else if(t-t_start < 5*prop_pause + 5*prop_test_duration) {                // Power on both propellers to 100%
+            rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,0.3);
+            rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_2,0.3);
+            rc_servo_send_pulse_normalized(SERVO_CHANNEL_X,0);
+            rc_servo_send_pulse_normalized(SERVO_CHANNEL_Y,0);
+        }
+        else if(t-t_start < 6*prop_pause + 5*prop_test_duration) {                // Power off both propellers
+            if(i==5){
+                printf("Propeller test is complete! \n Now testing servos, beginning with X-servo... \n");
+            }
+            i = 6;
+            rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,-0.1);
+            rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_2,-0.1);
+            rc_servo_send_pulse_normalized(SERVO_CHANNEL_X,0);
+            rc_servo_send_pulse_normalized(SERVO_CHANNEL_Y,0);
+        }
 
-        // // Test each servo individually %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        // else if(t-t_start < 6*prop_pause + 5*prop_test_duration + 1*servo_test_duration) {                // X Servo
-        //     rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,-0.1);
-        //     rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_2,-0.1);
-        //     rc_servo_send_pulse_normalized(SERVO_CHANNEL_X,servo_max_angle);
-        //     rc_servo_send_pulse_normalized(SERVO_CHANNEL_Y,0);
-        // }
-        // else if(t-t_start < 6*prop_pause + 5*prop_test_duration + 2*servo_test_duration) {                
-        //     rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,-0.1);
-        //     rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_2,-0.1);
-        //     rc_servo_send_pulse_normalized(SERVO_CHANNEL_X,-servo_max_angle);
-        //     rc_servo_send_pulse_normalized(SERVO_CHANNEL_Y,0);
-        // }
-        // else if(t-t_start < 6*prop_pause + 5*prop_test_duration + 3*servo_test_duration) {                
-        //     rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,-0.1);
-        //     rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_2,-0.1);
-        //     rc_servo_send_pulse_normalized(SERVO_CHANNEL_X,-0.8*servo_max_angle);
-        //     rc_servo_send_pulse_normalized(SERVO_CHANNEL_Y,0);
-        // }
-        // else if(t-t_start < 6*prop_pause + 5*prop_test_duration + 4*servo_test_duration) {                
-        //     rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,-0.1);
-        //     rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_2,-0.1);
-        //     rc_servo_send_pulse_normalized(SERVO_CHANNEL_X,-0.6*servo_max_angle);
-        //     rc_servo_send_pulse_normalized(SERVO_CHANNEL_Y,0);
-        // }
-        // else if(t-t_start < 6*prop_pause + 5*prop_test_duration + 5*servo_test_duration) {             
-        //     rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,-0.1);
-        //     rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_2,-0.1);
-        //     rc_servo_send_pulse_normalized(SERVO_CHANNEL_X,-0.4*servo_max_angle);
-        //     rc_servo_send_pulse_normalized(SERVO_CHANNEL_Y,0);
-        // }
-        // else if(t-t_start < 6*prop_pause + 5*prop_test_duration + 6*servo_test_duration) {
-        //     rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,-0.1);
-        //     rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_2,-0.1);
-        //     rc_servo_send_pulse_normalized(SERVO_CHANNEL_X,-0.2*servo_max_angle);
-        //     rc_servo_send_pulse_normalized(SERVO_CHANNEL_Y,0);
-        // }
-        // else if(t-t_start < 6*prop_pause + 5*prop_test_duration + 7*servo_test_duration) {                
-        //     rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,-0.1);
-        //     rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_2,-0.1);
-        //     rc_servo_send_pulse_normalized(SERVO_CHANNEL_X,0);
-        //     rc_servo_send_pulse_normalized(SERVO_CHANNEL_Y,0);
-        // }
-        // else if(t-t_start < 6*prop_pause + 5*prop_test_duration + 8*servo_test_duration) {              
-        //     rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,-0.1);
-        //     rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_2,-0.1);
-        //     rc_servo_send_pulse_normalized(SERVO_CHANNEL_X,0.2*servo_max_angle);
-        //     rc_servo_send_pulse_normalized(SERVO_CHANNEL_Y,0);
-        // }
-        // else if(t-t_start < 6*prop_pause + 5*prop_test_duration + 9*servo_test_duration) {                
-        //     rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,-0.1);
-        //     rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_2,-0.1);
-        //     rc_servo_send_pulse_normalized(SERVO_CHANNEL_X,0.4*servo_max_angle);
-        //     rc_servo_send_pulse_normalized(SERVO_CHANNEL_Y,0);
-        // }
-        // else if(t-t_start < 6*prop_pause + 5*prop_test_duration + 10*servo_test_duration) {                
-        //     rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,-0.1);
-        //     rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_2,-0.1);
-        //     rc_servo_send_pulse_normalized(SERVO_CHANNEL_X,0.6*servo_max_angle);
-        //     rc_servo_send_pulse_normalized(SERVO_CHANNEL_Y,0);
-        // }
-        // else if(t-t_start < 6*prop_pause + 5*prop_test_duration + 11*servo_test_duration) {                
-        //     rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,-0.1);
-        //     rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_2,-0.1);
-        //     rc_servo_send_pulse_normalized(SERVO_CHANNEL_X,0.8*servo_max_angle);
-        //     rc_servo_send_pulse_normalized(SERVO_CHANNEL_Y,0);
-        // }
-        // else if(t-t_start < 6*prop_pause + 5*prop_test_duration + 12*servo_test_duration) {                
-        //     rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,-0.1);
-        //     rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_2,-0.1);
-        //     rc_servo_send_pulse_normalized(SERVO_CHANNEL_X,servo_max_angle);
-        //     rc_servo_send_pulse_normalized(SERVO_CHANNEL_Y,0);
-        // }
-        // else if(t-t_start < 7*prop_pause + 5*prop_test_duration + 12*servo_test_duration) {
-        //     if(i==6){
-        //         printf("Testing Y-servo...");
-        //     }
-        //     i = 7;      
-        //     rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,-0.1);
-        //     rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_2,-0.1);
-        //     rc_servo_send_pulse_normalized(SERVO_CHANNEL_X,0);
-        //     rc_servo_send_pulse_normalized(SERVO_CHANNEL_Y,0);
-        // }
+        // Test each servo individually %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        else if(t-t_start < 6*prop_pause + 5*prop_test_duration + 1*servo_test_duration) {                // X Servo
+            printf("First Servo Test \n");
+            rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,-0.1);
+            rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_2,-0.1);
+            rc_servo_send_pulse_normalized(SERVO_CHANNEL_X,servo_max_angle);
+            rc_servo_send_pulse_normalized(SERVO_CHANNEL_Y,0);
+        }
+        else if(t-t_start < 6*prop_pause + 5*prop_test_duration + 2*servo_test_duration) {                
+            rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,-0.1);
+            rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_2,-0.1);
+            rc_servo_send_pulse_normalized(SERVO_CHANNEL_X,-servo_max_angle);
+            rc_servo_send_pulse_normalized(SERVO_CHANNEL_Y,0);
+        }
+        else if(t-t_start < 6*prop_pause + 5*prop_test_duration + 3*servo_test_duration) {                
+            rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,-0.1);
+            rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_2,-0.1);
+            rc_servo_send_pulse_normalized(SERVO_CHANNEL_X,-0.8*servo_max_angle);
+            rc_servo_send_pulse_normalized(SERVO_CHANNEL_Y,0);
+        }
+        else if(t-t_start < 6*prop_pause + 5*prop_test_duration + 4*servo_test_duration) {                
+            rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,-0.1);
+            rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_2,-0.1);
+            rc_servo_send_pulse_normalized(SERVO_CHANNEL_X,-0.6*servo_max_angle);
+            rc_servo_send_pulse_normalized(SERVO_CHANNEL_Y,0);
+        }
+        else if(t-t_start < 6*prop_pause + 5*prop_test_duration + 5*servo_test_duration) {             
+            rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,-0.1);
+            rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_2,-0.1);
+            rc_servo_send_pulse_normalized(SERVO_CHANNEL_X,-0.4*servo_max_angle);
+            rc_servo_send_pulse_normalized(SERVO_CHANNEL_Y,0);
+        }
+        else if(t-t_start < 6*prop_pause + 5*prop_test_duration + 6*servo_test_duration) {
+            rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,-0.1);
+            rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_2,-0.1);
+            rc_servo_send_pulse_normalized(SERVO_CHANNEL_X,-0.2*servo_max_angle);
+            rc_servo_send_pulse_normalized(SERVO_CHANNEL_Y,0);
+        }
+        else if(t-t_start < 6*prop_pause + 5*prop_test_duration + 7*servo_test_duration) {                
+            rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,-0.1);
+            rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_2,-0.1);
+            rc_servo_send_pulse_normalized(SERVO_CHANNEL_X,0);
+            rc_servo_send_pulse_normalized(SERVO_CHANNEL_Y,0);
+        }
+        else if(t-t_start < 6*prop_pause + 5*prop_test_duration + 8*servo_test_duration) {              
+            rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,-0.1);
+            rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_2,-0.1);
+            rc_servo_send_pulse_normalized(SERVO_CHANNEL_X,0.2*servo_max_angle);
+            rc_servo_send_pulse_normalized(SERVO_CHANNEL_Y,0);
+        }
+        else if(t-t_start < 6*prop_pause + 5*prop_test_duration + 9*servo_test_duration) {                
+            rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,-0.1);
+            rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_2,-0.1);
+            rc_servo_send_pulse_normalized(SERVO_CHANNEL_X,0.4*servo_max_angle);
+            rc_servo_send_pulse_normalized(SERVO_CHANNEL_Y,0);
+        }
+        else if(t-t_start < 6*prop_pause + 5*prop_test_duration + 10*servo_test_duration) {                
+            rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,-0.1);
+            rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_2,-0.1);
+            rc_servo_send_pulse_normalized(SERVO_CHANNEL_X,0.6*servo_max_angle);
+            rc_servo_send_pulse_normalized(SERVO_CHANNEL_Y,0);
+        }
+        else if(t-t_start < 6*prop_pause + 5*prop_test_duration + 11*servo_test_duration) {                
+            rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,-0.1);
+            rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_2,-0.1);
+            rc_servo_send_pulse_normalized(SERVO_CHANNEL_X,0.8*servo_max_angle);
+            rc_servo_send_pulse_normalized(SERVO_CHANNEL_Y,0);
+        }
+        else if(t-t_start < 6*prop_pause + 5*prop_test_duration + 12*servo_test_duration) {                
+            rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,-0.1);
+            rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_2,-0.1);
+            rc_servo_send_pulse_normalized(SERVO_CHANNEL_X,servo_max_angle);
+            rc_servo_send_pulse_normalized(SERVO_CHANNEL_Y,0);
+        }
+        else if(t-t_start < 7*prop_pause + 5*prop_test_duration + 12*servo_test_duration) {
+            if(i==6){
+                printf("Testing Y-servo...");
+            }
+            i = 7;      
+            rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,-0.1);
+            rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_2,-0.1);
+            rc_servo_send_pulse_normalized(SERVO_CHANNEL_X,0);
+            rc_servo_send_pulse_normalized(SERVO_CHANNEL_Y,0);
+        }
 
         // else if(t-t_start < 7*prop_pause + 5*prop_test_duration + 13*servo_test_duration) {                // Y Servo
         //     rc_servo_send_esc_pulse_normalized(PROP_CHANNEL_1,-0.1);
