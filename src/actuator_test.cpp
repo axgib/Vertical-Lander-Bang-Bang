@@ -15,7 +15,7 @@ float servo_test_duration = 5e8;
 float servo_test_duration_fast = 1e8;
 float servo_max_angle = 0.2;//servo at 60deg at 1, want max ~12 ---> 12/60 = 0.2
 int i = 0;
-int loop_hz = 6;
+int loop_hz = 50;
 
 int main() {
 
