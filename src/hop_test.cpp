@@ -11,7 +11,7 @@
 // #include <iostream>
 #include <rc/servo.h>
 #include <robotcontrol.h>
-#include "hop_defs.h"
+#include "../include/hop_defs.h"
 
 // /**
 //  * NOVICE: Drive rate and turn rate are limited to make driving easier.
