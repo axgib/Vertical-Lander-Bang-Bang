@@ -41,13 +41,13 @@ int main() {
         rc_usleep(20000);
 
         //Read range data
-        uint8_t regHigh = 0x0f; // register to read high data
+        uint8_t regHigh = 0x0F; // register to read high data
         uint8_t regLow = 0x10; // register to read low data
         uint8_t data[2];    // buffer to hold the data
 
         //Read each individually and check for errors
         if (rc_i2c_read_byte(I2C_BUS, regHigh, &data[0])) {
-            std::cerr << "Failed to read high byte" << std::end';
+            std::cerr << "Failed to read high byte" << std::endl;
             rc_i2c_close(I2C_BUS);
             return -1;
         }
