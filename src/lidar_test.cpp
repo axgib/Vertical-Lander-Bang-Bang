@@ -29,9 +29,9 @@ int main() {
     while (keepRunning) {
 
         //Write Command to initiate measurement
-        uint8_t cmd[2] = {0x00, 0x04};
+        uint8_t cmd = 0x04;
         uint8_t regAddr = 0x00;
-        if (rc_i2c_write_bytes(I2C_BUS, regAddr, 2, cmd) < 0) {
+        if (rc_i2c_write_byte(I2C_BUS, regAddr, cmd) < 0) {
             std::cerr << "Failed to send measurement command" << std::endl;
             rc_i2c_close(I2C_BUS);
             return -1;
@@ -41,12 +41,19 @@ int main() {
         rc_usleep(20000);
 
         //Read range data
-        uint8_t reg = 0x10; // register to read
+        uint8_t regHigh = 0x0f; // register to read high data
+        uint8_t regLow = 0x10; // register to read low data
         uint8_t data[2];    // buffer to hold the data
 
-        //Check for errors
-        if (rc_i2c_read_bytes(I2C_BUS, reg, 2, data) < 0) {
-            std::cerr << "Failed to read range data" << std::endl;
+        //Read each individually and check for errors
+        if (rc_i2c_read_byte(I2C_BUS, regHigh, &data[0])) {
+            std::cerr << "Failed to read high byte" << std::end';
+            rc_i2c_close(I2C_BUS);
+            return -1;
+        }
+
+        if (rc_i2c_read_byte(I2C_BUS, regLow, &data[1]) < 0) {
+            std::cerr << "Failed to read low byte" << std::endl;
             rc_i2c_close(I2C_BUS);
             return -1;
         }
