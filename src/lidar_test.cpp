@@ -36,6 +36,7 @@ int main() {
             rc_i2c_close(I2C_BUS);
             return -1;
         }
+        
 
         uint8_t status;
         do {
@@ -44,6 +45,7 @@ int main() {
                 rc_i2c_close(I2C_BUS);
                 return -1;
             }
+            std::cerr << "Waiting For Completed Measurement" << std::endl;
         } while (status & 0x01);
 
 
