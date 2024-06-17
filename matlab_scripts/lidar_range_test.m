@@ -5,9 +5,9 @@
 
 
 %Tait-Bryan Angles: z -> y' -> x'' yaw pitch roll sequence 
-phi = 0; %rotation about x'' : roll
-theta = 45; %rotation about y' : pitch
-psi = 0; %rotation about z : yaw
+phi = 90; %rotation about x'' : roll
+theta = 0; %rotation about y' : pitch
+psi = 90; %rotation about z : yaw
 
 sphi = sind(phi); cphi = cosd(phi);
 stheta = sind(theta); ctheta = cosd(theta);
@@ -35,6 +35,7 @@ L_hat = [0; 0; 1]; %lidar orientation
 m = 5; %measurement from lidar (lidar magnitude)
 
 L = m*L_hat;
+
 
 
 

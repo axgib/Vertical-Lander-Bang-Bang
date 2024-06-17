@@ -13,6 +13,8 @@
 #include <robotcontrol.h>
 #include "../include/hop_defs.h"
 
+
+
 // /**
 //  * NOVICE: Drive rate and turn rate are limited to make driving easier.
 //  * ADVANCED: Faster drive and turn rate for more fun.
@@ -100,7 +102,6 @@ rc_mpu_data_t mpu_data;
 uint64_t tstart, ti, t, t_takeoff,t_decend,t_land;
 int board_thread_id = 1;
 int prop_thread_id = 2;
-int rf_bus; //TODO: Check, standardize reference to rangefinder/laser
 uint8_t rf_addr, rf_height;
 const double PI = 3.141592653589793;
 
@@ -151,6 +152,11 @@ int main(int argc, char *argv[])
         // turn on power rail
         printf("Turning On 6V Servo Power Rail\n");
         rc_servo_power_rail_en(1);
+
+        if (rc_i2c_init(I2C_BUS, LIDAR_ADDRESS) < 0) {
+                fprintf(sterr, "Failed to initialized I2C bus \n");
+                return -1;
+        }
 
         // initialize adc
         if(rc_adc_init()==-1){
@@ -333,7 +339,7 @@ int main(int argc, char *argv[])
         rc_filter_free(&D2y);
 
         rc_mpu_power_off();
-        //TODO: power off laser
+        rc_i2c_close(I2C_BUS);
         
         rc_led_set(RC_LED_GREEN, 0);
         rc_led_set(RC_LED_RED, 0);
@@ -454,10 +460,48 @@ static void __balance_controller(void)
         cstate.thetax = mpu_data.dmp_TaitBryan[TB_PITCH_X] + BOARD_MOUNT_ANGLE_X;
         cstate.thetay = mpu_data.dmp_TaitBryan[TB_ROLL_Y] + BOARD_MOUNT_ANGLE_Y;// TODO
 
-        // TODO: read from laser range finder
-        rc_i2c_read_byte(rf_bus,rf_addr, &rf_height);
-        cstate.height = rf_height - LRF_OFFSET;
+        /*
+        LIDAR MEASUREMENT
+        */
+        if (rc_i2c_write_byte(I2C_BUS, 0x00, 0x04) < 0) {
+                __disarm_controller();
+                fprintf("Failed to send measurement command to LIDAR\n");
+                return;
+        }
         
+        uint8_t lidarStatus;
+        do {
+                if (rc_i2c_read_byte(I2C_BUS, 0x01, &status) < 0) {
+                        __disarm_controller();
+                        fprintf("Failed to read LIDAR status register\n");
+                        return;
+                }
+
+        } while (status & 0x01);
+
+        uint8_t lidarRangeData[2];
+
+        if (rc_i2c_read_byte(I2C_BUS, 0x0f, &lidarRangeData[0]) < 0) {
+                __disarm_controller();
+                fprintf("Failed to read LIDAR high byte\n");
+                return;
+        }
+
+        if (rc_i2c_read_byte(I2C_BUS, 0x10, &lidarRangeData[1]) < 0) {
+                __disarm_controller();
+                fprintf("Failed to read LIDAR low byte\n");
+                return;
+        }
+
+        int lidarDistance = (data[0] << 8) | data[1];
+
+        /*
+        HEIGHT CALCULATION::::::::::::::TODO
+        */
+
+
+
+
         /*************************************************************
         * check for various exit conditions AFTER state estimate
         ***************************************************************/

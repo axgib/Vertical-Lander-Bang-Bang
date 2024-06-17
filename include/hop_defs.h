@@ -85,6 +85,10 @@
 #define ENCODER_CHANNEL_X	3
 #define ENCODER_CHANNEL_Y	2
 
+// Range Finder I2C Info
+#define I2C_BUS 1
+#define LIDAR_ADDRESS 0x62 //checked using i2cdetect -r -y 1
+
 // inputs
 #define PROP_BATTERY_CHANNEL 1
 
