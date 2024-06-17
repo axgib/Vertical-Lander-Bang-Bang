@@ -37,8 +37,15 @@ int main() {
             return -1;
         }
 
-        //Delay to allow measurement completion
-        rc_usleep(20000);
+        uint8_t status;
+        do {
+            if (rc_i2c_read_byte(I2C_BUS, 0x01, &status) < 0) {
+                std::cerr << "Failed to read status register" << std::endl;
+                rc_i2c_close(I2C_BUS);
+                return -1;
+            }
+        } while (status & 0x01);
+
 
         //Read range data
         uint8_t regHigh = 0x0F; // register to read high data
