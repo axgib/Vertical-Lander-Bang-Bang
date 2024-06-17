@@ -31,12 +31,11 @@ int main() {
         //Write Command to initiate measurement
         uint8_t cmd = 0x04;
         uint8_t regAddr = 0x00;
-        if (rc_i2c_write_byte(I2C_BUS, regAddr, cmd) < 0) {
+        if (rc_i2c_write_byte(I2C_BUS, 0x00, 0x04) < 0) {
             std::cerr << "Failed to send measurement command" << std::endl;
             rc_i2c_close(I2C_BUS);
             return -1;
         }
-        
 
         uint8_t status;
         do {
@@ -45,17 +44,17 @@ int main() {
                 rc_i2c_close(I2C_BUS);
                 return -1;
             }
-            std::cerr << "Waiting For Completed Measurement" << std::endl;
+            //std::cerr << "Waiting For Completed Measurement" << std::endl;
         } while (status & 0x01);
 
 
         //Read range data
-        uint8_t regHigh = 0x0F; // register to read high data
+        uint8_t regHigh = 0x0f; // register to read high data
         uint8_t regLow = 0x10; // register to read low data
         uint8_t data[2];    // buffer to hold the data
 
         //Read each individually and check for errors
-        if (rc_i2c_read_byte(I2C_BUS, regHigh, &data[0])) {
+        if (rc_i2c_read_byte(I2C_BUS, regHigh, &data[0]) < 0) {
             std::cerr << "Failed to read high byte" << std::endl;
             rc_i2c_close(I2C_BUS);
             return -1;
@@ -71,7 +70,7 @@ int main() {
         int distance = (data[0] << 8) | data[1]; // Combine the high and low bytes
         std::cout << "Distance: " << distance << " cm" << std::endl;
     
-        rc_usleep(500000);
+        rc_usleep(100000);
     }
 
     // Close I2C bus
