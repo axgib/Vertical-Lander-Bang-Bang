@@ -11,18 +11,11 @@
 
 volatile bool keepRunning = true;
 
+double quat[4] = {1.0, 0.0, 0.0, 0.0};
+
 void signalHandler(int signum) {
     keepRunning = false;
 }
-
-rc_mpu_data_t mpu_data;
-rc_mpu_config_t conf = rc_mpu_default_config();
-conf.dmp_sample_rate = DMP_SAMPLE_RATE_HZ;
-conf.i2c_bus = DMP_I2C_BUS;
-conf.gpio_interrupt_pin_chip = DMP_GPIO_INT_PIN_CHIP;
-conf.gpio_interrupt_pin = DMP_GPIO_INT_PIN_PIN;
-
-double quat[4] = {1.0, 0.0, 0.0, 0.0};
 
 void power_down() {
     rc_i2c_close(LIDAR_I2C_BUS);
@@ -32,19 +25,26 @@ void power_down() {
 int main() {
 
     /*
-    Initialize signal handler, i2c communication, and IMU
+    Initialize signal handler, IMU, and i2c communication
     */
 
     std::signal(SIGINT, signalHandler);
 
-    if (rc_i2c_init(LIDAR_I2C_BUS, LIDAR_ADDRESS) < 0) {
-        std::cerr << "Failed to initialized I2C bus" << std::endl;
-        return -1;
-    }
+    rc_mpu_data_t mpu_data;
+    rc_mpu_config_t conf = rc_mpu_default_config();
+    conf.dmp_sample_rate = DMP_SAMPLE_RATE_HZ;
+    conf.i2c_bus = DMP_I2C_BUS;
+    conf.gpio_interrupt_pin_chip = DMP_GPIO_INT_PIN_CHIP;
+    conf.gpio_interrupt_pin = DMP_GPIO_INT_PIN_PIN;
 
     if (rc_mpu_initialize_dmp(&mpu_data, conf) < 0) {
         std::cerr << "Failed to initialize MPU" << std::endl;
         rc_i2c_close(LIDAR_I2C_BUS);
+        return -1;
+    }
+
+    if (rc_i2c_init(LIDAR_I2C_BUS, LIDAR_ADDRESS) < 0) {
+        std::cerr << "Failed to initialized I2C bus" << std::endl;
         return -1;
     }
 
@@ -82,7 +82,6 @@ int main() {
 
         int distance = (data[0] << 8) | data[1];
         std::cout << "Distance: " << distance << "cm" << std::endl;
-
 
         /*
         READING ORIENTATION FROM IMU
