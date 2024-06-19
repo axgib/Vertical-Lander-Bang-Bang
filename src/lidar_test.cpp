@@ -70,7 +70,7 @@ int main() {
         int distance = (data[0] << 8) | data[1]; // Combine the high and low bytes
         std::cout << "Distance: " << distance << " cm" << std::endl;
     
-        rc_usleep(100000);
+        rc_usleep(10000);
     }
 
     // Close I2C bus

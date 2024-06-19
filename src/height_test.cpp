@@ -18,12 +18,11 @@ void signalHandler(int signum) {
 rc_mpu_data_t mpu_data;
 rc_mpu_config_t mpu_config = rc_mpu_default_config();
 mpu_config.dmp_sample_rate = DMP_SAMPLE_RATE_HZ;
-mpu_conf.i2c_bus = DMP_I2C_BUS;
-mpu_conf.gpio_interrupt_pin_chip = DMP_GPIO_INT_PIN_CHIP;
-mpu_conf.gpio_interrupt_pin = DMP_GPIO_INT_PIN_PIN;
+mpu_config.i2c_bus = DMP_I2C_BUS;
+mpu_config.gpio_interrupt_pin_chip = DMP_GPIO_INT_PIN_CHIP;
+mpu_config.gpio_interrupt_pin = DMP_GPIO_INT_PIN_PIN;
 
 double quat[4] = {1.0, 0.0, 0.0, 0.0};
-
 
 void power_down() {
     rc_i2c_close(LIDAR_I2C_BUS);
@@ -43,7 +42,7 @@ int main() {
         return -1;
     }
 
-    if (rc_mpu_initialize_dmp(&mpu_data, mpu_conf) < 0) {
+    if (rc_mpu_initialize_dmp(&mpu_data, mpu_config) < 0) {
         std::cerr << "Failed to initialize MPU" << std::endl;
         rc_i2c_close(LIDAR_I2C_BUS);
         return -1;
@@ -88,20 +87,20 @@ int main() {
         /*
         READING ORIENTATION FROM IMU
         */
-        quat = mpu_data.fused_quat;
 
         for (int i = 0; i < 4; i++) {
+            quat[i] = mpu_data.fused_quat[i];
             std::cout << "quat[" << i << "]: " << quat[i] << std::endl;
         }
 
 
- 
+
         double roll = mpu_data.fused_TaitBryan[0]; // Rotation about X
         double pitch = mpu_data.fused_TaitBryan[1];  // Rotation about Y
         double yaw = mpu_data.fused_TaitBryan[2]; // Rotation about Z
 
         std::cout << "TB: " << roll << ", " << pitch << ", " << yaw << std::endl;
-        
+
 
         rc_usleep(100000);
     }
