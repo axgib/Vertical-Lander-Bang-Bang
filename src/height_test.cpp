@@ -16,11 +16,11 @@ void signalHandler(int signum) {
 }
 
 rc_mpu_data_t mpu_data;
-rc_mpu_config_t mpu_config = rc_mpu_default_config();
-mpu_config.dmp_sample_rate = DMP_SAMPLE_RATE_HZ;
-mpu_config.i2c_bus = DMP_I2C_BUS;
-mpu_config.gpio_interrupt_pin_chip = DMP_GPIO_INT_PIN_CHIP;
-mpu_config.gpio_interrupt_pin = DMP_GPIO_INT_PIN_PIN;
+rc_mpu_config_t conf = rc_mpu_default_config();
+conf.dmp_sample_rate = DMP_SAMPLE_RATE_HZ;
+conf.i2c_bus = DMP_I2C_BUS;
+conf.gpio_interrupt_pin_chip = DMP_GPIO_INT_PIN_CHIP;
+conf.gpio_interrupt_pin = DMP_GPIO_INT_PIN_PIN;
 
 double quat[4] = {1.0, 0.0, 0.0, 0.0};
 
@@ -42,7 +42,7 @@ int main() {
         return -1;
     }
 
-    if (rc_mpu_initialize_dmp(&mpu_data, mpu_config) < 0) {
+    if (rc_mpu_initialize_dmp(&mpu_data, conf) < 0) {
         std::cerr << "Failed to initialize MPU" << std::endl;
         rc_i2c_close(LIDAR_I2C_BUS);
         return -1;
