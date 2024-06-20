@@ -36,6 +36,7 @@ int main() {
     conf.i2c_bus = DMP_I2C_BUS;
     conf.gpio_interrupt_pin_chip = DMP_GPIO_INT_PIN_CHIP;
     conf.gpio_interrupt_pin = DMP_GPIO_INT_PIN_PIN;
+    conf.enable_magnetometer = 1;
 
     if (rc_mpu_initialize_dmp(&mpu_data, conf) < 0) {
         std::cerr << "Failed to initialize MPU" << std::endl;
@@ -94,9 +95,9 @@ int main() {
 
 
 
-        double roll = mpu_data.fused_TaitBryan[0]; // Rotation about X
-        double pitch = mpu_data.fused_TaitBryan[1];  // Rotation about Y
-        double yaw = mpu_data.fused_TaitBryan[2]; // Rotation about Z
+        double roll = mpu_data.fused_TaitBryan[0]*RAD_TO_DEG; // Rotation about X
+        double pitch = mpu_data.fused_TaitBryan[1]*RAD_TO_DEG;  // Rotation about Y
+        double yaw = mpu_data.fused_TaitBryan[2]*RAD_TO_DEG; // Rotation about Z
 
         std::cout << "TB: " << roll << ", " << pitch << ", " << yaw << std::endl;
 
