@@ -7,8 +7,10 @@ double accel_vec[3];
 int main(void){
 
     for(int i = 0; i < 10; i++){
-        for(i=0;i<3;i++) accel_vec[i]=mpu_data.accel[i];
-        std::cout << accel_vec;
+        for(i=0;i<3;i++){
+            accel_vec[i]=mpu_data.accel[i];
+            std::cout << std::format("{}", std::numbers::accel_vec[i]);
+            } 
     }
 
     return 0;
