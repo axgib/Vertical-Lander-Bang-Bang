@@ -18,9 +18,10 @@ int main(void){
     rc_mpu_read_gyro(mpu_data);
     rc_mpu_read_mag(mpu_data);
 
-    printf(" %5.2f %5.2f %5.2f |", data.accel[0],\
-                                   data.accel[1],\
-                                   data.accel[2]);
+    // printf(" %5.2f %5.2f %5.2f |", data.accel[0],\
+    //                                data.accel[1],\
+    //                                data.accel[2]);
     
+    rc_mpu_power_off()
     return 0;
 }
