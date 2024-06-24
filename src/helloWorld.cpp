@@ -1,4 +1,5 @@
 #include <rc/mpu.h>
+#include <printf.h>
 
 static rc_mpu_data_t mpu_data;
 
