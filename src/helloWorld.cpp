@@ -1,24 +1,12 @@
-#include <iostream>
-#include <iomanip> 
-#include <limits> 
 #include <rc/mpu.h>
 
-using namespace std; 
-
 static rc_mpu_data_t mpu_data;
-double accel_vec[3];
 
 int main(void){
 
-    for(int i = 0; i < 10; i++){
-        for(i=0;i<3;i++){
-            accel_vec[i]=mpu_data.accel[i];
-            cout << fixed 
-                 << setprecision( 
-                        numeric_limits<double>::max_digits10) 
-                 << accel_vec[i] << endl;
-            } 
-    }
-
+    printf(" %5.2f %5.2f %5.2f |", data.accel[0],\
+                                   data.accel[1],\
+                                   data.accel[2]);
+    
     return 0;
 }
