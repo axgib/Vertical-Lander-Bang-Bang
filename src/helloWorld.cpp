@@ -3,6 +3,8 @@
 #include <limits> 
 #include <rc/mpu.h>
 
+using namespace std; 
+
 static rc_mpu_data_t mpu_data;
 double accel_vec[3];
 
