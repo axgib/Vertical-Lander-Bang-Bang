@@ -317,16 +317,16 @@ void LIDARLite_v3HP::write(uint8_t regAddr, uint8_t * dataBytes,
         return;
     }
 
-    // A nack means the device is not responding. Report the error over serial.
-    nackCatcher = Wire.endTransmission();
-    if (nackCatcher != 0)
-    {
-        printf("> nack");
-    }
-    struct timespec delay;
-    delay.tv_sec = 0;
-    delay.tv_nsec = 100000;
-    nanosleep(&delay, NULL); // 100 us delay for robustness with successive reads and writes
+    // // A nack means the device is not responding. Report the error over serial.
+    // nackCatcher = Wire.endTransmission();
+    // if (nackCatcher != 0)
+    // {
+    //     printf("> nack");
+    // }
+    // struct timespec delay;
+    // delay.tv_sec = 0;
+    // delay.tv_nsec = 100000;
+    // nanosleep(&delay, NULL); // 100 us delay for robustness with successive reads and writes
 } /* LIDARLite_v3HP::write */
 
 /*------------------------------------------------------------------------------
