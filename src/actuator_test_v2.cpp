@@ -8,7 +8,12 @@
 #include "../include/hop_defs.h"
 
 //Should be all that is necessary on BB
-#include <robotcontrol.h>
+// #include <robotcontrol.h>
+#include <rc/adc.h>
+#include <rc/motor.h>
+#include <rc/start_stop.h>
+#include <rc/servo.h>
+#include <rc/time.h>
 
 // // Attempt to include libraries on laptop, not quite right...
 // #include "../../librobotcontrol/library/include/rc/time.h"
