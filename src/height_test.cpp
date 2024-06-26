@@ -22,9 +22,12 @@ void power_down() {
 
 int main() {
 
-    double quat[4];
+    double quat_array[4] = {1, 0, 0, 0};
     double rf_measurement_hat_b_array[3] = {sqrt(2)/2, 0, sqrt(2)/2};
     double rf_placement_b_array[3] = {0, 0, 0};
+
+    rc_vector_t quat = RC_VECTOR_INITIALIZER;
+    rc_vector_from_array(&quat, quat_array, 4);
 
     rc_vector_t rf_measurement_b = RC_VECTOR_INITIALIZER;
     rc_vector_from_array(&rf_measurement_b, rf_measurement_hat_b_array, 3);
@@ -109,17 +112,19 @@ int main() {
         */
 
         for (int i = 0; i < 4; i++) {
-            quat[i] = mpu_data.fused_quat[i];
-            std::cout << "quat[" << i << "]: " << quat[i] << std::endl;
+            quat_array[i] = mpu_data.fused_quat[i];
+            std::cout << "quat[" << i << "]: " << quat_array[i] << std::endl;
         }
+
+        rc_vector_from_array(&quat, quat_array, 4);
 
         rc_quaternion_to_rotation_matrix(quat, &l2b);
         rc_matrix_transpose(&l2b, &b2l);
 
-        rc_matrix_times_col_vec(&b2l, &rf_measurement_b, &rf_measurement_l);
-        rc_matrix_times_col_vec(&b2l, &rf_placement_b, &rf_placement_l);
+        rc_matrix_times_col_vec(&b2l, &rf_measurement_b, rf_measurement_l);
+        rc_matrix_times_col_vec(&b2l, &rf_placement_b, rf_placement_l);
         
-        double height = rf_measurement_l.d[2] + rf_placement_l[2];
+        double height = rf_measurement_l.d[2] + rf_placement_l.d[2];
         std::cout << "Height: " << height << "m" << std::endl;
 
     }
