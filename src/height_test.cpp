@@ -11,8 +11,6 @@
 
 volatile bool keepRunning = true;
 
-double quat[4] = {1.0, 0.0, 0.0, 0.0};
-
 void signalHandler(int signum) {
     keepRunning = false;
 }
@@ -23,6 +21,25 @@ void power_down() {
 }
 
 int main() {
+
+    double quat[4];
+    double rf_measurement_hat_b_array[3] = {sqrt(2)/2, 0, sqrt(2)/2};
+    double rf_placement_b_array[3] = {0, 0, 0};
+
+    rc_vector_t rf_measurement_b = RC_VECTOR_INITIALIZER;
+    rc_vector_from_array(&rf_measurement_b, rf_measurement_hat_b_array 3);
+    rc_vector_t rf_placement_b = RC_VECTOR_INITIALIZER;
+    rc_vector_from_array(&rf_placement_b, rf_placement_b_array, 3);  
+
+    rc_vector_t rf_measurement_l = RC_VECTOR_INITIALIZER;
+    rc_vector_alloc(&rf_measurement_l, 3);
+    rc_vector_t rf_placement_l = RC_VECTOR_INITIALIZER;
+    rc_vector_alloc(&rf_placement_l, 3);
+
+    rc_matrix_t l2b = RC_MATRIX_INITIALIZER;
+    rc_matrx_t b2l = RC_MATRIX_INITIALIZER;
+    rc_matrix_alloc(&l2b, 3, 3);
+    rc_matrix_alloc(&b2l, 3, 3);
 
     /*
     Initialize signal handler, IMU, and i2c communication
@@ -81,8 +98,11 @@ int main() {
             return -1;
         }
 
-        int distance = (data[0] << 8) | data[1];
-        std::cout << "Distance: " << distance << "cm" << std::endl;
+        int distance = ((data[0] << 8) | data[1])/ 100; //[m]
+        std::cout << "Distance: " << distance << "m" << std::endl;
+
+        rc_vector_norm(&rf_measurement_b, 2);
+        rc_vector_times_scaler(&rf_measurement_b, distance);
 
         /*
         READING ORIENTATION FROM IMU
@@ -93,16 +113,15 @@ int main() {
             std::cout << "quat[" << i << "]: " << quat[i] << std::endl;
         }
 
+        rc_quaternion_to_rotation_matrix(quat, &l2b);
+        rc_matrix_transpose(&l2b, &b2l);
 
+        rc_matrix_times_col_vec(&b2l, &rf_measurement_b, &rf_measurement_l);
+        rc_matrix_times_col_vec(&b2l, &rf_placement_b, &rf_placement_l);
+        
+        double height = rf_measurement_l.d[2] + rf_placement_l[2];
+        std::cout << "Height: " << height << "m" << std::endl;
 
-        double roll = mpu_data.fused_TaitBryan[0]*RAD_TO_DEG; // Rotation about X
-        double pitch = mpu_data.fused_TaitBryan[1]*RAD_TO_DEG;  // Rotation about Y
-        double yaw = mpu_data.fused_TaitBryan[2]*RAD_TO_DEG; // Rotation about Z
-
-        std::cout << "TB: " << roll << ", " << pitch << ", " << yaw << std::endl;
-
-
-        rc_usleep(100000);
     }
 
     power_down();
