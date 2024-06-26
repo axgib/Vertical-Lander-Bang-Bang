@@ -27,7 +27,7 @@ int main() {
     double rf_placement_b_array[3] = {0, 0, 0};
 
     rc_vector_t rf_measurement_b = RC_VECTOR_INITIALIZER;
-    rc_vector_from_array(&rf_measurement_b, rf_measurement_hat_b_array 3);
+    rc_vector_from_array(&rf_measurement_b, rf_measurement_hat_b_array, 3);
     rc_vector_t rf_placement_b = RC_VECTOR_INITIALIZER;
     rc_vector_from_array(&rf_placement_b, rf_placement_b_array, 3);  
 
@@ -37,7 +37,7 @@ int main() {
     rc_vector_alloc(&rf_placement_l, 3);
 
     rc_matrix_t l2b = RC_MATRIX_INITIALIZER;
-    rc_matrx_t b2l = RC_MATRIX_INITIALIZER;
+    rc_matrix_t b2l = RC_MATRIX_INITIALIZER;
     rc_matrix_alloc(&l2b, 3, 3);
     rc_matrix_alloc(&b2l, 3, 3);
 
@@ -101,8 +101,8 @@ int main() {
         int distance = ((data[0] << 8) | data[1])/ 100; //[m]
         std::cout << "Distance: " << distance << "m" << std::endl;
 
-        rc_vector_norm(&rf_measurement_b, 2);
-        rc_vector_times_scaler(&rf_measurement_b, distance);
+        rc_vector_norm(rf_measurement_b, 2);
+        rc_vector_times_scalar(rf_measurement_b, distance);
 
         /*
         READING ORIENTATION FROM IMU
