@@ -1,6 +1,7 @@
 #include <iostream>
 #include <robotcontrol.h>
 #include <csignal>
+#include <cmath>
 
 #define LIDAR_I2C_BUS 1
 #define LIDAR_ADDRESS 0x62
@@ -8,6 +9,7 @@
 #define DMP_I2C_BUS 2
 #define DMP_GPIO_INT_PIN_CHIP 3
 #define DMP_GPIO_INT_PIN_PIN 21
+#define LIDAR_ANGLE_DEGREES 30.0
 
 volatile bool keepRunning = true;
 
@@ -22,9 +24,10 @@ void power_down() {
 
 int main() {
 
+    double lidar_angle = LIDAR_ANGLE_DEGREES*M_PI/180.0;
     double quat_array[4] = {1, 0, 0, 0};
-    double rf_measurement_hat_b_array[3] = {sqrt(2)/2, 0, sqrt(2)/2};
-    double rf_placement_b_array[3] = {0, 0, 0};
+    double rf_measurement_hat_b_array[3] = {0.0, std::sin(lidar_angle), -std::cos(lidar_angle)};
+    double rf_placement_b_array[3] = {0, 0, 15.0};
 
     rc_vector_t quat = RC_VECTOR_INITIALIZER;
     rc_vector_from_array(&quat, quat_array, 4);
@@ -32,7 +35,7 @@ int main() {
     rc_vector_t rf_measurement_b = RC_VECTOR_INITIALIZER;
     rc_vector_from_array(&rf_measurement_b, rf_measurement_hat_b_array, 3);
     rc_vector_t rf_placement_b = RC_VECTOR_INITIALIZER;
-    rc_vector_from_array(&rf_placement_b, rf_placement_b_array, 3);  
+    rc_vector_from_array(&rf_placement_b, rf_placement_b_array, 3);
 
     rc_vector_t rf_measurement_l = RC_VECTOR_INITIALIZER;
     rc_vector_alloc(&rf_measurement_l, 3);
@@ -101,11 +104,15 @@ int main() {
             return -1;
         }
 
-        int distance = ((data[0] << 8) | data[1])/ 100; //[m]
-        std::cout << "Distance: " << distance << "m" << std::endl;
+        double distance = ((data[0] << 8) | data[1])/2.54; //[m]
+        //std::cout << "Distance: " << distance << " m" << std::endl;
 
-        rc_vector_norm(rf_measurement_b, 2);
-        rc_vector_times_scalar(&rf_measurement_b, distance);
+        double norm = rc_vector_norm(rf_measurement_b, 2);
+        if (rc_vector_times_scalar(&rf_measurement_b, distance/norm) != 0) {
+            std::cerr << "Failed to normalize and magnify measurement body vector" << std::endl;
+            power_down();
+            return -1;
+        }
 
         /*
         READING ORIENTATION FROM IMU
@@ -113,7 +120,7 @@ int main() {
 
         for (int i = 0; i < 4; i++) {
             quat_array[i] = mpu_data.fused_quat[i];
-            std::cout << "quat[" << i << "]: " << quat_array[i] << std::endl;
+            //std::cout << "quat[" << i << "]: " << quat_array[i] << std::endl;
         }
 
         rc_vector_from_array(&quat, quat_array, 4);
@@ -124,8 +131,8 @@ int main() {
         rc_matrix_times_col_vec(b2l, rf_measurement_b, &rf_measurement_l);
         rc_matrix_times_col_vec(b2l, rf_placement_b, &rf_placement_l);
 
-        double height = rf_measurement_l.d[2] + rf_placement_l.d[2];
-        //std::cout << "Height: " << height << " m" << std::endl;
+        double height = std::fabs(rf_measurement_l.d[2] + rf_placement_l.d[2]);
+        std::cout << "Height: " << height << " in" << std::endl;
 
     }
 

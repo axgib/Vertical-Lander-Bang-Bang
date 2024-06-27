@@ -67,8 +67,8 @@ int main() {
         }
 
         //Store and print range data
-        int distance = (data[0] << 8) | data[1]; // Combine the high and low bytes
-        std::cout << "Distance: " << distance << " cm" << std::endl;
+        double distance = ((data[0] << 8) | data[1])/2.54; // Combine the high and low bytes
+        std::cout << "Distance: " << distance << " in" << std::endl;
     
         rc_usleep(10000);
     }
