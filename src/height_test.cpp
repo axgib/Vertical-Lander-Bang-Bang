@@ -25,12 +25,14 @@ void power_down() {
 int main() {
 
     double lidar_angle = LIDAR_ANGLE_DEGREES*M_PI/180.0;
-    double quat_array[4] = {1, 0, 0, 0};
+    double quat_array[4] = {1.0, 0.0, 0.0, 0.0};
     double rf_measurement_hat_b_array[3] = {0.0, std::sin(lidar_angle), -std::cos(lidar_angle)};
-    double rf_placement_b_array[3] = {0, 0, 15.0};
+    double rf_placement_b_array[3] = {0.0, 0.0, 15.0};
 
     rc_vector_t quat = RC_VECTOR_INITIALIZER;
     rc_vector_from_array(&quat, quat_array, 4);
+    rc_vector_t tb_angles = RC_VECTOR_INITIALIZER:
+    rc_vector_alloc(&tb_angles, 3);
 
     rc_vector_t rf_measurement_b = RC_VECTOR_INITIALIZER;
     rc_vector_from_array(&rf_measurement_b, rf_measurement_hat_b_array, 3);
@@ -72,6 +74,26 @@ int main() {
         return -1;
     }
 
+    /*
+    Header for Terminal Data
+    */
+    printf(" Raw Dist |");
+    printf("  Height  |");
+    printf("    q0    |");
+    printf("    q1    |");
+    printf("    q2    |");
+    printf("    q3    |");
+    printf("  Tait_x  |");
+    printf("  Tait_y  |");
+    printf("  Tait_z  |");
+    printf("  ms_b_x  |");
+    printf("  ms_b_y  |");
+    printf("  ms_b_z  |");
+    printf("  ms_l_x  |");
+    printf("  ms_l_y  |");
+    printf("  ms_l_z  |");
+    prinf("\n");
+    
     while (keepRunning) {
 
         /*
@@ -105,7 +127,6 @@ int main() {
         }
 
         double distance = ((data[0] << 8) | data[1])/2.54; //[m]
-        //std::cout << "Distance: " << distance << " m" << std::endl;
 
         double norm = rc_vector_norm(rf_measurement_b, 2);
         if (rc_vector_times_scalar(&rf_measurement_b, distance/norm) != 0) {
@@ -120,10 +141,11 @@ int main() {
 
         for (int i = 0; i < 4; i++) {
             quat_array[i] = mpu_data.fused_quat[i];
-            //std::cout << "quat[" << i << "]: " << quat_array[i] << std::endl;
         }
 
         rc_vector_from_array(&quat, quat_array, 4);
+
+        rc_quaternion_to_tb(quat, &tb_angles);
 
         rc_quaternion_to_rotation_matrix(quat, &l2b);
         rc_matrix_transpose(l2b, &b2l);
@@ -132,7 +154,30 @@ int main() {
         rc_matrix_times_col_vec(b2l, rf_placement_b, &rf_placement_l);
 
         double height = std::fabs(rf_measurement_l.d[2] + rf_placement_l.d[2]);
-        std::cout << "Height: " << height << " in" << std::endl;
+
+
+        /*
+        Print Data to Terminal
+        */
+        
+        printf("\r");
+        printf("%7.3f     |", distance);
+        printf("%7.3f     |", height);
+        printf("%7.3f     |", quat.d[0]);
+        printf("%7.3f     |", quat.d[1]);
+        printf("%7.3f     |", quat.d[2]);
+        printf("%7.3f     |", quat.d[3]);
+        printf("%7.3f     |", tb_angles.d[0]);
+        printf("%7.3f     |", tb_angles.d[1]);
+        printf("%7.3f     |", tb_angles.d[2]);
+        printf("%7.3f     |", rf_measurement_b.d[0]);
+        printf("%7.3f     |", rf_measurement_b.d[1]);
+        printf("%7.3f     |", rf_measurement_b.d[2]);
+        printf("%7.3f     |", rf_measurement_l.d[0]);
+        printf("%7.3f     |", rf_measurement_l.d[1]);
+        printf("%7.3f     |", rf_measurement_l.d[2]);
+        
+        fflush(stdout);
 
     }
 
