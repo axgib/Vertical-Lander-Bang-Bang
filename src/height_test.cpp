@@ -105,7 +105,7 @@ int main() {
         std::cout << "Distance: " << distance << "m" << std::endl;
 
         rc_vector_norm(rf_measurement_b, 2);
-        rc_vector_times_scalar(rf_measurement_b, distance);
+        rc_vector_times_scalar(&rf_measurement_b, distance);
 
         /*
         READING ORIENTATION FROM IMU
@@ -119,13 +119,13 @@ int main() {
         rc_vector_from_array(&quat, quat_array, 4);
 
         rc_quaternion_to_rotation_matrix(quat, &l2b);
-        rc_matrix_transpose(&l2b, &b2l);
+        rc_matrix_transpose(l2b, &b2l);
 
-        rc_matrix_times_col_vec(&b2l, &rf_measurement_b, rf_measurement_l);
-        rc_matrix_times_col_vec(&b2l, &rf_placement_b, rf_placement_l);
-        
+        rc_matrix_times_col_vec(b2l, rf_measurement_b, &rf_measurement_l);
+        rc_matrix_times_col_vec(b2l, rf_placement_b, &rf_placement_l);
+
         double height = rf_measurement_l.d[2] + rf_placement_l.d[2];
-        std::cout << "Height: " << height << "m" << std::endl;
+        //std::cout << "Height: " << height << " m" << std::endl;
 
     }
 
