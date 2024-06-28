@@ -1,0 +1,2 @@
+﻿Time (s),ESC signal (µs),Servo 1 (µs),Servo 2 (µs),Servo 3 (µs),Thrust (kgf),Voltage (V),Current (A),Motor Electrical Speed (RPM),Motor Optical Speed (RPM),Electrical Power (W),Overall Efficiency (kgf/W),App message,
+0,1000,,,,,0,0.06567369256382091,0,0,0,,,
