@@ -3,6 +3,7 @@
 #include <csignal>
 #include <cmath>
 
+
 #define LIDAR_I2C_BUS 1
 #define LIDAR_ADDRESS 0x62
 #define DMP_SAMPLE_RATE_HZ 100
@@ -10,6 +11,7 @@
 #define DMP_GPIO_INT_PIN_CHIP 3
 #define DMP_GPIO_INT_PIN_PIN 21
 #define LIDAR_ANGLE_DEGREES 30.0
+#define RATE_HZ 100
 
 volatile bool keepRunning = true;
 
@@ -27,11 +29,11 @@ int main() {
     double lidar_angle = LIDAR_ANGLE_DEGREES*M_PI/180.0;
     double quat_array[4] = {1.0, 0.0, 0.0, 0.0};
     double rf_measurement_hat_b_array[3] = {0.0, std::sin(lidar_angle), -std::cos(lidar_angle)};
-    double rf_placement_b_array[3] = {0.0, 0.0, 15.0};
+    double rf_placement_b_array[3] = {0.0, 0.0, 0.0};
 
     rc_vector_t quat = RC_VECTOR_INITIALIZER;
     rc_vector_from_array(&quat, quat_array, 4);
-    rc_vector_t tb_angles = RC_VECTOR_INITIALIZER:
+    rc_vector_t tb_angles = RC_VECTOR_INITIALIZER;
     rc_vector_alloc(&tb_angles, 3);
 
     rc_vector_t rf_measurement_b = RC_VECTOR_INITIALIZER;
@@ -92,7 +94,7 @@ int main() {
     printf("  ms_l_x  |");
     printf("  ms_l_y  |");
     printf("  ms_l_z  |");
-    prinf("\n");
+    printf("\n");
     
     while (keepRunning) {
 
@@ -147,8 +149,7 @@ int main() {
 
         rc_quaternion_to_tb(quat, &tb_angles);
 
-        rc_quaternion_to_rotation_matrix(quat, &l2b);
-        rc_matrix_transpose(l2b, &b2l);
+        rc_quaternion_to_rotation_matrix(quat, &b2l);
 
         rc_matrix_times_col_vec(b2l, rf_measurement_b, &rf_measurement_l);
         rc_matrix_times_col_vec(b2l, rf_placement_b, &rf_placement_l);
@@ -161,23 +162,25 @@ int main() {
         */
         
         printf("\r");
-        printf("%7.3f     |", distance);
-        printf("%7.3f     |", height);
-        printf("%7.3f     |", quat.d[0]);
-        printf("%7.3f     |", quat.d[1]);
-        printf("%7.3f     |", quat.d[2]);
-        printf("%7.3f     |", quat.d[3]);
-        printf("%7.3f     |", tb_angles.d[0]);
-        printf("%7.3f     |", tb_angles.d[1]);
-        printf("%7.3f     |", tb_angles.d[2]);
-        printf("%7.3f     |", rf_measurement_b.d[0]);
-        printf("%7.3f     |", rf_measurement_b.d[1]);
-        printf("%7.3f     |", rf_measurement_b.d[2]);
-        printf("%7.3f     |", rf_measurement_l.d[0]);
-        printf("%7.3f     |", rf_measurement_l.d[1]);
-        printf("%7.3f     |", rf_measurement_l.d[2]);
+        printf("%7.3f   |", distance);
+        printf("%7.3f   |", height);
+        printf("%7.3f   |", quat.d[0]);
+        printf("%7.3f   |", quat.d[1]);
+        printf("%7.3f   |", quat.d[2]);
+        printf("%7.3f   |", quat.d[3]);
+        printf("%7.3f   |", tb_angles.d[0]*RAD_TO_DEG);
+        printf("%7.3f   |", tb_angles.d[1]*RAD_TO_DEG);
+        printf("%7.3f   |", tb_angles.d[2]*RAD_TO_DEG);
+        printf("%7.3f   |", rf_measurement_b.d[0]);
+        printf("%7.3f   |", rf_measurement_b.d[1]);
+        printf("%7.3f   |", rf_measurement_b.d[2]);
+        printf("%7.3f   |", rf_measurement_l.d[0]);
+        printf("%7.3f   |", rf_measurement_l.d[1]);
+        printf("%7.3f   |", rf_measurement_l.d[2]);
         
         fflush(stdout);
+
+        rc_usleep(100000/RATE_HZ);
 
     }
 
