@@ -34,8 +34,8 @@ ylabel("Thrust(kgF)")
 legend(["ramp", "step"])
 
 %% Build ramp model
-na = 2;
-nb = 2;
+na = 10;
+nb = 10;
 nk = 0;
 
 rampData = iddata(ramp_y, ramp_u, 1);
@@ -44,8 +44,8 @@ ramp_model = arx(rampData, [na, nb, nk]);
 disp(ramp_model)
 
 %% Build step model
-na = 2;
-nb = 2;
+na = 10;
+nb = 10;
 nk = 0;
 
 stepData = iddata(step_y, step_u, 1);
@@ -55,11 +55,36 @@ disp(step_model)
 %% Compare the model to the data
 
 figure()
+subplot(3,1,1)
 compare(rampData, ramp_model)
+title("Simulated Response (rampData, rampModel)")
 
-figure()
+subplot(3,1,2)
 compare(stepData, step_model)
+title("Simulated Response (stepData, stepModel)")
+
+subplot(3,1,3)
+compare(stepData, ramp_model)
+title("Simulated Response (stepData, rampModel)")
 
 %%
+ts = 0.02 %s
+rampG = tf(ramp_model.B, ramp_model.A, ts)
+stepG = tf(step_model.B, step_model.A, ts)
+%%
+
+oe_rampModel = oe(rampData, [5, 5, 0])
+oe_stepModel = oe(stepData, [5, 5, 0])
+
 figure()
-compare(stepData, ramp_model)
+subplot(3,1,1)
+compare(rampData, oe_rampModel)
+title("Simulated Response (rampData, oe-rampModel)")
+
+subplot(3,1,2)
+compare(stepData, oe_stepModel)
+title("Simulated Response (stepData, oe-stepModel)")
+
+subplot(3,1,3)
+compare(stepData, oe_rampModel)
+title("Simulated Response (stepData, oe-rampModel) - cross validation")
