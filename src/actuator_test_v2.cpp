@@ -8,12 +8,12 @@
 #include "../include/hop_defs.h"
 
 //Should be all that is necessary on BB
-// #include <robotcontrol.h>
-#include <rc/adc.h>
-#include <rc/motor.h>
-#include <rc/start_stop.h>
-#include <rc/servo.h>
-#include <rc/time.h>
+#include <robotcontrol.h>
+// #include <rc/adc.h>
+// #include <rc/motor.h>
+// #include <rc/start_stop.h>
+// #include <rc/servo.h>
+// #include <rc/time.h>
 
 // // Attempt to include libraries on laptop, not quite right...
 // #include "../../librobotcontrol/library/include/rc/time.h"
@@ -194,7 +194,7 @@ void dualservo() {
     if(t < servo_test_duration) {                                    
         prop1_signal = -0.1;
         prop2_signal = -0.1;
-        servo_signal = {servo_max_angle, servo_max_angle};          // CCW square
+        servo_signal = {servo_max_angle, servo_max_angle};                      // CCW square
     }
     else if(t < 2*servo_test_duration) {                   
         servo_signal = {-servo_max_angle, servo_max_angle};
@@ -209,31 +209,31 @@ void dualservo() {
         servo_signal = {servo_max_angle, servo_max_angle};
     }
 
-    else if(t < 7*servo_test_duration) {                            // CW Circle
+    else if(t < 6*servo_test_duration + 1*servo_test_duration_fast) {             // CW Circle
         servo_signal = {servo_max_angle, 0.0};
     }
-    else if(t < 8*servo_test_duration) {                   
+    else if(t < 6*servo_test_duration + 2*servo_test_duration_fast) {                   
         servo_signal = {0.707*servo_max_angle, -0.707*servo_max_angle};
     }
-    else if(t < 9*servo_test_duration) {                   
+    else if(t < 6*servo_test_duration + 3*servo_test_duration_fast) {                   
         servo_signal = {0.0, -servo_max_angle};
     }
-    else if(t < 10*servo_test_duration) {                   
+    else if(t < 6*servo_test_duration + 4*servo_test_duration_fast) {                   
         servo_signal = {-0.707*servo_max_angle, -0.707*servo_max_angle};
     }
-    else if(t < 11*servo_test_duration) {                           
+    else if(t < 6*servo_test_duration + 5*servo_test_duration_fast) {                           
         servo_signal = {-servo_max_angle, 0.0};
     }
-    else if(t < 12*servo_test_duration) {                   
+    else if(t < 6*servo_test_duration + 6*servo_test_duration_fast) {                   
         servo_signal = {-0.707*servo_max_angle, 0.707*servo_max_angle};
     }
-    else if(t < 13*servo_test_duration) {                   
+    else if(t < 6*servo_test_duration + 7*servo_test_duration_fast) {                   
         servo_signal = {0.0, servo_max_angle};
     }
-    else if(t < 14*servo_test_duration) {                   
+    else if(t < 6*servo_test_duration + 8*servo_test_duration_fast) {                   
         servo_signal = {0.707*servo_max_angle, 0.707*servo_max_angle};
     }
-    else if(t < 16*servo_test_duration) {                   
+    else if(t < 7*servo_test_duration + 8*servo_test_duration_fast) {                   
         servo_signal = {0.0, 0.0};
     }
     else {
@@ -243,11 +243,73 @@ void dualservo() {
 }
 void fulltest() {
     printf("Running All Actuator Test a..\n");
-
-    
-    state = DONE;
-    // std::cout << "Running Test 3" << std::endl;
-    // std::this_thread::sleep_for(std::chrono::seconds(2)); // Simulate test running
+    if(t < servo_test_duration) {                                    
+        prop1_signal = -0.1;
+        prop2_signal = -0.1;
+        servo_signal = {0, 0};          // CCW square
+    }
+    else if(t < 2*servo_test_duration) {
+        prop1_signal = 0.8;
+        prop2_signal = 0.8;
+        servo_signal = {servo_max_angle, 0};        
+    }
+    else if(t < 3*servo_test_duration) {
+        servo_signal = {0, 0};        
+    }
+    else if(t < 4*servo_test_duration) {
+        servo_signal = {-servo_max_angle, 0};        
+    }
+    else if(t < 5*servo_test_duration) {
+        servo_signal = {0, 0};        
+    }
+    else if(t < 6*servo_test_duration) {
+        servo_signal = {0, servo_max_angle};        
+    }
+    else if(t < 7*servo_test_duration) {
+        servo_signal = {0, 0};        
+    }
+    else if(t < 8*servo_test_duration) {
+        servo_signal = {0, -servo_max_angle};        
+    }
+    else if(t < 9*servo_test_duration) {
+        servo_signal = {0, 0};        
+    }
+    else if(t < 9*servo_test_duration + servo_test_duration_fast) {             // CW Circle
+        prop1_signal = 1;
+        prop2_signal = 1;
+        servo_signal = {servo_max_angle, 0.0};
+    }
+    else if(t < 9*servo_test_duration + 2*servo_test_duration_fast) {                   
+        servo_signal = {0.707*servo_max_angle, -0.707*servo_max_angle};
+    }
+    else if(t < 9*servo_test_duration + 3*servo_test_duration_fast) {                   
+        servo_signal = {0.0, -servo_max_angle};
+    }
+    else if(t < 9*servo_test_duration + 4*servo_test_duration_fast) {                   
+        servo_signal = {-0.707*servo_max_angle, -0.707*servo_max_angle};
+    }
+    else if(t < 9*servo_test_duration + 5*servo_test_duration_fast) {                           
+        servo_signal = {-servo_max_angle, 0.0};
+    }
+    else if(t < 9*servo_test_duration + 6*servo_test_duration_fast) {                   
+        servo_signal = {-0.707*servo_max_angle, 0.707*servo_max_angle};
+    }
+    else if(t < 9*servo_test_duration + 7*servo_test_duration_fast) {                   
+        servo_signal = {0.0, servo_max_angle};
+    }
+    else if(t < 9*servo_test_duration + 8*servo_test_duration_fast) {                   
+        servo_signal = {0.707*servo_max_angle, 0.707*servo_max_angle};
+    }
+    else if(t < 7*servo_test_duration + 8*servo_test_duration_fast) {                   
+        servo_signal = {0.0, 0.0};
+    }
+    else {
+        prop1_signal = -0.1;
+        prop2_signal = -0.1;
+        servo_signal = {0, 0};
+        t_ref = t;
+        state = DONE;
+    }
 }
 
 int main(int argc, char* argv[]) {
@@ -356,6 +418,9 @@ int main(int argc, char* argv[]) {
                 }
                 break;
             default:
+                prop1_signal = -0.1;
+                prop2_signal = -0.1;
+                servo_signal = {0, 0};
                 state = DONE;
                 break;
 

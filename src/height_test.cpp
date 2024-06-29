@@ -128,7 +128,7 @@ int main() {
             return -1;
         }
 
-        double distance = ((data[0] << 8) | data[1])/2.54; //[m]
+        double distance = ((data[0] << 8) | data[1])/100; //[m]
 
         double norm = rc_vector_norm(rf_measurement_b, 2);
         if (rc_vector_times_scalar(&rf_measurement_b, distance/norm) != 0) {
@@ -143,7 +143,7 @@ int main() {
 
         for (int i = 0; i < 4; i++) {
             quat_array[i] = mpu_data.fused_quat[i];
-        }
+        }s
 
         rc_vector_from_array(&quat, quat_array, 4);
 
